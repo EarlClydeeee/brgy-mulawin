@@ -1,0 +1,329 @@
+import { FileText, Clock, CheckCircle, AlertCircle, ExternalLink } from "lucide-react";
+
+export const metadata = {
+  title: "Services — Barangay Mulawin",
+  description:
+    "Learn about barangay services available at Barangay Mulawin including clearances, certificates, and permits.",
+};
+
+const services = [
+  {
+    id: 1,
+    title: "Barangay Clearance",
+    desc: "An official certificate attesting that the applicant has no pending criminal or civil complaints in the barangay. Required for employment, business applications, and legal transactions.",
+    requirements: [
+      "Valid government-issued ID (photocopy & original)",
+      "Proof of residency (utility bill or rental contract)",
+      "Accomplished application form",
+      "1 piece 1×1 ID photo",
+    ],
+    fee: "₱50.00",
+    processingTime: "Same day (30–60 mins)",
+    color: "pink",
+  },
+  {
+    id: 2,
+    title: "Certificate of Residency",
+    desc: "Official proof that the applicant is a bonafide resident of Barangay Mulawin. Required for scholarship applications, school enrollment, and government assistance.",
+    requirements: [
+      "Valid government-issued ID (photocopy & original)",
+      "Utility bill or rental contract",
+      "Accomplished application form",
+    ],
+    fee: "₱30.00",
+    processingTime: "Same day",
+    color: "green",
+  },
+  {
+    id: 3,
+    title: "Certificate of Indigency",
+    desc: "For qualified low-income residents seeking financial or medical assistance from government agencies. Free of charge for qualified applicants.",
+    requirements: [
+      "Valid ID",
+      "Proof of low-income status (if available)",
+      "Referral from DSWD or social worker (if applicable)",
+    ],
+    fee: "Free",
+    processingTime: "Same day",
+    color: "pink",
+  },
+  {
+    id: 4,
+    title: "Barangay Business Permit",
+    desc: "Required for micro and small enterprises operating within Barangay Mulawin. Must be renewed annually.",
+    requirements: [
+      "DTI or SEC registration",
+      "Lease contract or proof of business address",
+      "Valid ID of the business owner",
+      "Accomplished application form",
+      "Previous year's permit (for renewals)",
+    ],
+    fee: "₱200.00 – ₱500.00 (based on capitalization)",
+    processingTime: "1–2 business days",
+    color: "green",
+  },
+  {
+    id: 5,
+    title: "Blotter Report",
+    desc: "Official recording of incidents or disputes filed with the barangay. Necessary for police reports and legal proceedings.",
+    requirements: [
+      "Valid ID of complainant",
+      "Written complaint or incident narrative",
+      "Witness(es) if available",
+    ],
+    fee: "Free",
+    processingTime: "Immediate (walk-in)",
+    color: "pink",
+  },
+  {
+    id: 6,
+    title: "Cedula (Community Tax Certificate / CTC)",
+    desc: "A community tax certificate issued to individuals and corporations residing or operating in the barangay.",
+    requirements: [
+      "Valid government-issued ID",
+      "Previous year's Cedula (for renewals)",
+    ],
+    fee: "₱5.00 + additional tax (based on income)",
+    processingTime: "Same day",
+    color: "green",
+  },
+];
+
+const steps = [
+  {
+    step: "01",
+    title: "Visit the Barangay Hall",
+    desc: "Go to the Barangay Mulawin Hall during office hours.",
+    color: "pink",
+  },
+  {
+    step: "02",
+    title: "Request & Fill Out Form",
+    desc: "Get the appropriate application form and fill it out completely.",
+    color: "green",
+  },
+  {
+    step: "03",
+    title: "Submit Requirements",
+    desc: "Submit your completed form and all required documents to the desk officer.",
+    color: "pink",
+  },
+  {
+    step: "04",
+    title: "Pay the Fee",
+    desc: "Pay the applicable fee at the barangay treasurer's office.",
+    color: "green",
+  },
+  {
+    step: "05",
+    title: "Receive Document",
+    desc: "Claim your signed and sealed certificate or clearance.",
+    color: "pink",
+  },
+];
+
+export default function ServicesPage() {
+  return (
+    <>
+      {/* Page Header */}
+      <section className="gradient-hero py-14 px-4">
+        <div className="max-w-7xl mx-auto text-center">
+          <span className="inline-flex items-center gap-2 bg-white/70 text-green-700 px-4 py-1.5 rounded-full text-sm font-medium mb-4 shadow-sm">
+            <FileText className="w-4 h-4" />
+            Barangay Services
+          </span>
+          <h1 className="text-4xl sm:text-5xl font-bold text-gray-800 mb-4">
+            Our{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-green-500">
+              Services
+            </span>
+          </h1>
+          <p className="text-gray-600 max-w-xl mx-auto text-lg">
+            We provide essential barangay documents and services to all
+            residents of Barangay Mulawin.
+          </p>
+        </div>
+      </section>
+
+      {/* Office Hours Banner */}
+      <section className="bg-gradient-to-r from-green-500 to-green-600 py-4 px-4">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-6 text-white text-sm">
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4" />
+            <span>
+              <strong>Mon – Fri:</strong> 8:00 AM – 5:00 PM
+            </span>
+          </div>
+          <div className="w-1 h-1 rounded-full bg-white/50 hidden sm:block" />
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4" />
+            <span>
+              <strong>Saturday:</strong> 8:00 AM – 12:00 PM
+            </span>
+          </div>
+          <div className="w-1 h-1 rounded-full bg-white/50 hidden sm:block" />
+          <div className="flex items-center gap-2">
+            <AlertCircle className="w-4 h-4" />
+            <span>Closed on Sundays & public holidays</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Grid */}
+      <section className="py-14 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-10">
+            <span className="text-pink-500 font-semibold text-sm uppercase tracking-widest">
+              Available Documents
+            </span>
+            <h2 className="text-3xl font-bold text-gray-800 mt-2">
+              All Services
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((s) => (
+              <div
+                key={s.id}
+                className={`rounded-2xl border overflow-hidden card-hover ${
+                  s.color === "pink"
+                    ? "border-pink-100"
+                    : "border-green-100"
+                }`}
+              >
+                <div
+                  className={`p-5 ${
+                    s.color === "pink"
+                      ? "bg-pink-50"
+                      : "bg-green-50"
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h3 className="font-bold text-gray-800 text-lg">
+                        {s.title}
+                      </h3>
+                      <div className="flex flex-wrap gap-3 mt-2">
+                        <span className="text-xs text-gray-500 flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {s.processingTime}
+                        </span>
+                        <span
+                          className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
+                            s.fee === "Free"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-pink-100 text-pink-600"
+                          }`}
+                        >
+                          {s.fee}
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                        s.color === "pink"
+                          ? "bg-pink-200 text-pink-600"
+                          : "bg-green-200 text-green-700"
+                      }`}
+                    >
+                      <FileText className="w-5 h-5" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-5 bg-white">
+                  <p className="text-sm text-gray-500 leading-relaxed mb-4">
+                    {s.desc}
+                  </p>
+                  <div>
+                    <p className="text-xs font-semibold text-gray-600 uppercase tracking-widest mb-2">
+                      Requirements
+                    </p>
+                    <ul className="space-y-1.5">
+                      {s.requirements.map((req) => (
+                        <li
+                          key={req}
+                          className="flex items-start gap-2 text-sm text-gray-600"
+                        >
+                          <CheckCircle
+                            className={`w-4 h-4 mt-0.5 shrink-0 ${
+                              s.color === "pink"
+                                ? "text-pink-400"
+                                : "text-green-500"
+                            }`}
+                          />
+                          {req}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How to Apply */}
+      <section className="py-14 px-4 gradient-section">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-10">
+            <span className="text-green-600 font-semibold text-sm uppercase tracking-widest">
+              Step-by-Step
+            </span>
+            <h2 className="text-3xl font-bold text-gray-800 mt-2">
+              How to Apply
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {steps.map((s) => (
+              <div
+                key={s.step}
+                className={`rounded-2xl p-5 text-center border ${
+                  s.color === "pink"
+                    ? "bg-pink-50 border-pink-100"
+                    : "bg-green-50 border-green-100"
+                }`}
+              >
+                <div
+                  className={`text-3xl font-black mb-3 ${
+                    s.color === "pink" ? "text-pink-300" : "text-green-300"
+                  }`}
+                >
+                  {s.step}
+                </div>
+                <h3 className="font-semibold text-gray-800 mb-2">{s.title}</h3>
+                <p className="text-sm text-gray-500">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Note Banner */}
+      <section className="py-10 px-4 bg-white">
+        <div className="max-w-3xl mx-auto bg-gradient-to-r from-pink-50 to-green-50 rounded-2xl p-6 border border-pink-100 flex items-start gap-4">
+          <AlertCircle className="w-6 h-6 text-pink-400 shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold text-gray-800 mb-1">
+              Important Reminder
+            </p>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              All requirements must be original or certified true copies.
+              Processing times may vary depending on volume. For emergencies or
+              special requests, please coordinate with the Barangay Secretary
+              directly. Fees are subject to change per barangay ordinance.
+            </p>
+            <a
+              href="#"
+              className="inline-flex items-center gap-1.5 mt-3 text-sm font-medium text-green-600 hover:text-green-700"
+            >
+              Download Full Requirements Checklist
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

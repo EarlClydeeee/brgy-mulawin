@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fdf8fa;
+  --foreground: #2d2d2d;
+
+  /* Brand colors */
+  --pink-50: #fff0f3;
+  --pink-100: #ffe0e8;
+  --pink-200: #ffc2d1;
+  --pink-300: #ff9ab5;
+  --pink-400: #ff6b8e;
+  --pink-500: #f43f6e;
+  --pink-600: #d92057;
+
+  --green-50: #f0faf0;
+  --green-100: #dcf4dc;
+  --green-200: #b8e8b8;
+  --green-300: #8dd98d;
+  --green-400: #5cc95c;
+  --green-500: #38b238;
+  --green-600: #2a8a2a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-pink-50: var(--pink-50);
+  --color-pink-100: var(--pink-100);
+  --color-pink-200: var(--pink-200);
+  --color-pink-300: var(--pink-300);
+  --color-pink-400: var(--pink-400);
+  --color-pink-500: var(--pink-500);
+  --color-pink-600: var(--pink-600);
+
+  --color-green-50: var(--green-50);
+  --color-green-100: var(--green-100);
+  --color-green-200: var(--green-200);
+  --color-green-300: var(--green-300);
+  --color-green-400: var(--green-400);
+  --color-green-500: var(--green-500);
+  --color-green-600: var(--green-600);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.gradient-hero {
+  background: linear-gradient(135deg, #ffe0e8 0%, #dcf4dc 100%);
+}
+
+.gradient-section {
+  background: linear-gradient(180deg, #fff0f3 0%, #f0faf0 100%);
+}
+
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
