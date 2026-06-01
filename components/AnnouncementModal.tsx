@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import {
-  X,
-  CalendarDays,
-  Clock,
-  MapPin,
-  Phone,
-  CheckCircle,
-} from "lucide-react";
+import X from "lucide-react/dist/esm/icons/x";
+import CalendarDays from "lucide-react/dist/esm/icons/calendar-days";
+import Clock from "lucide-react/dist/esm/icons/clock";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
+import Phone from "lucide-react/dist/esm/icons/phone";
+import CheckCircle from "lucide-react/dist/esm/icons/check-circle";
 import type { Announcement } from "@/lib/announcements";
 
 type AnnouncementModalProps = {
@@ -49,62 +47,51 @@ export default function AnnouncementModal({
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden
       />
 
       {/* Panel */}
       <div
-        className={`relative w-full sm:max-w-lg max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl shadow-2xl border ${
-          isPink ? "border-pink-100 bg-white" : "border-green-100 bg-white"
-        }`}
+        className={`relative w-full sm:max-w-xl max-h-[90vh] overflow-y-auto rounded-t-[2rem] sm:rounded-[2rem] shadow-2xl bg-white animate-in fade-in zoom-in duration-300`}
       >
-        {/* Top bar */}
-        <div
-          className={`h-1.5 ${
-            isPink
-              ? "bg-gradient-to-r from-pink-400 to-pink-300"
-              : "bg-gradient-to-r from-green-400 to-green-300"
-          }`}
-        />
-
-        <div className="p-6 sm:p-8">
+        <div className="p-8 sm:p-12">
           {/* Header row */}
-          <div className="flex items-start justify-between gap-4 mb-5">
-            <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-start justify-between gap-6 mb-8">
+            <div className="flex flex-wrap items-center gap-3">
               <span
-                className={`text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wide ${
+                className={`text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest ${
                   isPink
-                    ? "bg-pink-100 text-pink-700"
-                    : "bg-green-100 text-green-800"
+                    ? "bg-pink-50 text-pink-700"
+                    : "bg-green-50 text-green-700"
                 }`}
               >
                 {announcement.category}
               </span>
-              <span className="text-xs text-gray-400 flex items-center gap-1">
-                <CalendarDays className="w-3 h-3" />
+              <span className="text-xs font-medium text-gray-400 flex items-center gap-2">
+                <CalendarDays className="w-4 h-4" />
                 {announcement.date}
               </span>
             </div>
             <button
               onClick={onClose}
-              className="shrink-0 p-2 rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
-              aria-label="Close"
+              className="shrink-0 p-3 rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-all active:scale-90"
+              aria-label="Close Announcement"
             >
-              <X className="w-5 h-5" />
+              <X className="w-6 h-6" />
             </button>
           </div>
 
           <h2
             id="announcement-modal-title"
-            className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 leading-snug"
+            className="text-2xl sm:text-3xl font-heading font-bold text-gray-900 mb-6 leading-tight"
           >
             {announcement.title}
           </h2>
 
           {/* Full content */}
-          <div className="space-y-4 text-sm text-gray-600 leading-relaxed">
+          <div className="space-y-6 text-base text-gray-600 leading-relaxed font-medium">
             {announcement.fullContent.split("\n\n").map((paragraph) => (
               <p key={paragraph.slice(0, 40)}>{paragraph}</p>
             ))}
@@ -113,41 +100,41 @@ export default function AnnouncementModal({
           {/* Details box */}
           {announcement.details && (
             <div
-              className={`mt-6 rounded-2xl p-5 border ${
+              className={`mt-10 rounded-[1.5rem] p-6 sm:p-8 border ${
                 isPink
-                  ? "bg-pink-50/80 border-pink-100"
-                  : "bg-green-50/80 border-green-100"
+                  ? "bg-pink-50/40 border-pink-100"
+                  : "bg-green-50/40 border-green-100"
               }`}
             >
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">
                 Event Details
               </p>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {announcement.details.time && (
-                  <li className="flex items-start gap-3 text-sm text-gray-700">
+                  <li className="flex items-start gap-4 text-gray-800 font-bold">
                     <Clock
-                      className={`w-4 h-4 mt-0.5 shrink-0 ${
-                        isPink ? "text-pink-500" : "text-green-600"
+                      className={`w-5 h-5 mt-0.5 shrink-0 ${
+                        isPink ? "text-pink-600" : "text-green-600"
                       }`}
                     />
                     <span>{announcement.details.time}</span>
                   </li>
                 )}
                 {announcement.details.location && (
-                  <li className="flex items-start gap-3 text-sm text-gray-700">
+                  <li className="flex items-start gap-4 text-gray-800 font-bold">
                     <MapPin
-                      className={`w-4 h-4 mt-0.5 shrink-0 ${
-                        isPink ? "text-pink-500" : "text-green-600"
+                      className={`w-5 h-5 mt-0.5 shrink-0 ${
+                        isPink ? "text-pink-600" : "text-green-600"
                       }`}
                     />
                     <span>{announcement.details.location}</span>
                   </li>
                 )}
                 {announcement.details.contact && (
-                  <li className="flex items-start gap-3 text-sm text-gray-700">
+                  <li className="flex items-start gap-4 text-gray-800 font-bold">
                     <Phone
-                      className={`w-4 h-4 mt-0.5 shrink-0 ${
-                        isPink ? "text-pink-500" : "text-green-600"
+                      className={`w-5 h-5 mt-0.5 shrink-0 ${
+                        isPink ? "text-pink-600" : "text-green-600"
                       }`}
                     />
                     <span>{announcement.details.contact}</span>
@@ -157,19 +144,19 @@ export default function AnnouncementModal({
 
               {announcement.details.requirements &&
                 announcement.details.requirements.length > 0 && (
-                  <div className="mt-4 pt-4 border-t border-gray-200/60">
-                    <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">
-                      What to Bring
+                  <div className="mt-8 pt-8 border-t border-gray-200">
+                    <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">
+                      Requirements
                     </p>
-                    <ul className="space-y-2">
+                    <ul className="space-y-3">
                       {announcement.details.requirements.map((req) => (
                         <li
                           key={req}
-                          className="flex items-start gap-2 text-sm text-gray-700"
+                          className="flex items-start gap-3 text-gray-700 font-medium"
                         >
                           <CheckCircle
-                            className={`w-4 h-4 mt-0.5 shrink-0 ${
-                              isPink ? "text-pink-400" : "text-green-500"
+                            className={`w-5 h-5 mt-0.5 shrink-0 ${
+                              isPink ? "text-pink-600" : "text-green-600"
                             }`}
                           />
                           {req}
@@ -183,13 +170,13 @@ export default function AnnouncementModal({
 
           <button
             onClick={onClose}
-            className={`mt-6 w-full py-3 rounded-xl font-semibold text-sm transition-colors ${
+            className={`mt-10 w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-95 shadow-lg ${
               isPink
-                ? "bg-pink-100 text-pink-700 hover:bg-pink-200"
-                : "bg-green-100 text-green-800 hover:bg-green-200"
+                ? "bg-pink-600 text-white hover:bg-pink-700 shadow-pink-100"
+                : "bg-green-600 text-white hover:bg-green-700 shadow-green-100"
             }`}
           >
-            Close
+            Got it, thanks!
           </button>
         </div>
       </div>

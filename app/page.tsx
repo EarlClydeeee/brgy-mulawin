@@ -1,35 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import AnnouncementsSection from "@/components/AnnouncementsSection";
-import {
-  FileText,
-  Users,
-  Phone,
-  ArrowRight,
-  Shield,
-  Heart,
-  CheckCircle,
-  CalendarDays,
-  ChevronDown,
-  Leaf,
-  Target,
-  Eye,
-  Star,
-} from "lucide-react";
-
-/* ─── Sparkle ────────────────────────────────────────────────── */
-function Sparkle({ size = 20, color = "#ffd700", className = "" }: { size?: number; color?: string; className?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" className={className} aria-hidden>
-      <path d="M12 2L13.8 10.2L22 12L13.8 13.8L12 22L10.2 13.8L2 12L10.2 10.2Z" fill={color} />
-    </svg>
-  );
-}
+import FileText from "lucide-react/dist/esm/icons/file-text";
+import Users from "lucide-react/dist/esm/icons/users";
+import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
+import Shield from "lucide-react/dist/esm/icons/shield";
+import Heart from "lucide-react/dist/esm/icons/heart";
+import CheckCircle from "lucide-react/dist/esm/icons/check-circle";
+import CalendarDays from "lucide-react/dist/esm/icons/calendar-days";
+import ChevronDown from "lucide-react/dist/esm/icons/chevron-down";
+import Leaf from "lucide-react/dist/esm/icons/leaf";
+import Target from "lucide-react/dist/esm/icons/target";
+import Eye from "lucide-react/dist/esm/icons/eye";
+import Star from "lucide-react/dist/esm/icons/star";
 
 /* ─── Section label ──────────────────────────────────────────── */
 function SectionLabel({ text, color = "pink" }: { text: string; color?: "pink" | "green" }) {
   return (
-    <span className={`inline-block text-xs font-bold uppercase tracking-[0.35em] mb-2 ${color === "pink" ? "text-pink-500" : "text-green-600"}`}>
+    <span className={`inline-block text-xs font-bold uppercase tracking-[0.3em] mb-3 ${color === "pink" ? "text-pink-600" : "text-green-600"}`}>
       {text}
     </span>
   );
@@ -46,132 +34,129 @@ const services = [
 export default function HomePage() {
   return (
     <>
-      {/* ══════════════════════════════════
-          1. HERO
-      ══════════════════════════════════ */}
+      {/* 1. HERO */}
       <section
-        className="relative overflow-hidden"
-        style={{ height: "calc(100svh - 64px)", minHeight: "580px", maxHeight: "960px" }}
+        className="relative overflow-hidden flex items-center justify-center"
+        style={{ height: "calc(100svh - 64px)", minHeight: "600px" }}
       >
-        <Image src="/bg.jpg" alt="Barangay Mulawin" fill className="object-cover object-center" priority quality={90} />
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-900/30 via-transparent to-green-900/35" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/25 to-black/70" />
+        <Image 
+          src="/bg.jpg" 
+          alt="Aerial view of Barangay Mulawin landscape" 
+          fill 
+          className="object-cover object-center" 
+          priority 
+          quality={90} 
+        />
+        <div className="absolute inset-0 bg-black/40 backdrop-brightness-75" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-4 pb-10">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 text-center">
           {/* Location pill */}
-          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-[11px] sm:text-xs px-5 py-2 rounded-full mb-6 uppercase tracking-[0.3em]">
-            <Leaf className="w-3 h-3 text-green-300 shrink-0" />
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs px-5 py-2 rounded-full mb-8 uppercase tracking-[0.2em]">
+            <Leaf className="w-3.5 h-3.5 text-green-400 shrink-0" />
             Tanza, Cavite
           </div>
 
-          <p className="text-white/70 uppercase tracking-[0.55em] text-xs sm:text-sm font-light mb-2">Barangay</p>
+          <p className="text-white/90 uppercase tracking-[0.5em] text-sm font-medium mb-4">Official Portal of Barangay</p>
 
-          {/* Title + sparkles */}
-          <div className="relative inline-block">
-            <span className="absolute -top-7 left-2 sm:-top-9 sm:left-4 animate-pulse"><Sparkle size={26} color="#ffd040" /></span>
-            <span className="absolute -top-4 right-0 sm:-top-5 animate-pulse" style={{ animationDelay: "0.4s" }}><Sparkle size={16} color="#ffffff" /></span>
-            <span className="absolute top-1/3 -right-5 sm:-right-7 animate-pulse" style={{ animationDelay: "0.2s" }}><Sparkle size={20} color="#ffd040" /></span>
-            <span className="absolute bottom-1/4 -left-4 animate-pulse" style={{ animationDelay: "0.65s" }}><Sparkle size={13} color="#ffffff" /></span>
-            <h1
-              className="leading-none text-center select-none"
-              style={{
-                fontFamily: "var(--font-bebas)",
-                fontSize: "clamp(5.5rem, 19vw, 17rem)",
-                color: "#fffdf5",
-                letterSpacing: "0.05em",
-                textShadow: "0 4px 24px rgba(0,0,0,0.35), 0 1px 0 rgba(0,0,0,0.2)",
-              }}
-            >
-              MULAWIN
-            </h1>
-          </div>
+          <h1
+            className="font-heading leading-tight text-white mb-6 select-none"
+            style={{
+              fontSize: "clamp(3.5rem, 12vw, 10rem)",
+              letterSpacing: "-0.02em",
+              textShadow: "0 8px 32px rgba(0,0,0,0.5)",
+            }}
+          >
+            MULAWIN
+          </h1>
 
           {/* Est. divider */}
-          <div className="flex items-center gap-3 sm:gap-4 mt-4 mb-5">
-            <div className="h-px w-12 sm:w-20 bg-white/35" />
-            <span className="text-white/50 text-[10px] sm:text-xs uppercase tracking-[0.35em]">Est. 1975</span>
-            <div className="h-px w-12 sm:w-20 bg-white/35" />
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <div className="h-px w-16 bg-white/40" />
+            <span className="text-white/70 text-xs uppercase tracking-[0.4em] font-medium">Est. 1975</span>
+            <div className="h-px w-16 bg-white/40" />
           </div>
 
-          <p className="text-white/80 text-sm sm:text-base font-light italic max-w-xs sm:max-w-sm leading-relaxed mb-8">
-            Rooted in strength. Growing together.
+          <p className="text-white/95 text-lg sm:text-xl font-medium max-w-2xl mx-auto leading-relaxed mb-10 [text-wrap:balance]">
+            Rooted in strength. Growing together for a progressive community.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            <Link href="/about" className="bg-white text-green-700 font-bold uppercase tracking-[0.2em] text-xs sm:text-sm px-8 sm:px-12 py-3 sm:py-3.5 rounded-full shadow-2xl hover:bg-green-50 hover:scale-105 transition-all duration-200">
-              Discover
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link 
+              href="/about" 
+              className="bg-white text-green-700 font-bold uppercase tracking-wider text-sm px-10 py-4 rounded-full shadow-xl hover:bg-green-50 hover:scale-105 transition-all duration-300 active:scale-95"
+              aria-label="Discover more about Barangay Mulawin"
+            >
+              Discover Our Story
             </Link>
-            <Link href="/services" className="flex items-center gap-2 border-2 border-white/70 text-white font-semibold uppercase tracking-[0.18em] text-xs sm:text-sm px-7 sm:px-10 py-3 sm:py-3.5 rounded-full hover:bg-white/15 backdrop-blur-sm transition-all duration-200">
-              Our Services <ArrowRight className="w-3.5 h-3.5" />
+            <Link 
+              href="/services" 
+              className="flex items-center gap-2 border-2 border-white text-white font-bold uppercase tracking-wider text-sm px-10 py-4 rounded-full hover:bg-white/10 backdrop-blur-sm transition-all duration-300 active:scale-95"
+              aria-label="View our barangay services"
+            >
+              Our Services <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
 
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-white/40 pointer-events-none">
-          <span className="text-[9px] uppercase tracking-widest">Scroll</span>
-          <ChevronDown className="w-4 h-4 animate-bounce" />
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/60">
+          <span className="text-[10px] uppercase tracking-[0.3em] font-bold">Scroll Down</span>
+          <ChevronDown className="w-5 h-5 animate-bounce" />
         </div>
       </section>
 
-      {/* ══════════════════════════════════
-          2. STATS RIBBON
-      ══════════════════════════════════ */}
-      <section className="bg-gradient-to-r from-pink-400 via-pink-300 to-green-400 py-4 px-4">
-        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-white text-sm font-medium">
+      {/* 2. STATS RIBBON */}
+      <section className="bg-white border-y border-gray-100 py-6 px-4">
+        <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-x-12 gap-y-4 text-gray-600 text-sm font-semibold">
           {[
-            { icon: Users, label: "12,500+ Residents" },
-            { icon: Heart, label: "18 Active Programs" },
-            { icon: Shield, label: "9 Barangay Officials" },
-            { icon: CalendarDays, label: "50+ Years of Service" },
+            { icon: Users, label: "12,500+ Residents", color: "text-pink-500" },
+            { icon: Heart, label: "18 Active Programs", color: "text-green-500" },
+            { icon: Shield, label: "9 Barangay Officials", color: "text-pink-500" },
+            { icon: CalendarDays, label: "50+ Years of Service", color: "text-green-500" },
           ].map((s) => (
-            <div key={s.label} className="flex items-center gap-2">
-              <s.icon className="w-4 h-4 text-white/80" />
-              <span>{s.label}</span>
+            <div key={s.label} className="flex items-center gap-3">
+              <s.icon className={`w-5 h-5 ${s.color}`} />
+              <span className="tracking-tight">{s.label}</span>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ══════════════════════════════════
-          3. ANNOUNCEMENTS
-      ══════════════════════════════════ */}
+      {/* 3. ANNOUNCEMENTS */}
       <AnnouncementsSection />
 
-      {/* ══════════════════════════════════
-          4. MISSION & VISION
-      ══════════════════════════════════ */}
-      <section className="py-20 px-4 bg-gradient-to-b from-pink-50 to-green-50">
+      {/* 4. MISSION & VISION */}
+      <section className="py-24 px-4 bg-gray-50/50">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-14">
+          <div className="text-center mb-16">
             <SectionLabel text="Our Foundation" color="pink" />
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight">
               Mission &amp; Vision
             </h2>
-            <p className="text-gray-500 mt-3 max-w-lg mx-auto text-sm leading-relaxed">
+            <p className="text-gray-600 mt-4 max-w-2xl mx-auto text-lg leading-relaxed">
               The guiding principles behind every program, service, and decision made for Barangay Mulawin.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {/* Mission */}
-            <div className="relative rounded-3xl overflow-hidden shadow-md">
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-400 to-pink-600" />
-              <div className="relative p-8 sm:p-10">
-                <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center mb-6">
-                  <Target className="w-7 h-7 text-white" />
+            <div className="group relative rounded-[2rem] overflow-hidden shadow-sm border border-pink-100 bg-white p-10 sm:p-12 hover:shadow-xl transition-shadow duration-500">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-pink-50 rounded-bl-full opacity-50 group-hover:scale-110 transition-transform duration-500" />
+              <div className="relative">
+                <div className="w-16 h-16 rounded-2xl bg-pink-600 flex items-center justify-center mb-8 shadow-lg shadow-pink-200">
+                  <Target className="w-8 h-8 text-white" />
                 </div>
-                <p className="text-pink-100 text-xs font-bold uppercase tracking-[0.3em] mb-3">Mission</p>
-                <h3 className="text-2xl font-bold text-white mb-5 leading-snug">
+                <p className="text-pink-600 text-xs font-bold uppercase tracking-[0.2em] mb-4">Our Mission</p>
+                <h3 className="text-3xl font-bold text-gray-900 mb-6 leading-tight">
                   Serve with Integrity &amp; Compassion
                 </h3>
-                <p className="text-pink-100 text-sm leading-relaxed">
+                <p className="text-gray-600 text-base leading-relaxed mb-10">
                   To deliver efficient, transparent, and responsive local governance services that uplift the living conditions of every resident in Barangay Mulawin — ensuring that no household is left behind in accessing basic needs, social services, and community programs.
                 </p>
-                <div className="mt-8 flex gap-6">
+                <div className="flex gap-8">
                   {["Transparency", "Integrity", "Service"].map((v) => (
-                    <div key={v} className="text-center">
-                      <div className="w-1.5 h-1.5 rounded-full bg-pink-200 mx-auto mb-1.5" />
-                      <p className="text-xs text-pink-200 font-medium">{v}</p>
+                    <div key={v}>
+                      <p className="text-sm font-bold text-pink-600">{v}</p>
                     </div>
                   ))}
                 </div>
@@ -179,24 +164,23 @@ export default function HomePage() {
             </div>
 
             {/* Vision */}
-            <div className="relative rounded-3xl overflow-hidden shadow-md">
-              <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-green-700" />
-              <div className="relative p-8 sm:p-10">
-                <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center mb-6">
-                  <Eye className="w-7 h-7 text-white" />
+            <div className="group relative rounded-[2rem] overflow-hidden shadow-sm border border-green-100 bg-white p-10 sm:p-12 hover:shadow-xl transition-shadow duration-500">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-green-50 rounded-bl-full opacity-50 group-hover:scale-110 transition-transform duration-500" />
+              <div className="relative">
+                <div className="w-16 h-16 rounded-2xl bg-green-600 flex items-center justify-center mb-8 shadow-lg shadow-green-200">
+                  <Eye className="w-8 h-8 text-white" />
                 </div>
-                <p className="text-green-100 text-xs font-bold uppercase tracking-[0.3em] mb-3">Vision</p>
-                <h3 className="text-2xl font-bold text-white mb-5 leading-snug">
+                <p className="text-green-600 text-xs font-bold uppercase tracking-[0.2em] mb-4">Our Vision</p>
+                <h3 className="text-3xl font-bold text-gray-900 mb-6 leading-tight">
                   A Peaceful &amp; Progressive Barangay
                 </h3>
-                <p className="text-green-100 text-sm leading-relaxed">
+                <p className="text-gray-600 text-base leading-relaxed mb-10">
                   A peaceful, progressive, and self-sustaining Barangay Mulawin where every resident enjoys a safe environment, quality education, accessible health care, livelihood opportunities, and a community rooted in unity, integrity, and respect.
                 </p>
-                <div className="mt-8 flex gap-6">
+                <div className="flex gap-8">
                   {["Progress", "Unity", "Growth"].map((v) => (
-                    <div key={v} className="text-center">
-                      <div className="w-1.5 h-1.5 rounded-full bg-green-200 mx-auto mb-1.5" />
-                      <p className="text-xs text-green-200 font-medium">{v}</p>
+                    <div key={v}>
+                      <p className="text-sm font-bold text-green-600">{v}</p>
                     </div>
                   ))}
                 </div>
@@ -206,44 +190,41 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════
-          5. PUNONG BARANGAY SPOTLIGHT
-      ══════════════════════════════════ */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="rounded-3xl overflow-hidden shadow-lg border border-gray-100 flex flex-col md:flex-row">
+      {/* 5. PUNONG BARANGAY SPOTLIGHT */}
+      <section className="py-24 px-4 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="rounded-[2.5rem] overflow-hidden shadow-2xl shadow-gray-200/50 border border-gray-100 flex flex-col md:flex-row bg-white">
             {/* Photo side */}
-            <div className="relative md:w-80 shrink-0 bg-gradient-to-b from-pink-100 to-green-100" style={{ minHeight: "340px" }}>
+            <div className="relative md:w-96 shrink-0 bg-gray-50" style={{ minHeight: "450px" }}>
               <Image
                 src="/brgy_officers/KapitanaTriciaLubigan.png"
                 alt="Hon. Tricia Lubigan — Punong Barangay"
                 fill
                 className="object-cover object-top"
               />
-              {/* Overlay gradient at bottom */}
-              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
-              <div className="absolute bottom-4 left-0 right-0 text-center">
-                <span className="inline-block bg-gradient-to-r from-pink-500 to-green-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent md:hidden" />
+              <div className="absolute bottom-6 left-0 right-0 text-center">
+                <span className="inline-block bg-white text-gray-900 text-xs font-bold px-5 py-2 rounded-full uppercase tracking-widest shadow-xl">
                   Punong Barangay
                 </span>
               </div>
             </div>
 
             {/* Text side */}
-            <div className="flex-1 p-8 sm:p-10 flex flex-col justify-center bg-gradient-to-br from-white to-pink-50/40">
-              <SectionLabel text="Leadership" color="pink" />
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mt-1 mb-1">
+            <div className="flex-1 p-10 sm:p-16 flex flex-col justify-center">
+              <SectionLabel text="The Leadership" color="pink" />
+              <h2 className="text-4xl font-bold text-gray-900 mt-2 mb-2">
                 Hon. Tricia Lubigan
               </h2>
-              <p className="text-green-600 font-semibold text-sm mb-5">Punong Barangay, Barangay Mulawin</p>
+              <p className="text-green-600 font-bold text-lg mb-8 tracking-tight">Punong Barangay, Barangay Mulawin</p>
 
-              <blockquote className="border-l-4 border-pink-300 pl-5 text-gray-600 italic text-sm leading-relaxed mb-6">
+              <blockquote className="border-l-4 border-pink-500 pl-8 text-gray-700 italic text-lg leading-relaxed mb-10">
                 &ldquo;My commitment to Barangay Mulawin is unwavering — to serve every resident with transparency, compassion, and purpose. Together, we will build a community where every family thrives.&rdquo;
               </blockquote>
 
-              <div className="flex flex-wrap gap-3 mb-6">
+              <div className="flex flex-wrap gap-3 mb-10">
                 {["Community Development", "Health Advocacy", "Youth Programs", "Livelihood"].map((tag) => (
-                  <span key={tag} className="text-xs bg-green-50 text-green-700 border border-green-200 px-3 py-1 rounded-full font-medium">
+                  <span key={tag} className="text-xs bg-gray-50 text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full font-semibold">
                     {tag}
                   </span>
                 ))}
@@ -251,128 +232,132 @@ export default function HomePage() {
 
               <Link
                 href="/officials"
-                className="self-start inline-flex items-center gap-2 bg-gradient-to-r from-pink-400 to-green-400 text-white font-semibold text-sm px-6 py-2.5 rounded-full hover:opacity-90 hover:scale-105 transition-all shadow-md"
+                className="self-start inline-flex items-center gap-3 bg-gray-900 text-white font-bold text-sm px-8 py-4 rounded-full hover:bg-pink-600 transition-all shadow-xl active:scale-95"
               >
-                Meet All Officials <ArrowRight className="w-4 h-4" />
+                Meet the Officials <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════
-          6. SERVICES
-      ══════════════════════════════════ */}
-      <section className="py-20 px-4 bg-gradient-to-b from-green-50/60 to-pink-50/60">
+      {/* 6. SERVICES */}
+      <section className="py-24 px-4 bg-gray-50/30">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <SectionLabel text="What We Offer" color="green" />
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mt-1">Barangay Services</h2>
-            <p className="text-gray-500 mt-3 max-w-xl mx-auto text-sm">
-              We provide essential community services to all residents of Barangay Mulawin.
+          <div className="text-center mb-16">
+            <SectionLabel text="Citizen Services" color="green" />
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight">Barangay Services</h2>
+            <p className="text-gray-600 mt-4 max-w-2xl mx-auto text-lg">
+              Empowering our residents with accessible, fast, and transparent community services.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((s) => (
               <Link
                 href="/services"
                 key={s.title}
-                className={`group rounded-2xl p-6 border card-hover flex flex-col ${
-                  s.color === "pink" ? "border-pink-100 bg-white hover:bg-pink-50" : "border-green-100 bg-white hover:bg-green-50"
+                className={`group rounded-3xl p-8 border card-hover flex flex-col bg-white transition-all duration-300 ${
+                  s.color === "pink" ? "border-pink-50 hover:border-pink-200" : "border-green-50 hover:border-green-200"
                 }`}
+                aria-label={`Learn more about ${s.title}`}
               >
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${s.color === "pink" ? "bg-pink-100 text-pink-600 group-hover:bg-pink-200" : "bg-green-100 text-green-700 group-hover:bg-green-200"} transition-colors`}>
-                  <s.icon className="w-6 h-6" />
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-sm ${s.color === "pink" ? "bg-pink-50 text-pink-600 group-hover:bg-pink-600 group-hover:text-white" : "bg-green-50 text-green-600 group-hover:bg-green-600 group-hover:text-white"} transition-all duration-300`}>
+                  <s.icon className="w-7 h-7" />
                 </div>
-                <h3 className="font-semibold text-gray-800 mb-2">{s.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed flex-1">{s.desc}</p>
-                <div className={`mt-4 flex items-center gap-1 text-xs font-semibold uppercase tracking-wide ${s.color === "pink" ? "text-pink-500" : "text-green-600"}`}>
-                  Learn more <ArrowRight className="w-3 h-3" />
+                <h3 className="font-bold text-gray-900 text-lg mb-3">{s.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed flex-1">{s.desc}</p>
+                <div className={`mt-6 flex items-center gap-2 text-xs font-bold uppercase tracking-widest ${s.color === "pink" ? "text-pink-600" : "text-green-600"}`}>
+                  Requirements <ArrowRight className="w-3.5 h-3.5" />
                 </div>
               </Link>
             ))}
           </div>
 
-          <div className="text-center mt-10">
-            <Link href="/services" className="inline-flex items-center gap-2 bg-white border-2 border-green-300 text-green-700 px-7 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-sm">
+          <div className="text-center mt-12">
+            <Link href="/services" className="inline-flex items-center gap-3 bg-white border-2 border-gray-200 text-gray-900 px-10 py-4 rounded-full font-bold hover:border-green-500 hover:text-green-600 transition-all shadow-sm active:scale-95">
               View All Services <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════
-          7. CORE VALUES
-      ══════════════════════════════════ */}
-      <section className="py-20 px-4 bg-white">
+      {/* 7. CORE VALUES */}
+      <section className="py-24 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <SectionLabel text="Our Values" color="pink" />
-            <h2 className="text-3xl font-bold text-gray-800 mt-1">Committed to Serving You</h2>
+            <h2 className="text-4xl font-bold text-gray-900 tracking-tight">Committed to Serving You</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {[
               { icon: Shield, title: "Transparency", desc: "We keep residents informed about barangay activities, finances, and decisions.", color: "pink" },
               { icon: Heart, title: "Community First", desc: "Every program is designed with the welfare of every Mulawin resident in mind.", color: "green" },
               { icon: CheckCircle, title: "Efficient Service", desc: "Fast, accurate, and hassle-free processing of all barangay documents and requests.", color: "pink" },
             ].map((v) => (
-              <div key={v.title} className={`rounded-2xl p-8 text-center border ${v.color === "pink" ? "bg-pink-50 border-pink-100" : "bg-green-50 border-green-100"}`}>
-                <div className={`w-14 h-14 rounded-2xl mx-auto flex items-center justify-center mb-5 ${v.color === "pink" ? "bg-pink-200 text-pink-600" : "bg-green-200 text-green-700"}`}>
-                  <v.icon className="w-7 h-7" />
+              <div key={v.title} className="rounded-3xl p-10 text-center border border-gray-100 bg-gray-50/30">
+                <div className={`w-16 h-16 rounded-2xl mx-auto flex items-center justify-center mb-6 shadow-lg ${v.color === "pink" ? "bg-pink-600 text-white shadow-pink-100" : "bg-green-600 text-white shadow-green-100"}`}>
+                  <v.icon className="w-8 h-8" />
                 </div>
-                <h3 className="font-bold text-gray-800 text-lg mb-3">{v.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{v.desc}</p>
+                <h3 className="font-bold text-gray-900 text-xl mb-4 tracking-tight">{v.title}</h3>
+                <p className="text-gray-600 text-base leading-relaxed">{v.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════
-          8. QUICK CONTACT STRIP
-      ══════════════════════════════════ */}
-      <section className="py-8 px-4 bg-gradient-to-r from-pink-50 to-green-50 border-y border-gray-100">
-        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-6 sm:gap-10">
-          <p className="text-sm font-semibold text-gray-600 uppercase tracking-widest">Quick Contact</p>
-          {[
-            { label: "Barangay Hall", value: "(046) 234-5678" },
-            { label: "Emergency", value: "911 / 8-911" },
-            { label: "BHW Hotline", value: "0917-234-5678" },
-          ].map((c) => (
-            <div key={c.label} className="flex items-center gap-2 text-sm">
-              <Phone className="w-3.5 h-3.5 text-pink-400" />
-              <span className="text-gray-400">{c.label}:</span>
-              <span className="font-semibold text-gray-700">{c.value}</span>
-            </div>
-          ))}
+      {/* 8. QUICK CONTACT STRIP */}
+      <section className="py-12 px-4 bg-gray-900 text-white">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="flex flex-col gap-1 text-center md:text-left">
+            <p className="text-pink-400 text-xs font-bold uppercase tracking-[0.3em]">Quick Contact</p>
+            <p className="text-xl font-bold tracking-tight">Need immediate assistance?</p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+            {[
+              { label: "Barangay Hall", value: "(046) 234-5678" },
+              { label: "Emergency", value: "911 / 8-911" },
+              { label: "BHW Hotline", value: "0917-234-5678" },
+            ].map((c) => (
+              <div key={c.label} className="flex flex-col items-center md:items-start gap-1">
+                <span className="text-gray-400 text-[10px] uppercase tracking-widest font-bold">{c.label}</span>
+                <span className="font-bold text-base tracking-tight">{c.value}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════
-          9. CTA BANNER
-      ══════════════════════════════════ */}
-      <section className="relative py-20 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-green-500" />
-        {/* Decorative circles */}
-        <div className="absolute -top-16 -left-16 w-64 h-64 rounded-full bg-white/10 pointer-events-none" />
-        <div className="absolute -bottom-20 -right-10 w-80 h-80 rounded-full bg-white/10 pointer-events-none" />
-        <div className="absolute top-1/2 left-1/3 w-40 h-40 rounded-full bg-white/5 pointer-events-none" />
+      {/* 9. CTA BANNER */}
+      <section className="relative py-24 px-4 overflow-hidden bg-gray-900">
+        <div className="absolute inset-0 opacity-40">
+           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-pink-600/20 via-transparent to-transparent" />
+           <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-green-600/20 via-transparent to-transparent" />
+        </div>
 
-        <div className="relative max-w-3xl mx-auto text-center">
-          <Star className="w-8 h-8 text-white/40 mx-auto mb-4" />
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
-            Need a Barangay Document?
+        <div className="relative max-w-4xl mx-auto text-center">
+          <div className="w-16 h-16 bg-white/10 backdrop-blur-xl rounded-2xl flex items-center justify-center mx-auto mb-8">
+            <Star className="w-8 h-8 text-pink-400" />
+          </div>
+          <h2 className="text-4xl sm:text-6xl font-bold text-white mb-6 leading-tight tracking-tight">
+            Seamless Barangay Services
           </h2>
-          <p className="text-white/85 mb-8 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-            Learn about requirements, fees, and processing times — or visit us at the Barangay Hall during office hours.
+          <p className="text-gray-300 mb-12 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed font-medium">
+            Access requirements, fees, and processing times online before visiting the Barangay Hall.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/services" className="bg-white text-green-600 px-8 py-3.5 rounded-full font-bold hover:bg-green-50 transition-colors shadow-lg hover:scale-105 transition-transform">
+          <div className="flex flex-wrap justify-center gap-6">
+            <Link 
+              href="/services" 
+              className="bg-white text-gray-900 px-12 py-5 rounded-full font-bold hover:bg-green-50 transition-all shadow-2xl hover:scale-105 active:scale-95"
+            >
               See Requirements
             </Link>
-            <Link href="/contact" className="bg-white/20 text-white border-2 border-white/80 px-8 py-3.5 rounded-full font-bold hover:bg-white/30 transition-colors backdrop-blur-sm">
-              Get Directions
+            <Link 
+              href="/contact" 
+              className="bg-white/10 text-white border-2 border-white/20 px-12 py-5 rounded-full font-bold hover:bg-white/20 transition-all backdrop-blur-md active:scale-95"
+            >
+              Contact Us
             </Link>
           </div>
         </div>

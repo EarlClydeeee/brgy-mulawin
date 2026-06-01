@@ -18,6 +18,12 @@ const pungungBrgy = {
 
 const kagawads = [
   {
+    name: "Hon. Kheycee Olaes",
+    position: "Barangay Kagawad",
+    photo: "/brgy_officers/BrgyCouncilor/KheyceeOlaes.jpg",
+    initials: "KO",
+  },
+  {
     name: "Hon. Maria Theresa Santos",
     position: "Barangay Kagawad",
     committee: "Health & Sanitation",
@@ -80,7 +86,16 @@ const skOfficials = [
 ];
 
 const appointedOfficials = [
-  { name: "Nena Resurreccion", position: "Barangay Secretary" },
+  {
+    name: "Judith",
+    position: "Barangay Coordinator",
+    photo: "/brgy_officers/BrgyCoordinator/Judith.jpg",
+  },
+  {
+    name: "Rem Dulce Sosa",
+    position: "Barangay Secretary",
+    photo: "/brgy_officers/BrgySecretary/remsos.png",
+  },
   { name: "Danilo Flores", position: "Barangay Treasurer" },
   { name: "Dr. Rowena Aguilar", position: "BHW Coordinator" },
   { name: "Sgt. Vicente Reyes", position: "BCPC Focal Person" },
@@ -174,15 +189,26 @@ export default function OfficialsPage() {
                 className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm card-hover"
               >
                 <div className="flex items-center gap-4">
-                  <div
-                    className={`w-14 h-14 rounded-full flex items-center justify-center shrink-0 font-bold text-lg ${
-                      i % 2 === 0
-                        ? "bg-pink-100 text-pink-600"
-                        : "bg-green-100 text-green-700"
-                    }`}
-                  >
-                    {k.initials}
-                  </div>
+                  {"photo" in k && k.photo ? (
+                    <div className="relative w-14 h-14 rounded-full overflow-hidden shrink-0 ring-2 ring-white shadow-sm">
+                      <Image
+                        src={k.photo}
+                        alt={k.name}
+                        fill
+                        className="object-cover object-top"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className={`w-14 h-14 rounded-full flex items-center justify-center shrink-0 font-bold text-lg ${
+                        i % 2 === 0
+                          ? "bg-pink-100 text-pink-600"
+                          : "bg-green-100 text-green-700"
+                      }`}
+                    >
+                      {k.initials}
+                    </div>
+                  )}
                   <div>
                     <p className="font-semibold text-gray-800 text-sm leading-tight">
                       {k.name}
@@ -190,15 +216,17 @@ export default function OfficialsPage() {
                     <p className="text-xs text-gray-400 mt-0.5">{k.position}</p>
                   </div>
                 </div>
-                <div
-                  className={`mt-4 text-xs font-medium px-3 py-1.5 rounded-full inline-block ${
-                    i % 2 === 0
-                      ? "bg-pink-50 text-pink-600"
-                      : "bg-green-50 text-green-700"
-                  }`}
-                >
-                  Committee on {k.committee}
-                </div>
+                {k.committee && (
+                  <div
+                    className={`mt-4 text-xs font-medium px-3 py-1.5 rounded-full inline-block ${
+                      i % 2 === 0
+                        ? "bg-pink-50 text-pink-600"
+                        : "bg-green-50 text-green-700"
+                    }`}
+                  >
+                    Committee on {k.committee}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -260,29 +288,44 @@ export default function OfficialsPage() {
           <div className="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
             {appointedOfficials.map((o, i) => (
               <div
-                key={o.name}
+                key={o.name ?? o.position}
                 className={`rounded-2xl p-5 flex items-center gap-4 border ${
                   i % 2 === 0
                     ? "bg-pink-50 border-pink-100"
                     : "bg-green-50 border-green-100"
                 }`}
               >
-                <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center font-bold shrink-0 ${
-                    i % 2 === 0
-                      ? "bg-pink-200 text-pink-700"
-                      : "bg-green-200 text-green-800"
-                  }`}
-                >
-                  {o.name
-                    .split(" ")
-                    .slice(0, 2)
-                    .map((n) => n[0])
-                    .join("")}
-                </div>
+                {"photo" in o && o.photo ? (
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 ring-2 ring-white shadow-sm">
+                    <Image
+                      src={o.photo}
+                      alt={o.name ?? o.position}
+                      fill
+                      className="object-cover object-top"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className={`w-12 h-12 rounded-full flex items-center justify-center font-bold shrink-0 ${
+                      i % 2 === 0
+                        ? "bg-pink-200 text-pink-700"
+                        : "bg-green-200 text-green-800"
+                    }`}
+                  >
+                    {o.name
+                      ?.split(" ")
+                      .slice(0, 2)
+                      .map((n) => n[0])
+                      .join("")}
+                  </div>
+                )}
                 <div>
-                  <p className="font-semibold text-gray-800">{o.name}</p>
-                  <p className="text-sm text-gray-500">{o.position}</p>
+                  {o.name && (
+                    <p className="font-semibold text-gray-800">{o.name}</p>
+                  )}
+                  <p className={`text-sm text-gray-500 ${o.name ? "" : "font-semibold text-gray-800"}`}>
+                    {o.position}
+                  </p>
                 </div>
               </div>
             ))}

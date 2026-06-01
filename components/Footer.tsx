@@ -1,45 +1,51 @@
 import Link from "next/link";
-import { Phone, Mail, MapPin, Leaf, Share2, Clock } from "lucide-react";
+import Phone from "lucide-react/dist/esm/icons/phone";
+import Mail from "lucide-react/dist/esm/icons/mail";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
+import Leaf from "lucide-react/dist/esm/icons/leaf";
+import Share2 from "lucide-react/dist/esm/icons/share-2";
+import Clock from "lucide-react/dist/esm/icons/clock";
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-br from-green-600 to-green-700 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="bg-gray-900 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Branding */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500 to-green-500 flex items-center justify-center shadow-lg">
                 <Leaf className="w-6 h-6 text-white" />
               </div>
               <div>
-                <p className="text-green-200 text-xs uppercase tracking-widest">
+                <p className="text-pink-400 text-[10px] uppercase tracking-[0.2em] font-bold">
                   Official Website
                 </p>
-                <p className="text-xl font-bold">Barangay Mulawin</p>
+                <p className="text-2xl font-heading font-bold">Mulawin</p>
               </div>
             </div>
-            <p className="text-green-100 text-sm leading-relaxed">
+            <p className="text-gray-400 text-base leading-relaxed mb-8">
               Serving the community with integrity, transparency, and dedication
-              for a better Mulawin.
+              for a better, more progressive Mulawin.
             </p>
             <a
               href="https://www.facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors px-4 py-2 rounded-full text-sm"
+              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-all px-6 py-3 rounded-full text-sm font-bold active:scale-95"
+              aria-label="Follow Barangay Mulawin on Facebook"
             >
-              <Share2 className="w-4 h-4" />
+              <Share2 className="w-4 h-4 text-pink-400" />
               Follow on Facebook
             </a>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-green-200 mb-4 uppercase text-xs tracking-widest">
-              Quick Links
+            <h3 className="font-heading font-bold text-white mb-6 uppercase text-xs tracking-[0.2em]">
+              Navigation
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-4">
               {[
                 { href: "/", label: "Home" },
                 { href: "/about", label: "About Barangay" },
@@ -51,7 +57,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-green-100 hover:text-white text-sm transition-colors"
+                    className="text-gray-400 hover:text-pink-400 text-sm font-medium transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -62,10 +68,10 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="font-semibold text-green-200 mb-4 uppercase text-xs tracking-widest">
-              Services
+            <h3 className="font-heading font-bold text-white mb-6 uppercase text-xs tracking-[0.2em]">
+              Barangay Services
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-4">
               {[
                 "Barangay Clearance",
                 "Certificate of Residency",
@@ -77,7 +83,7 @@ export default function Footer() {
                 <li key={service}>
                   <Link
                     href="/services"
-                    className="text-green-100 hover:text-white text-sm transition-colors"
+                    className="text-gray-400 hover:text-green-400 text-sm font-medium transition-colors"
                   >
                     {service}
                   </Link>
@@ -88,29 +94,29 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="font-semibold text-green-200 mb-4 uppercase text-xs tracking-widest">
-              Contact Info
+            <h3 className="font-heading font-bold text-white mb-6 uppercase text-xs tracking-[0.2em]">
+              Get in Touch
             </h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-pink-300 mt-0.5 shrink-0" />
-                <span className="text-green-100 text-sm">
+            <ul className="space-y-4">
+              <li className="flex items-start gap-4">
+                <MapPin className="w-5 h-5 text-pink-500 mt-0.5 shrink-0" />
+                <span className="text-gray-400 text-sm leading-relaxed">
                   Barangay Mulawin, Tanza, Cavite, Philippines
                 </span>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-pink-300 shrink-0" />
-                <span className="text-green-100 text-sm">(02) 8234-5678</span>
+              <li className="flex items-center gap-4">
+                <Phone className="w-5 h-5 text-green-500 shrink-0" />
+                <span className="text-gray-400 text-sm font-medium">(02) 8234-5678</span>
               </li>
-              <li className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-pink-300 shrink-0" />
-                <span className="text-green-100 text-sm">
+              <li className="flex items-center gap-4">
+                <Mail className="w-5 h-5 text-pink-500 shrink-0" />
+                <span className="text-gray-400 text-sm font-medium">
                   brgy.mulawin@rodriguez.gov.ph
                 </span>
               </li>
-              <li className="flex items-start gap-3">
-                <Clock className="w-4 h-4 text-pink-300 mt-0.5 shrink-0" />
-                <span className="text-green-100 text-sm">
+              <li className="flex items-start gap-4">
+                <Clock className="w-5 h-5 text-green-500 mt-0.5 shrink-0" />
+                <span className="text-gray-400 text-sm leading-relaxed">
                   Mon – Fri: 8:00 AM – 5:00 PM
                   <br />
                   Sat: 8:00 AM – 12:00 PM
@@ -120,13 +126,15 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-green-500/50 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-green-200 text-sm">
+        <div className="border-t border-white/5 mt-20 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-gray-500 text-sm">
             © {new Date().getFullYear()} Barangay Mulawin. All rights reserved.
           </p>
-          <p className="text-green-300 text-xs">
-            Tanza, Cavite · Local Government Unit
-          </p>
+          <div className="flex items-center gap-6">
+            <p className="text-gray-600 text-xs font-bold uppercase tracking-widest">
+              Tanza, Cavite · LGU
+            </p>
+          </div>
         </div>
       </div>
     </footer>
