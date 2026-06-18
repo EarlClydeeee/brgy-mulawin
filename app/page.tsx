@@ -197,7 +197,7 @@ export default function HomePage() {
             {/* Photo side */}
             <div className="relative md:w-96 shrink-0 bg-gray-50" style={{ minHeight: "450px" }}>
               <Image
-                src="/brgy_officers/KapitanaTriciaLubigan.png"
+                src="/brgy_officers/brgycaptain/KapitanaTriciaLubigan.png"
                 alt="Hon. Tricia Lubigan — Punong Barangay"
                 fill
                 className="object-cover object-top"
