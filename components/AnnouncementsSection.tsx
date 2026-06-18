@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Megaphone from "lucide-react/dist/esm/icons/megaphone";
-import CalendarDays from "lucide-react/dist/esm/icons/calendar-days";
-import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
+import { Megaphone, CalendarDays, ArrowRight } from "lucide-react";
 import { announcements, type Announcement } from "@/lib/announcements";
 import AnnouncementModal from "@/components/AnnouncementModal";
 

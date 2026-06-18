@@ -3,9 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Menu from "lucide-react/dist/esm/icons/menu";
-import X from "lucide-react/dist/esm/icons/x";
-import Leaf from "lucide-react/dist/esm/icons/leaf";
+import { Menu, X, Leaf } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Home" },

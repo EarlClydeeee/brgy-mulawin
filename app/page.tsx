@@ -1,18 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import AnnouncementsSection from "@/components/AnnouncementsSection";
-import FileText from "lucide-react/dist/esm/icons/file-text";
-import Users from "lucide-react/dist/esm/icons/users";
-import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
-import Shield from "lucide-react/dist/esm/icons/shield";
-import Heart from "lucide-react/dist/esm/icons/heart";
-import CheckCircle from "lucide-react/dist/esm/icons/check-circle";
-import CalendarDays from "lucide-react/dist/esm/icons/calendar-days";
-import ChevronDown from "lucide-react/dist/esm/icons/chevron-down";
-import Leaf from "lucide-react/dist/esm/icons/leaf";
-import Target from "lucide-react/dist/esm/icons/target";
-import Eye from "lucide-react/dist/esm/icons/eye";
-import Star from "lucide-react/dist/esm/icons/star";
+import {
+  FileText,
+  Users,
+  ArrowRight,
+  Shield,
+  Heart,
+  CheckCircle,
+  CalendarDays,
+  ChevronDown,
+  Leaf,
+  Target,
+  Eye,
+  Star,
+} from "lucide-react";
 
 /* ─── Section label ──────────────────────────────────────────── */
 function SectionLabel({ text, color = "pink" }: { text: string; color?: "pink" | "green" }) {

@@ -1,10 +1,5 @@
 import Link from "next/link";
-import Phone from "lucide-react/dist/esm/icons/phone";
-import Mail from "lucide-react/dist/esm/icons/mail";
-import MapPin from "lucide-react/dist/esm/icons/map-pin";
-import Leaf from "lucide-react/dist/esm/icons/leaf";
-import Share2 from "lucide-react/dist/esm/icons/share-2";
-import Clock from "lucide-react/dist/esm/icons/clock";
+import { Phone, Mail, MapPin, Leaf, Share2, Clock } from "lucide-react";
 
 export default function Footer() {
   return (

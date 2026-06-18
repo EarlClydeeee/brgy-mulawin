@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import CalendarDays from "lucide-react/dist/esm/icons/calendar-days";
-import Tag from "lucide-react/dist/esm/icons/tag";
-import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
+import { CalendarDays, Tag, ArrowRight } from "lucide-react";
 import { newsArticles, type Announcement } from "@/lib/announcements";
 import AnnouncementModal from "@/components/AnnouncementModal";
 

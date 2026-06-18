@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import X from "lucide-react/dist/esm/icons/x";
-import CalendarDays from "lucide-react/dist/esm/icons/calendar-days";
-import Clock from "lucide-react/dist/esm/icons/clock";
-import MapPin from "lucide-react/dist/esm/icons/map-pin";
-import Phone from "lucide-react/dist/esm/icons/phone";
-import CheckCircle from "lucide-react/dist/esm/icons/check-circle";
+import {
+  X,
+  CalendarDays,
+  Clock,
+  MapPin,
+  Phone,
+  CheckCircle,
+} from "lucide-react";
 import type { Announcement } from "@/lib/announcements";
 
 type AnnouncementModalProps = {
