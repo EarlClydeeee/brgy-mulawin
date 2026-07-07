@@ -17,3 +17,40 @@ enum RequestStatus {
   REJECTED
   RELEASED
 }
+
+enum DocumentType {
+  BARANGAY_CLEARANCE
+  CERTIFICATE_OF_RESIDENCY
+  CERTIFICATE_OF_INDIGENCY
+  BUSINESS_PERMIT
+}
+
+model DocumentRequest {
+  id String @id @default(uuid())
+  status RequestStatus @default(SUBMITTED)
+  type DocumentType
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  statusLogs RequestStatusLog[]
+}
+
+model RequestStatusLog {
+  id String @id @default(uuid())
+  status RequestStatus
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  documentRequestId String
+  documentRequest DocumentRequest @relation(fields: [documentRequestId], references: [id])
+}
+
+model User {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  password String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  documents DocumentRequest[]
+}
