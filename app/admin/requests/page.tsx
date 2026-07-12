@@ -1,6 +1,6 @@
 import { FileText, Inbox } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { getAge, getDocumentLabel } from "./_constants";
+import { getAge, getDocumentLabel, type AdminRequestEntry } from "./_constants";
 import {
   RequestDetailLink,
   StatusBadge,
@@ -54,7 +54,7 @@ export default async function AdminRequestsPage() {
           </div>
         ) : (
           <div className="grid gap-4">
-            {requests.map((request) => (
+            {requests.map((request: AdminRequestEntry) => (
               <article
                 key={request.id}
                 className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm"

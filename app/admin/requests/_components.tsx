@@ -8,15 +8,14 @@ import {
 } from "@/app/actions/adminRequests";
 import { requestStatuses } from "@/lib/request-constants";
 import {
+  getStatusClass,
   getStatusLabel,
-  statusClasses,
-  type RequestStatusKey,
 } from "./_constants";
 
-export function StatusBadge({ status }: { status: RequestStatusKey }) {
+export function StatusBadge({ status }: { status: string }) {
   return (
     <span
-      className={`inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest ${statusClasses[status]}`}
+      className={`inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest ${getStatusClass(status)}`}
     >
       {getStatusLabel(status)}
     </span>
@@ -28,7 +27,7 @@ export function StatusUpdateForm({
   currentStatus,
 }: {
   requestId: string;
-  currentStatus: RequestStatusKey;
+  currentStatus: string;
 }) {
   const [state, formAction] = useActionState<
     AdminRequestActionState,

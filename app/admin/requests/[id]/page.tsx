@@ -6,6 +6,7 @@ import {
   getAge,
   getDocumentLabel,
   getStatusLabel,
+  type AdminRequestEntry,
   type StatusLogEntry,
 } from "../_constants";
 import { StatusBadge, StatusUpdateForm } from "../_components";
@@ -23,7 +24,7 @@ export default async function AdminRequestDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const request = await prisma.documentRequest.findUnique({
+  const request = (await prisma.documentRequest.findUnique({
     where: { id },
     include: {
       user: true,
@@ -31,7 +32,7 @@ export default async function AdminRequestDetailPage({
         orderBy: { createdAt: "asc" },
       },
     },
-  });
+  })) as AdminRequestEntry | null;
 
   if (!request) {
     notFound();

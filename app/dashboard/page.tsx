@@ -4,9 +4,9 @@ import { Calendar, FileText, LogOut, Plus } from "lucide-react";
 import { logout } from "@/app/actions/auth";
 import {
   getDocumentLabel,
+  getStatusClass,
   getStatusLabel,
-  statusClasses,
-  type RequestStatusKey,
+  type ResidentRequestEntry,
   type StatusLogEntry,
 } from "@/app/admin/requests/_constants";
 import { isAdminUser } from "@/lib/admin";
@@ -96,7 +96,7 @@ export default async function DashboardPage() {
           </div>
         ) : (
           <div className="grid gap-5">
-            {requests.map((request) => (
+            {requests.map((request: ResidentRequestEntry) => (
               <article
                 key={request.id}
                 className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm transition hover:shadow-md"
@@ -104,9 +104,7 @@ export default async function DashboardPage() {
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                   <div>
                     <span
-                      className={`inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest ${
-                        statusClasses[request.status as RequestStatusKey]
-                      }`}
+                      className={`inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest ${getStatusClass(request.status)}`}
                     >
                       {getStatusLabel(request.status)}
                     </span>

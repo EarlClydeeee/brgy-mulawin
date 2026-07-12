@@ -38,10 +38,44 @@ export type StatusLogEntry = {
   createdAt: Date;
 };
 
+export type RequestUser = {
+  name: string;
+  email: string;
+};
+
+export type AdminRequestEntry = {
+  id: string;
+  status: string;
+  type: string;
+  fullName: string;
+  birthday: Date;
+  address: string;
+  purpose: string;
+  details: string | null;
+  createdAt: Date;
+  user: RequestUser;
+  statusLogs: StatusLogEntry[];
+};
+
+export type ResidentRequestEntry = {
+  id: string;
+  status: string;
+  type: string;
+  purpose: string;
+  details: string | null;
+  createdAt: Date;
+  statusLogs: StatusLogEntry[];
+};
+
 export const getStatusLabel = (status: string) =>
   status in statusLabels
     ? statusLabels[status as RequestStatusKey]
     : status;
+
+export const getStatusClass = (status: string) =>
+  status in statusClasses
+    ? statusClasses[status as RequestStatusKey]
+    : "bg-gray-100 text-gray-700";
 
 export const getAge = (birthday: Date) => {
   const today = new Date();
