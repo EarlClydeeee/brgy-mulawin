@@ -1,4 +1,11 @@
-import { FileText, Clock, CheckCircle, AlertCircle, ExternalLink } from "lucide-react";
+import Link from "next/link";
+import {
+  FileText,
+  Clock,
+  CheckCircle,
+  AlertCircle,
+  ExternalLink,
+} from "lucide-react";
 
 export const metadata = {
   title: "Services — Barangay Mulawin",
@@ -20,6 +27,7 @@ const services = [
     fee: "₱50.00",
     processingTime: "Same day (30–60 mins)",
     color: "pink",
+    requestType: "BARANGAY_CLEARANCE",
   },
   {
     id: 2,
@@ -33,6 +41,7 @@ const services = [
     fee: "₱30.00",
     processingTime: "Same day",
     color: "green",
+    requestType: "CERTIFICATE_OF_RESIDENCY",
   },
   {
     id: 3,
@@ -46,6 +55,7 @@ const services = [
     fee: "Free",
     processingTime: "Same day",
     color: "pink",
+    requestType: "CERTIFICATE_OF_INDIGENCY",
   },
   {
     id: 4,
@@ -61,6 +71,7 @@ const services = [
     fee: "₱200.00 – ₱500.00 (based on capitalization)",
     processingTime: "1–2 business days",
     color: "green",
+    requestType: "BUSINESS_PERMIT",
   },
   {
     id: 5,
@@ -257,6 +268,19 @@ export default function ServicesPage() {
                       ))}
                     </ul>
                   </div>
+                  {s.requestType ? (
+                    <Link
+                      href={`/services/request?type=${s.requestType}`}
+                      className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-green-500 px-5 py-2.5 text-sm font-bold text-white shadow-md transition hover:opacity-95"
+                    >
+                      Request Online
+                      <ExternalLink className="h-4 w-4" />
+                    </Link>
+                  ) : (
+                    <p className="mt-5 rounded-2xl bg-gray-50 px-4 py-3 text-center text-xs font-semibold uppercase tracking-widest text-gray-400">
+                      Walk-in only
+                    </p>
+                  )}
                 </div>
               </div>
             ))}

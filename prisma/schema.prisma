@@ -29,6 +29,11 @@ model DocumentRequest {
   id String @id @default(uuid())
   status RequestStatus @default(SUBMITTED)
   type DocumentType
+  fullName String
+  birthday DateTime
+  address String
+  purpose String
+  details String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId String
@@ -46,10 +51,9 @@ model RequestStatusLog {
 }
 
 model User {
-  id String @id @default(uuid())
+  id String @id
   name String
   email String @unique
-  password String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   documents DocumentRequest[]

@@ -1,0 +1,37 @@
+import { FileText } from "lucide-react";
+import RequestForm from "./RequestForm";
+
+export const metadata = {
+  title: "Request Document — Barangay Mulawin",
+  description: "Submit an online barangay document request.",
+};
+
+export default async function RequestDocumentPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ type?: string }>;
+}) {
+  const params = await searchParams;
+
+  return (
+    <section className="bg-gradient-to-b from-pink-50/70 to-white px-4 py-16">
+      <div className="mx-auto max-w-3xl">
+        <div className="mb-8 text-center">
+          <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-pink-500 shadow-sm">
+            <FileText className="h-4 w-4" />
+            Online Request
+          </span>
+          <h1 className="text-4xl font-bold text-gray-800">
+            Request a Barangay Document
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-gray-500">
+            Submit your request online. Barangay staff will review it and update
+            your dashboard as it moves through processing.
+          </p>
+        </div>
+
+        <RequestForm defaultType={params?.type} />
+      </div>
+    </section>
+  );
+}
