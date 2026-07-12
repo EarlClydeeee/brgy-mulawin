@@ -8,8 +8,8 @@ import {
 } from "@/app/actions/adminRequests";
 import { requestStatuses } from "@/lib/request-constants";
 import {
+  getStatusLabel,
   statusClasses,
-  statusLabels,
   type RequestStatusKey,
 } from "./_constants";
 
@@ -18,7 +18,7 @@ export function StatusBadge({ status }: { status: RequestStatusKey }) {
     <span
       className={`inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest ${statusClasses[status]}`}
     >
-      {statusLabels[status]}
+      {getStatusLabel(status)}
     </span>
   );
 }
@@ -49,7 +49,7 @@ export function StatusUpdateForm({
       >
         {requestStatuses.map((status) => (
           <option key={status} value={status}>
-            {statusLabels[status]}
+            {getStatusLabel(status)}
           </option>
         ))}
       </select>

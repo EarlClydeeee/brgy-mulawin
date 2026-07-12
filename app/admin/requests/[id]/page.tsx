@@ -2,12 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Home, Mail, User } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import {
-  documentLabels,
-  getAge,
-  statusLabels,
-  type DocumentTypeKey,
-} from "../_constants";
+import { getAge, getDocumentLabel, getStatusLabel } from "../_constants";
 import { StatusBadge, StatusUpdateForm } from "../_components";
 
 export const metadata = {
@@ -53,12 +48,12 @@ export default async function AdminRequestDetailPage({
             <div className="mb-5 flex flex-wrap items-center gap-3">
               <StatusBadge status={request.status} />
               <span className="rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
-                {documentLabels[request.type as DocumentTypeKey]}
+                {getDocumentLabel(request.type)}
               </span>
             </div>
 
             <h1 className="text-3xl font-bold text-gray-800">
-              {documentLabels[request.type as DocumentTypeKey]}
+              {getDocumentLabel(request.type)}
             </h1>
             <p className="mt-2 text-gray-500">
               Submitted{" "}
@@ -150,7 +145,7 @@ export default async function AdminRequestDetailPage({
                     <span className="mt-1.5 h-2.5 w-2.5 rounded-full bg-gradient-to-r from-pink-500 to-green-500" />
                     <div>
                       <p className="font-semibold text-gray-800">
-                        {statusLabels[log.status]}
+                        {getStatusLabel(log.status)}
                       </p>
                       <p className="mt-1 flex items-center gap-1 text-sm text-gray-500">
                         <Calendar className="h-3.5 w-3.5" />

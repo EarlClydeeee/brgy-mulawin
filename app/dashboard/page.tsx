@@ -2,6 +2,12 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Calendar, FileText, LogOut, Plus } from "lucide-react";
 import { logout } from "@/app/actions/auth";
+import {
+  getDocumentLabel,
+  getStatusLabel,
+  statusClasses,
+  type RequestStatusKey,
+} from "@/app/admin/requests/_constants";
 import { isAdminUser } from "@/lib/admin";
 import { prisma } from "@/lib/prisma";
 import { createClient } from "@/utils/supabase/server";
@@ -9,31 +15,6 @@ import { createClient } from "@/utils/supabase/server";
 export const metadata = {
   title: "Dashboard — Barangay Mulawin",
   description: "Track your Barangay Mulawin document requests.",
-};
-
-const documentLabels = {
-  BARANGAY_CLEARANCE: "Barangay Clearance",
-  CERTIFICATE_OF_RESIDENCY: "Certificate of Residency",
-  CERTIFICATE_OF_INDIGENCY: "Certificate of Indigency",
-  BUSINESS_PERMIT: "Barangay Business Permit",
-};
-
-const statusLabels = {
-  SUBMITTED: "Submitted",
-  UNDER_REVIEW: "Under Review",
-  FOR_PICKUP: "For Pickup",
-  NEEDS_REVISION: "Needs Revision",
-  REJECTED: "Rejected",
-  RELEASED: "Released",
-};
-
-const statusClasses = {
-  SUBMITTED: "bg-gray-100 text-gray-700",
-  UNDER_REVIEW: "bg-yellow-100 text-yellow-700",
-  FOR_PICKUP: "bg-blue-100 text-blue-700",
-  NEEDS_REVISION: "bg-orange-100 text-orange-700",
-  REJECTED: "bg-red-100 text-red-700",
-  RELEASED: "bg-green-100 text-green-700",
 };
 
 export default async function DashboardPage() {
@@ -123,13 +104,13 @@ export default async function DashboardPage() {
                   <div>
                     <span
                       className={`inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest ${
-                        statusClasses[request.status]
+                        statusClasses[request.status as RequestStatusKey]
                       }`}
                     >
-                      {statusLabels[request.status]}
+                      {getStatusLabel(request.status)}
                     </span>
                     <h2 className="mt-3 text-2xl font-bold text-gray-800">
-                      {documentLabels[request.type]}
+                      {getDocumentLabel(request.type)}
                     </h2>
                     <p className="mt-2 text-sm text-gray-500">
                       Purpose: {request.purpose}
@@ -160,7 +141,7 @@ export default async function DashboardPage() {
                         <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-pink-500 to-green-500" />
                         <p className="text-sm text-gray-600">
                           <span className="font-semibold">
-                            {statusLabels[log.status]}
+                            {getStatusLabel(log.status)}
                           </span>{" "}
                           on{" "}
                           {log.createdAt.toLocaleDateString("en-PH", {

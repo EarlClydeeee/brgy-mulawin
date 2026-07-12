@@ -7,6 +7,11 @@ export const documentLabels = {
 
 export type DocumentTypeKey = keyof typeof documentLabels;
 
+export const getDocumentLabel = (type: string) =>
+  type in documentLabels
+    ? documentLabels[type as DocumentTypeKey]
+    : type;
+
 export const statusLabels = {
   SUBMITTED: "Submitted",
   UNDER_REVIEW: "Under Review",
@@ -26,6 +31,11 @@ export const statusClasses = {
 };
 
 export type RequestStatusKey = keyof typeof statusLabels;
+
+export const getStatusLabel = (status: string) =>
+  status in statusLabels
+    ? statusLabels[status as RequestStatusKey]
+    : status;
 
 export const getAge = (birthday: Date) => {
   const today = new Date();
