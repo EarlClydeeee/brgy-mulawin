@@ -3,7 +3,6 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { documentTypes } from "@/lib/request-constants";
 import { createClient } from "@/utils/supabase/server";
@@ -93,29 +92,6 @@ export async function createRequest(
     },
   });
 
-  // #region agent log
-  await fetch("http://127.0.0.1:7387/ingest/0ed8b2e6-04c5-407d-a29a-bbbcb7a124af", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Debug-Session-Id": "b653de",
-    },
-    body: JSON.stringify({
-      sessionId: "b653de",
-      runId: "initial",
-      hypothesisId: "H1,H2,H4",
-      location: "app/actions/requests.ts:70",
-      message: "prisma runtime model fields before documentRequest.create",
-      data: {
-        documentRequestFields:
-          Prisma.dmmf.datamodel.models
-            .find((model) => model.name === "DocumentRequest")
-            ?.fields.map((field) => field.name) ?? [],
-      },
-      timestamp: Date.now(),
-    }),
-  }).catch(() => {});
-  // #endregion
 
   await prisma.documentRequest.create({
     data: {
