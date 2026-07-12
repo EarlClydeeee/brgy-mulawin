@@ -7,6 +7,7 @@ import {
   getStatusLabel,
   statusClasses,
   type RequestStatusKey,
+  type StatusLogEntry,
 } from "@/app/admin/requests/_constants";
 import { isAdminUser } from "@/lib/admin";
 import { prisma } from "@/lib/prisma";
@@ -136,7 +137,7 @@ export default async function DashboardPage() {
                     Timeline
                   </p>
                   <div className="space-y-3">
-                    {request.statusLogs.map((log) => (
+                    {request.statusLogs.map((log: StatusLogEntry) => (
                       <div key={log.id} className="flex items-center gap-3">
                         <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-pink-500 to-green-500" />
                         <p className="text-sm text-gray-600">

@@ -2,7 +2,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Home, Mail, User } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { getAge, getDocumentLabel, getStatusLabel } from "../_constants";
+import {
+  getAge,
+  getDocumentLabel,
+  getStatusLabel,
+  type StatusLogEntry,
+} from "../_constants";
 import { StatusBadge, StatusUpdateForm } from "../_components";
 
 export const metadata = {
@@ -140,7 +145,7 @@ export default async function AdminRequestDetailPage({
                 Status timeline
               </p>
               <div className="space-y-4">
-                {request.statusLogs.map((log) => (
+                {request.statusLogs.map((log: StatusLogEntry) => (
                   <div key={log.id} className="flex gap-3">
                     <span className="mt-1.5 h-2.5 w-2.5 rounded-full bg-gradient-to-r from-pink-500 to-green-500" />
                     <div>

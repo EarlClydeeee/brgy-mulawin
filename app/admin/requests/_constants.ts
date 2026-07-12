@@ -32,6 +32,12 @@ export const statusClasses = {
 
 export type RequestStatusKey = keyof typeof statusLabels;
 
+export type StatusLogEntry = {
+  id: string;
+  status: string;
+  createdAt: Date;
+};
+
 export const getStatusLabel = (status: string) =>
   status in statusLabels
     ? statusLabels[status as RequestStatusKey]
