@@ -1,4 +1,6 @@
-export const documentLabels = {
+import { DocumentType } from "@prisma/client";
+
+export const documentLabels: Record<DocumentType, string> = {
   BARANGAY_CLEARANCE: "Barangay Clearance",
   CERTIFICATE_OF_RESIDENCY: "Certificate of Residency",
   CERTIFICATE_OF_INDIGENCY: "Certificate of Indigency",
