@@ -1,6 +1,6 @@
 import { FileText, Inbox } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { documentLabels, getAge } from "./_constants";
+import { documentLabels, getAge, type DocumentTypeKey } from "./_constants";
 import {
   RequestDetailLink,
   StatusBadge,
@@ -65,7 +65,7 @@ export default async function AdminRequestsPage() {
                       <StatusBadge status={request.status} />
                       <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
                         <FileText className="h-3.5 w-3.5" />
-                        {documentLabels[request.type]}
+                        {documentLabels[request.type as DocumentTypeKey]}
                       </span>
                     </div>
                     <h2 className="text-xl font-bold text-gray-800">
