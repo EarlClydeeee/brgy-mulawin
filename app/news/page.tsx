@@ -7,6 +7,8 @@ export const metadata = {
     "Stay up to date with the latest news, events, and announcements from Barangay Mulawin.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function NewsPage() {
   return (
     <>

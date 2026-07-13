@@ -58,3 +58,13 @@ model User {
   updatedAt DateTime @updatedAt
   documents DocumentRequest[]
 }
+
+model Post {
+  id         String   @id @default(uuid())
+  headline   String   @db.VarChar(200)
+  caption    String   @db.VarChar(500)
+  imageUrls  String[]
+  isFeatured Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}

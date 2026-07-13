@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Calendar, FileText, LogOut, Plus } from "lucide-react";
-import { logout } from "@/app/actions/auth";
+import { Calendar, FileText, Plus } from "lucide-react";
+import { LogoutButton } from "@/components/LogoutButton";
 import {
   getDocumentLabel,
   getStatusClass,
@@ -65,15 +65,7 @@ export default async function DashboardPage() {
               <Plus className="h-4 w-4" />
               New request
             </Link>
-            <form action={logout}>
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-bold text-gray-600 shadow-sm transition hover:border-pink-200 hover:text-pink-500"
-              >
-                <LogOut className="h-4 w-4" />
-                Logout
-              </button>
-            </form>
+            <LogoutButton className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-bold text-gray-600 shadow-sm transition hover:border-pink-200 hover:text-pink-500" />
           </div>
         </div>
 

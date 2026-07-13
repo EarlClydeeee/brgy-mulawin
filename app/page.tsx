@@ -16,6 +16,8 @@ import {
   Star,
 } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 /* ─── Section label ──────────────────────────────────────────── */
 function SectionLabel({ text, color = "pink" }: { text: string; color?: "pink" | "green" }) {
   return (
