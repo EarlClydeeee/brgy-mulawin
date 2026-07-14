@@ -3,6 +3,8 @@ import { Inter, Lexend, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { createPageMetadata } from "@/lib/seo";
+import { siteConfig, siteUrl } from "@/lib/site";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const lexend = Lexend({
@@ -15,15 +17,15 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: "Barangay Mulawin — Official Website",
-  description:
-    "The official website of Barangay Mulawin, Tanza, Cavite. Access barangay services, news, and announcements.",
-  keywords: "Barangay Mulawin, Tanza, Cavite, LGU, barangay services",
-  openGraph: {
-    title: "Barangay Mulawin — Official Website",
-    description:
-      "Access barangay services, news, and community information for Barangay Mulawin.",
-    type: "website",
+  metadataBase: new URL(siteUrl),
+  ...createPageMetadata({
+    title: `${siteConfig.name} — Official Website`,
+    description: siteConfig.description,
+    path: "/",
+  }),
+  title: {
+    default: `${siteConfig.name} — Official Website`,
+    template: `%s | ${siteConfig.name}`,
   },
 };
 
@@ -33,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en-PH">
       <body className={`${inter.variable} ${lexend.variable} ${sourceSans.variable} font-sans bg-background text-foreground antialiased`}>
         <Header />
         <main className="min-h-screen">{children}</main>

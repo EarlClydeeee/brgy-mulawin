@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import AnnouncementsSection from "@/components/AnnouncementsSection";
+import { JsonLd } from "@/components/JsonLd";
+import { createPageMetadata, getOrganizationJsonLd, getWebsiteJsonLd } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
 import {
   FileText,
   Users,
@@ -15,6 +18,19 @@ import {
   Eye,
   Star,
 } from "lucide-react";
+
+export const metadata = {
+  ...createPageMetadata({
+    title: `${siteConfig.name}, Tanza Cavite — Official Website`,
+    description:
+      "Official barangay website of Mulawin, Tanza, Cavite. Request clearances and certificates online, read announcements, and contact barangay officials.",
+    path: "/",
+    keywords: ["barangay Mulawin Tanza", "official LGU website"],
+  }),
+  verification: {
+    google: "djXzJ-4o4nAieRe9BQvV-TaA-S7EEJ9cDKg0sulchQg",
+  },
+};
 
 export const dynamic = "force-dynamic";
 
@@ -38,6 +54,7 @@ const services = [
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={[getOrganizationJsonLd(), getWebsiteJsonLd()]} />
       {/* 1. HERO */}
       <section
         className="relative overflow-hidden flex items-center justify-center"

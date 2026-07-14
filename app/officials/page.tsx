@@ -1,11 +1,14 @@
 import { Award } from "lucide-react";
 import OfficialsDirectory from "@/components/OfficialsDirectory";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Officials — Barangay Mulawin",
+export const metadata = createPageMetadata({
+  title: "Barangay Officials",
   description:
-    "Meet the elected and appointed officials of Barangay Mulawin, Tanza, Cavite.",
-};
+    "Meet the elected and appointed officials serving Barangay Mulawin, Tanza, Cavite.",
+  path: "/officials",
+  keywords: ["barangay captain", "barangay councilors Mulawin"],
+});
 
 export default function OfficialsPage() {
   return (

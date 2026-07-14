@@ -1,11 +1,14 @@
 import { Megaphone } from "lucide-react";
 import NewsContent from "@/components/NewsContent";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "News & Announcements — Barangay Mulawin",
+export const metadata = createPageMetadata({
+  title: "News & Announcements",
   description:
-    "Stay up to date with the latest news, events, and announcements from Barangay Mulawin.",
-};
+    "Latest news, events, and barangay announcements from Barangay Mulawin, Tanza, Cavite.",
+  path: "/news",
+  keywords: ["barangay announcements", "Mulawin community news"],
+});
 
 export const dynamic = "force-dynamic";
 

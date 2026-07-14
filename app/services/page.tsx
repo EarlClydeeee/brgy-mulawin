@@ -6,12 +6,20 @@ import {
   AlertCircle,
   ExternalLink,
 } from "lucide-react";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Services — Barangay Mulawin",
+export const metadata = createPageMetadata({
+  title: "Barangay Services",
   description:
-    "Learn about barangay services available at Barangay Mulawin including clearances, certificates, and permits.",
-};
+    "Barangay clearance, certificate of residency, certificate of indigency, and business permit services at Barangay Mulawin, Tanza, Cavite.",
+  path: "/services",
+  keywords: [
+    "barangay clearance Tanza",
+    "certificate of residency Cavite",
+    "certificate of indigency",
+    "business permit barangay",
+  ],
+});
 
 const services = [
   {

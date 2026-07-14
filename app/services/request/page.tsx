@@ -1,10 +1,14 @@
 import { FileText } from "lucide-react";
 import RequestForm from "./RequestForm";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Request Document — Barangay Mulawin",
-  description: "Submit an online barangay document request.",
-};
+export const metadata = createPageMetadata({
+  title: "Request a Document",
+  description:
+    "Submit an online document request to Barangay Mulawin, Tanza, Cavite.",
+  path: "/services/request",
+  noIndex: true,
+});
 
 export default async function RequestDocumentPage({
   searchParams,

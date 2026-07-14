@@ -14,12 +14,15 @@ import {
 } from "@/app/admin/requests/_constants";
 import { isAdminUser } from "@/lib/admin";
 import { prisma } from "@/lib/prisma";
+import { createPageMetadata } from "@/lib/seo";
 import { createClient } from "@/utils/supabase/server";
 
-export const metadata = {
-  title: "Dashboard — Barangay Mulawin",
+export const metadata = createPageMetadata({
+  title: "My Document Requests",
   description: "Track your Barangay Mulawin document requests.",
-};
+  path: "/dashboard",
+  noIndex: true,
+});
 
 export default async function DashboardPage({
   searchParams,

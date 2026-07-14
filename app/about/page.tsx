@@ -1,10 +1,13 @@
 import { Target, Eye, Leaf, MapPin, CalendarDays, Users } from "lucide-react";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "About — Barangay Mulawin",
+export const metadata = createPageMetadata({
+  title: "About Us",
   description:
-    "Learn about the history, mission, and vision of Barangay Mulawin, Tanza, Cavite.",
-};
+    "Learn about the history, mission, and vision of Barangay Mulawin in Tanza, Cavite.",
+  path: "/about",
+  keywords: ["Barangay Mulawin history", "Tanza Cavite community"],
+});
 
 const milestones = [
   {

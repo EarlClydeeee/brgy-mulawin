@@ -1,10 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { logout } from "@/app/actions/auth";
 import { getAuthNavState } from "@/lib/auth-nav";
 import { IconLogin, IconLogout, IconShieldCheck } from "@/components/icons";
 
 const navLinkClass =
   "rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-600 transition hover:border-pink-200 hover:text-pink-500";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function AdminLayout({
   children,
