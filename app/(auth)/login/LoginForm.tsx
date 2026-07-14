@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useActionState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { login, type AuthActionState } from "@/app/actions/auth";
+import { CheckEmailNotice } from "@/components/CheckEmailNotice";
 
 type LoginValues = {
   email: string;
@@ -11,6 +13,8 @@ type LoginValues = {
 };
 
 export default function LoginForm() {
+  const searchParams = useSearchParams();
+  const showCheckEmailNotice = searchParams.get("checkEmail") === "1";
   const [state, formAction] = useActionState<AuthActionState, FormData>(login, {});
   const [isPending, startTransition] = useTransition();
   const {
@@ -28,6 +32,7 @@ export default function LoginForm() {
 
   return (
     <div className="rounded-3xl border border-pink-100 bg-white p-8 shadow-xl shadow-pink-100/60">
+      {showCheckEmailNotice && <CheckEmailNotice />}
       <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold text-gray-800">Welcome back</h1>
         <p className="mt-2 text-sm text-gray-500">

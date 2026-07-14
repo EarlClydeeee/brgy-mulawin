@@ -50,7 +50,7 @@ export async function login(
     redirect("/admin/requests");
   }
 
-  redirect("/dashboard");
+  redirect("/dashboard?checkEmail=1");
 }
 
 export async function register(
@@ -101,8 +101,10 @@ export async function register(
     },
   });
 
+  await supabase.auth.signOut();
+
   revalidatePath("/", "layout");
-  redirect("/dashboard");
+  redirect("/login?checkEmail=1");
 }
 
 export async function logout() {

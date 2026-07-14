@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Calendar, FileText, Plus } from "lucide-react";
+import { CheckEmailNotice } from "@/components/CheckEmailNotice";
 import { LogoutButton } from "@/components/LogoutButton";
 import {
   getDocumentLabel,
@@ -18,7 +19,12 @@ export const metadata = {
   description: "Track your Barangay Mulawin document requests.",
 };
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ checkEmail?: string }>;
+}) {
+  const { checkEmail } = await searchParams;
   const supabase = await createClient();
   const {
     data: { user },
@@ -44,6 +50,7 @@ export default async function DashboardPage() {
 
   return (
     <section className="bg-gradient-to-b from-green-50/70 to-white px-4 py-14">
+      {checkEmail === "1" && <CheckEmailNotice variant="toast" />}
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
