@@ -38,20 +38,34 @@ export default async function DashboardPage({
     redirect("/admin/requests");
   }
 
-  const requests = await prisma.documentRequest.findMany({
-    where: { userId: user.id },
-    include: {
-      statusLogs: {
-        orderBy: { createdAt: "asc" },
+  let requests: ResidentRequestEntry[] = [];
+  let loadFailed = false;
+
+  try {
+    requests = await prisma.documentRequest.findMany({
+      where: { userId: user.id },
+      include: {
+        statusLogs: {
+          orderBy: { createdAt: "asc" },
+        },
       },
-    },
-    orderBy: { createdAt: "desc" },
-  });
+      orderBy: { createdAt: "desc" },
+    });
+  } catch (error) {
+    console.error("Failed to load document requests:", error);
+    loadFailed = true;
+  }
 
   return (
     <section className="bg-gradient-to-b from-green-50/70 to-white px-4 py-14">
       {checkEmail === "1" && <CheckEmailNotice variant="toast" />}
       <div className="mx-auto max-w-6xl">
+        {loadFailed && (
+          <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+            We could not load your requests right now. If you just submitted one,
+            please try again later or contact the barangay office.
+          </div>
+        )}
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-pink-500">

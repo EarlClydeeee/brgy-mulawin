@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { syncUserToDatabase } from "@/lib/sync-user";
 import { documentTypes } from "@/lib/request-constants";
 import { createClient } from "@/utils/supabase/server";
 
@@ -39,31 +40,6 @@ export async function createRequest(
     return { error: parsed.error.issues[0]?.message ?? "Invalid request." };
   }
 
-  // #region agent log
-  await fetch("http://127.0.0.1:7387/ingest/0ed8b2e6-04c5-407d-a29a-bbbcb7a124af", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Debug-Session-Id": "b653de",
-    },
-    body: JSON.stringify({
-      sessionId: "b653de",
-      runId: "initial",
-      hypothesisId: "H3,H4",
-      location: "app/actions/requests.ts:40",
-      message: "request schema parsed before auth",
-      data: {
-        type: parsed.data.type,
-        hasFullName: parsed.data.fullName.length > 0,
-        hasBirthday: parsed.data.birthday instanceof Date,
-        hasAddress: parsed.data.address.length > 0,
-        hasPurpose: parsed.data.purpose.length > 0,
-      },
-      timestamp: Date.now(),
-    }),
-  }).catch(() => {});
-  // #endregion
-
   const supabase = await createClient();
   const {
     data: { user },
@@ -73,42 +49,39 @@ export async function createRequest(
     redirect("/login");
   }
 
-  await prisma.user.upsert({
-    where: { id: user.id },
-    update: {
-      email: user.email,
-      name:
-        typeof user.user_metadata.name === "string"
-          ? user.user_metadata.name
-          : user.email,
-    },
-    create: {
-      id: user.id,
-      email: user.email,
-      name:
-        typeof user.user_metadata.name === "string"
-          ? user.user_metadata.name
-          : user.email,
-    },
+  await syncUserToDatabase({
+    id: user.id,
+    email: user.email,
+    name:
+      typeof user.user_metadata.name === "string"
+        ? user.user_metadata.name
+        : user.email,
   });
 
-
-  await prisma.documentRequest.create({
-    data: {
-      type: parsed.data.type,
-      fullName: parsed.data.fullName,
-      birthday: parsed.data.birthday,
-      address: parsed.data.address,
-      purpose: parsed.data.purpose,
-      details: parsed.data.details,
-      userId: user.id,
-      statusLogs: {
-        create: {
-          status: "SUBMITTED",
+  try {
+    await prisma.documentRequest.create({
+      data: {
+        type: parsed.data.type,
+        fullName: parsed.data.fullName,
+        birthday: parsed.data.birthday,
+        address: parsed.data.address,
+        purpose: parsed.data.purpose,
+        details: parsed.data.details,
+        userId: user.id,
+        statusLogs: {
+          create: {
+            status: "SUBMITTED",
+          },
         },
       },
-    },
-  });
+    });
+  } catch (error) {
+    console.error("Failed to create document request:", error);
+    return {
+      error:
+        "Something went wrong while saving your request. Please try again in a moment.",
+    };
+  }
 
   revalidatePath("/dashboard");
   redirect("/dashboard");
