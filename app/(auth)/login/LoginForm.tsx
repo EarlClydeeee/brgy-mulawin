@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useActionState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { login, type AuthActionState } from "@/app/actions/auth";
@@ -12,9 +11,13 @@ type LoginValues = {
   password: string;
 };
 
-export default function LoginForm() {
-  const searchParams = useSearchParams();
-  const showCheckEmailNotice = searchParams.get("checkEmail") === "1";
+type LoginFormProps = {
+  showCheckEmailNotice?: boolean;
+};
+
+export default function LoginForm({
+  showCheckEmailNotice = false,
+}: LoginFormProps) {
   const [state, formAction] = useActionState<AuthActionState, FormData>(login, {});
   const [isPending, startTransition] = useTransition();
   const {

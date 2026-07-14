@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { isAdminUser } from "@/lib/admin";
-import { prisma } from "@/lib/prisma";
+import { syncUserToDatabase } from "@/lib/sync-user";
 import { createClient } from "@/utils/supabase/server";
 
 const loginSchema = z.object({
@@ -44,6 +44,17 @@ export async function login(
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  if (user?.email) {
+    await syncUserToDatabase({
+      id: user.id,
+      email: user.email,
+      name:
+        typeof user.user_metadata.name === "string"
+          ? user.user_metadata.name
+          : parsed.data.email,
+    });
+  }
 
   revalidatePath("/", "layout");
   if (isAdminUser(user)) {
@@ -88,20 +99,19 @@ export async function register(
     return { error: "Registration did not return a user account." };
   }
 
-  await prisma.user.upsert({
-    where: { id: data.user.id },
-    update: {
-      name: parsed.data.name,
-      email: parsed.data.email,
-    },
-    create: {
-      id: data.user.id,
-      name: parsed.data.name,
-      email: parsed.data.email,
-    },
+  await syncUserToDatabase({
+    id: data.user.id,
+    name: parsed.data.name,
+    email: parsed.data.email,
   });
 
-  await supabase.auth.signOut();
+  if (data.session) {
+    try {
+      await supabase.auth.signOut();
+    } catch (signOutError) {
+      console.error("Failed to sign out after registration:", signOutError);
+    }
+  }
 
   revalidatePath("/", "layout");
   redirect("/login?checkEmail=1");

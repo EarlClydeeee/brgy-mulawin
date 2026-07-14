@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import LoginForm from "./LoginForm";
 
 export const metadata = {
@@ -6,10 +5,12 @@ export const metadata = {
   description: "Sign in to your Barangay Mulawin resident account.",
 };
 
-export default function LoginPage() {
-  return (
-    <Suspense fallback={<LoginForm />}>
-      <LoginForm />
-    </Suspense>
-  );
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ checkEmail?: string }>;
+}) {
+  const { checkEmail } = await searchParams;
+
+  return <LoginForm showCheckEmailNotice={checkEmail === "1"} />;
 }
