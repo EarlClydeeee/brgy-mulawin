@@ -91,5 +91,5 @@ export async function createRequest(
   }
 
   revalidatePath("/dashboard");
-  redirect("/dashboard");
+  redirect("/dashboard?submitted=1");
 }

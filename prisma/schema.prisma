@@ -13,8 +13,6 @@ enum RequestStatus {
   SUBMITTED
   UNDER_REVIEW
   FOR_PICKUP
-  NEEDS_REVISION
-  REJECTED
   RELEASED
 }
 
@@ -44,6 +42,7 @@ model DocumentRequest {
 model RequestStatusLog {
   id String @id @default(uuid())
   status RequestStatus
+  note String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   documentRequestId String

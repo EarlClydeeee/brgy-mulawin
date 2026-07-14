@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { Calendar, FileText, Plus } from "lucide-react";
 import { CheckEmailNotice } from "@/components/CheckEmailNotice";
 import { LogoutButton } from "@/components/LogoutButton";
+import { RequestStatusAlert } from "@/components/RequestStatusAlert";
+import { RequestSubmittedNotice } from "@/components/RequestSubmittedNotice";
 import {
   getDocumentLabel,
   getStatusClass,
@@ -22,9 +24,9 @@ export const metadata = {
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ checkEmail?: string }>;
+  searchParams: Promise<{ checkEmail?: string; submitted?: string }>;
 }) {
-  const { checkEmail } = await searchParams;
+  const { checkEmail, submitted } = await searchParams;
   const supabase = await createClient();
   const {
     data: { user },
@@ -59,6 +61,7 @@ export default async function DashboardPage({
   return (
     <section className="bg-gradient-to-b from-green-50/70 to-white px-4 py-14">
       {checkEmail === "1" && <CheckEmailNotice variant="toast" />}
+      {submitted === "1" && <RequestSubmittedNotice />}
       <div className="mx-auto max-w-6xl">
         {loadFailed && (
           <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
@@ -115,7 +118,7 @@ export default async function DashboardPage({
                 className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm transition hover:shadow-md"
               >
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <span
                       className={`inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest ${getStatusClass(request.status)}`}
                     >
@@ -143,25 +146,36 @@ export default async function DashboardPage({
                   </div>
                 </div>
 
+                <div className="mt-6">
+                  <RequestStatusAlert status={request.status} />
+                </div>
+
                 <div className="mt-6 border-t border-gray-100 pt-5">
                   <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-gray-400">
                     Timeline
                   </p>
                   <div className="space-y-3">
                     {request.statusLogs.map((log: StatusLogEntry) => (
-                      <div key={log.id} className="flex items-center gap-3">
-                        <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-pink-500 to-green-500" />
-                        <p className="text-sm text-gray-600">
-                          <span className="font-semibold">
-                            {getStatusLabel(log.status)}
-                          </span>{" "}
-                          on{" "}
-                          {log.createdAt.toLocaleDateString("en-PH", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })}
-                        </p>
+                      <div key={log.id} className="flex items-start gap-3">
+                        <span className="mt-1.5 h-2.5 w-2.5 rounded-full bg-gradient-to-r from-pink-500 to-green-500" />
+                        <div>
+                          <p className="text-sm text-gray-600">
+                            <span className="font-semibold">
+                              {getStatusLabel(log.status)}
+                            </span>{" "}
+                            on{" "}
+                            {log.createdAt.toLocaleDateString("en-PH", {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            })}
+                          </p>
+                          {log.note && (
+                            <p className="mt-1 text-sm text-gray-500">
+                              {log.note}
+                            </p>
+                          )}
+                        </div>
                       </div>
                     ))}
                   </div>

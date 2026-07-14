@@ -161,6 +161,9 @@ export default async function AdminRequestDetailPage({
                           year: "numeric",
                         })}
                       </p>
+                      {log.note && (
+                        <p className="mt-1 text-sm text-gray-600">{log.note}</p>
+                      )}
                     </div>
                   </div>
                 ))}

@@ -6,7 +6,7 @@ import {
   updateRequestStatus,
   type AdminRequestActionState,
 } from "@/app/actions/adminRequests";
-import { requestStatuses } from "@/lib/request-constants";
+import { adminUpdateStatuses } from "@/lib/request-constants";
 import {
   getStatusClass,
   getStatusLabel,
@@ -22,6 +22,13 @@ export function StatusBadge({ status }: { status: string }) {
   );
 }
 
+const buttonStyles = {
+  UNDER_REVIEW:
+    "border-yellow-200 bg-yellow-50 text-yellow-800 hover:border-yellow-300",
+  FOR_PICKUP:
+    "border-blue-200 bg-blue-50 text-blue-800 hover:border-blue-300",
+} as const;
+
 export function StatusUpdateForm({
   requestId,
   currentStatus,
@@ -35,32 +42,35 @@ export function StatusUpdateForm({
   >(updateRequestStatus, {});
   const [isPending, startTransition] = useTransition();
 
+  const submit = (formData: FormData) => {
+    startTransition(() => formAction(formData));
+  };
+
   return (
-    <form
-      action={(formData) => startTransition(() => formAction(formData))}
-      className="flex flex-col gap-2 sm:flex-row sm:items-center"
-    >
-      <input type="hidden" name="requestId" value={requestId} />
-      <select
-        name="status"
-        defaultValue={currentStatus}
-        className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-700 outline-none transition focus:border-pink-300 focus:ring-4 focus:ring-pink-100"
-      >
-        {requestStatuses.map((status) => (
-          <option key={status} value={status}>
-            {getStatusLabel(status)}
-          </option>
-        ))}
-      </select>
-      <button
-        type="submit"
-        disabled={isPending}
-        className="rounded-full bg-gradient-to-r from-pink-500 to-green-500 px-4 py-2 text-sm font-bold text-white transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {isPending ? "Updating..." : "Update"}
-      </button>
+    <div className="space-y-3">
+      <form action={submit} className="space-y-3">
+        <input type="hidden" name="requestId" value={requestId} />
+        <div className="flex flex-col gap-2">
+          {adminUpdateStatuses.map((status) => (
+            <button
+              key={status}
+              type="submit"
+              name="status"
+              value={status}
+              disabled={isPending || currentStatus === status}
+              className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${buttonStyles[status]}`}
+            >
+              {getStatusLabel(status)}
+            </button>
+          ))}
+        </div>
+      </form>
+
       {state.error && <p className="text-sm text-red-600">{state.error}</p>}
-    </form>
+      {state.success && (
+        <p className="text-sm font-semibold text-green-700">{state.success}</p>
+      )}
+    </div>
   );
 }
 

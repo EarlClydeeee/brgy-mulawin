@@ -9,7 +9,9 @@ export const requestStatuses = [
   "SUBMITTED",
   "UNDER_REVIEW",
   "FOR_PICKUP",
-  "NEEDS_REVISION",
-  "REJECTED",
   "RELEASED",
 ] as const;
+
+export const adminUpdateStatuses = ["UNDER_REVIEW", "FOR_PICKUP"] as const;
+
+export type AdminUpdateStatus = (typeof adminUpdateStatuses)[number];

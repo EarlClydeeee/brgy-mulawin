@@ -5,16 +5,17 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { isAdminUser } from "@/lib/admin";
 import { prisma } from "@/lib/prisma";
-import { requestStatuses } from "@/lib/request-constants";
+import { adminUpdateStatuses } from "@/lib/request-constants";
 import { createClient } from "@/utils/supabase/server";
 
 const updateStatusSchema = z.object({
   requestId: z.string().min(1, "Request ID is required."),
-  status: z.enum(requestStatuses),
+  status: z.enum(adminUpdateStatuses),
 });
 
 export type AdminRequestActionState = {
   error?: string;
+  success?: string;
 };
 
 const requireAdmin = async () => {
@@ -51,6 +52,19 @@ export async function updateRequestStatus(
     };
   }
 
+  const existing = await prisma.documentRequest.findUnique({
+    where: { id: parsed.data.requestId },
+    select: { status: true },
+  });
+
+  if (!existing) {
+    return { error: "Request not found." };
+  }
+
+  if (existing.status === parsed.data.status) {
+    return { error: "This request already has that status." };
+  }
+
   await prisma.$transaction([
     prisma.documentRequest.update({
       where: { id: parsed.data.requestId },
@@ -68,5 +82,12 @@ export async function updateRequestStatus(
   revalidatePath(`/admin/requests/${parsed.data.requestId}`);
   revalidatePath("/dashboard");
 
-  return {};
+  const successMessages = {
+    UNDER_REVIEW: "Request marked as under review.",
+    FOR_PICKUP: "Request marked as ready for pickup.",
+  } as const;
+
+  return {
+    success: successMessages[parsed.data.status],
+  };
 }
