@@ -61,7 +61,7 @@ export async function login(
     redirect("/admin/requests");
   }
 
-  redirect("/dashboard?checkEmail=1");
+  redirect("/dashboard");
 }
 
 export async function register(

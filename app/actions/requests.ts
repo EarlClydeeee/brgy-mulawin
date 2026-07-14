@@ -49,7 +49,7 @@ export async function createRequest(
     redirect("/login");
   }
 
-  await syncUserToDatabase({
+  const synced = await syncUserToDatabase({
     id: user.id,
     email: user.email,
     name:
@@ -57,6 +57,13 @@ export async function createRequest(
         ? user.user_metadata.name
         : user.email,
   });
+
+  if (!synced) {
+    return {
+      error:
+        "Your account could not be linked to our records. Please try again or contact the barangay office.",
+    };
+  }
 
   try {
     await prisma.documentRequest.create({
