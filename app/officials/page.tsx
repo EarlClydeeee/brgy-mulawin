@@ -1,18 +1,47 @@
 import { Award } from "lucide-react";
 import OfficialsDirectory from "@/components/OfficialsDirectory";
-import { createPageMetadata } from "@/lib/seo";
+import { createPageMetadata, getBreadcrumbJsonLd, getItemListJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { siteUrl } from "@/lib/site";
+import { punongBarangay, sangguniangBarangay, skOfficials, appointedOfficials } from "@/lib/officials";
 
 export const metadata = createPageMetadata({
   title: "Barangay Officials",
   description:
-    "Meet the elected and appointed officials serving Barangay Mulawin, Tanza, Cavite.",
+    "Meet the elected and appointed officials serving Barangay Mulawin, Tanza, Cavite. View the Punong Barangay, council members, SK officials, and appointed staff.",
   path: "/officials",
-  keywords: ["barangay captain", "barangay councilors Mulawin"],
+  keywords: [
+    "barangay captain Mulawin",
+    "barangay councilors Mulawin",
+    "Tanza Cavite officials",
+    "punong barangay Mulawin",
+    "sangguniang barangay",
+  ],
 });
 
 export default function OfficialsPage() {
+  const allOfficials = [
+    punongBarangay,
+    ...sangguniangBarangay,
+    ...skOfficials,
+    ...appointedOfficials,
+  ];
+
+  const breadcrumbData = getBreadcrumbJsonLd([
+    { name: "Barangay Officials", path: "/officials" },
+  ]);
+
+  const officialsListData = getItemListJsonLd(
+    allOfficials.map((official, index) => ({
+      name: `${official.name} — ${official.title}`,
+      url: `${siteUrl}/officials`,
+      position: index + 1,
+    })),
+  );
+
   return (
     <>
+      <JsonLd data={[breadcrumbData, officialsListData]} />
       {/* Hero Banner */}
       <section className="relative overflow-hidden bg-gradient-to-br from-pink-600 via-pink-500 to-green-500 py-20 px-4">
         <div className="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-white/5 pointer-events-none" />

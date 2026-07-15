@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Lexend, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -27,6 +27,28 @@ export const metadata: Metadata = {
     default: `${siteConfig.name} — Official Website`,
     template: `%s | ${siteConfig.name}`,
   },
+  applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.name, url: siteUrl }],
+  generator: "Next.js",
+  category: "Government",
+  classification: "Government Website",
+  other: {
+    "geo.region": "PH-CAV",
+    "geo.placename": "Tanza, Cavite",
+    "geo.position": "14.4;120.85",
+    "ICBM": "14.4, 120.85",
+    "revisit-after": "3 days",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#111827" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({

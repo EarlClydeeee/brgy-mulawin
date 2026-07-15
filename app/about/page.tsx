@@ -1,12 +1,18 @@
 import { Target, Eye, Leaf, MapPin, CalendarDays, Users } from "lucide-react";
-import { createPageMetadata } from "@/lib/seo";
+import { createPageMetadata, getBreadcrumbJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 
 export const metadata = createPageMetadata({
   title: "About Us",
   description:
-    "Learn about the history, mission, and vision of Barangay Mulawin in Tanza, Cavite.",
+    "Learn about the history, mission, vision, and core values of Barangay Mulawin in Tanza, Cavite. Established in 1975, serving 12,500+ residents.",
   path: "/about",
-  keywords: ["Barangay Mulawin history", "Tanza Cavite community"],
+  keywords: [
+    "Barangay Mulawin history",
+    "Tanza Cavite community",
+    "barangay mission vision",
+    "Mulawin established 1975",
+  ],
 });
 
 const milestones = [
@@ -38,8 +44,13 @@ const milestones = [
 ];
 
 export default function AboutPage() {
+  const breadcrumbData = getBreadcrumbJsonLd([
+    { name: "About Us", path: "/about" },
+  ]);
+
   return (
     <>
+      <JsonLd data={breadcrumbData} />
       {/* Page Header */}
       <section className="gradient-hero py-14 px-4">
         <div className="max-w-7xl mx-auto text-center">

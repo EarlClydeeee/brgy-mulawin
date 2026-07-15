@@ -6,18 +6,21 @@ import {
   AlertCircle,
   ExternalLink,
 } from "lucide-react";
-import { createPageMetadata } from "@/lib/seo";
+import { createPageMetadata, getBreadcrumbJsonLd, getFaqJsonLd, getGovernmentServiceJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 
 export const metadata = createPageMetadata({
   title: "Barangay Services",
   description:
-    "Barangay clearance, certificate of residency, certificate of indigency, and business permit services at Barangay Mulawin, Tanza, Cavite.",
+    "Barangay clearance, certificate of residency, certificate of indigency, and business permit services at Barangay Mulawin, Tanza, Cavite. View requirements, fees, and processing times.",
   path: "/services",
   keywords: [
     "barangay clearance Tanza",
     "certificate of residency Cavite",
     "certificate of indigency",
     "business permit barangay",
+    "barangay services online",
+    "LGU services Tanza Cavite",
   ],
 });
 
@@ -142,8 +145,72 @@ const steps = [
 ];
 
 export default function ServicesPage() {
+  const breadcrumbData = getBreadcrumbJsonLd([
+    { name: "Services", path: "/services" },
+  ]);
+
+  const faqData = getFaqJsonLd([
+    {
+      question: "How do I get a Barangay Clearance in Mulawin, Tanza?",
+      answer:
+        "Visit the Barangay Mulawin Hall with a valid government-issued ID, proof of residency (utility bill or rental contract), accomplished application form, and 1 piece 1x1 ID photo. The fee is ₱50.00 and processing takes 30-60 minutes.",
+    },
+    {
+      question: "What are the requirements for a Certificate of Residency?",
+      answer:
+        "You need a valid government-issued ID (photocopy and original), utility bill or rental contract, and an accomplished application form. The fee is ₱30.00 and is processed the same day.",
+    },
+    {
+      question: "How much does a Certificate of Indigency cost?",
+      answer:
+        "The Certificate of Indigency is free of charge for qualified low-income residents. You need a valid ID and proof of low-income status (if available).",
+    },
+    {
+      question: "What are the office hours of Barangay Mulawin Hall?",
+      answer:
+        "The Barangay Hall is open Monday to Friday from 8:00 AM to 5:00 PM, and Saturday from 8:00 AM to 12:00 PM. It is closed on Sundays and public holidays.",
+    },
+    {
+      question: "How do I apply for a Barangay Business Permit?",
+      answer:
+        "Bring your DTI or SEC registration, lease contract or proof of business address, valid ID, accomplished application form, and previous year's permit (for renewals). The fee ranges from ₱200.00 to ₱500.00 based on capitalization. Processing takes 1-2 business days.",
+    },
+  ]);
+
+  const serviceSchemas = getGovernmentServiceJsonLd([
+    {
+      name: "Barangay Clearance",
+      description:
+        "Official certificate attesting no pending criminal or civil complaints. Required for employment, business applications, and legal transactions.",
+      fee: "₱50.00",
+      processingTime: "Same day (30-60 mins)",
+    },
+    {
+      name: "Certificate of Residency",
+      description:
+        "Official proof that the applicant is a bonafide resident of Barangay Mulawin. Required for scholarship applications, school enrollment, and government assistance.",
+      fee: "₱30.00",
+      processingTime: "Same day",
+    },
+    {
+      name: "Certificate of Indigency",
+      description:
+        "For qualified low-income residents seeking financial or medical assistance from government agencies.",
+      fee: "Free",
+      processingTime: "Same day",
+    },
+    {
+      name: "Barangay Business Permit",
+      description:
+        "Required for micro and small enterprises operating within Barangay Mulawin. Must be renewed annually.",
+      fee: "₱200.00 – ₱500.00",
+      processingTime: "1-2 business days",
+    },
+  ]);
+
   return (
     <>
+      <JsonLd data={[breadcrumbData, faqData, ...serviceSchemas]} />
       {/* Page Header */}
       <section className="gradient-hero py-14 px-4">
         <div className="max-w-7xl mx-auto text-center">
