@@ -1,20 +1,42 @@
 import { Megaphone } from "lucide-react";
 import NewsContent from "@/components/NewsContent";
-import { createPageMetadata } from "@/lib/seo";
+import { createPageMetadata, getBreadcrumbJsonLd, getItemListJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { newsArticles } from "@/lib/announcements";
+import { siteUrl } from "@/lib/site";
 
 export const metadata = createPageMetadata({
   title: "News & Announcements",
   description:
-    "Latest news, events, and barangay announcements from Barangay Mulawin, Tanza, Cavite.",
+    "Latest news, events, programs, and barangay announcements from Barangay Mulawin, Tanza, Cavite. Stay updated on community activities and government services.",
   path: "/news",
-  keywords: ["barangay announcements", "Mulawin community news"],
+  keywords: [
+    "barangay announcements",
+    "Mulawin community news",
+    "Tanza Cavite events",
+    "barangay programs",
+    "community updates",
+  ],
 });
 
 export const dynamic = "force-dynamic";
 
 export default function NewsPage() {
+  const breadcrumbData = getBreadcrumbJsonLd([
+    { name: "News & Announcements", path: "/news" },
+  ]);
+
+  const newsListData = getItemListJsonLd(
+    newsArticles.slice(0, 10).map((article, index) => ({
+      name: article.title,
+      url: `${siteUrl}/news#${article.id}`,
+      position: index + 1,
+    })),
+  );
+
   return (
     <>
+      <JsonLd data={[breadcrumbData, newsListData]} />
       <section className="gradient-hero py-14 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <span className="inline-flex items-center gap-2 bg-white/70 text-green-700 px-4 py-1.5 rounded-full text-sm font-medium mb-4 shadow-sm">
