@@ -85,6 +85,14 @@ const nextConfig: NextConfig = {
   },
   poweredByHeader: false,
   compress: true,
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "6mb",
+    },
+  },
+  outputFileTracingIncludes: {
+    "/**/*": ["./templates/*.docx"],
+  },
 };
 
 export default nextConfig;

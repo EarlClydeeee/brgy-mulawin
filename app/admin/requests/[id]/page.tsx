@@ -10,6 +10,7 @@ import {
   type StatusLogEntry,
 } from "../_constants";
 import { StatusBadge, StatusUpdateForm } from "../_components";
+import { RequestDraftDownload } from "../RequestDraftDownload";
 
 export const metadata = {
   title: "Request Details — Barangay Mulawin",
@@ -131,6 +132,11 @@ export default async function AdminRequestDetailPage({
           </article>
 
           <aside className="space-y-6">
+            <RequestDraftDownload
+              requestId={request.id}
+              available={Boolean(request.draftDocPath)}
+            />
+
             <div className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
               <p className="mb-4 text-xs font-bold uppercase tracking-widest text-gray-400">
                 Update status

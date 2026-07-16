@@ -32,6 +32,7 @@ model DocumentRequest {
   address String
   purpose String
   details String?
+  draftDocPath String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId String

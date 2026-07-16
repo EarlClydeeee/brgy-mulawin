@@ -49,6 +49,7 @@ export type AdminRequestEntry = {
   address: string;
   purpose: string;
   details: string | null;
+  draftDocPath: string | null;
   createdAt: Date;
   user: RequestUser;
   statusLogs: StatusLogEntry[];

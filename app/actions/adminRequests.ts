@@ -4,6 +4,10 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { isAdminUser } from "@/lib/admin";
+import {
+  createDraftDownloadUrl,
+  generateAndUploadDraft,
+} from "@/lib/document-drafts";
 import { prisma } from "@/lib/prisma";
 import { adminUpdateStatuses } from "@/lib/request-constants";
 import { createClient } from "@/utils/supabase/server";
@@ -14,6 +18,16 @@ const updateStatusSchema = z.object({
 });
 
 export type AdminRequestActionState = {
+  error?: string;
+  success?: string;
+};
+
+export type DraftDownloadActionState = {
+  error?: string;
+  url?: string;
+};
+
+export type DraftGenerationActionState = {
   error?: string;
   success?: string;
 };
@@ -90,4 +104,81 @@ export async function updateRequestStatus(
   return {
     success: successMessages[parsed.data.status],
   };
+}
+
+export async function getDraftDownloadUrl(
+  requestId: string,
+): Promise<DraftDownloadActionState> {
+  await requireAdmin();
+
+  const request = await prisma.documentRequest.findUnique({
+    where: { id: requestId },
+    select: { draftDocPath: true },
+  });
+
+  if (!request) {
+    return { error: "Request not found." };
+  }
+
+  if (!request.draftDocPath) {
+    return {
+      error:
+        "A document draft is not available yet. Try submitting or regenerating the request later.",
+    };
+  }
+
+  try {
+    return { url: await createDraftDownloadUrl(request.draftDocPath) };
+  } catch (error) {
+    console.error(
+      `Failed to create DOCX download link for request ${requestId}:`,
+      error,
+    );
+    return {
+      error: "Unable to prepare the document download. Please try again.",
+    };
+  }
+}
+
+export async function generateRequestDraft(
+  requestId: string,
+): Promise<DraftGenerationActionState> {
+  await requireAdmin();
+
+  const request = await prisma.documentRequest.findUnique({
+    where: { id: requestId },
+    include: {
+      user: {
+        select: {
+          email: true,
+        },
+      },
+    },
+  });
+
+  if (!request) {
+    return { error: "Request not found." };
+  }
+
+  try {
+    const draftDocPath = await generateAndUploadDraft(request);
+    await prisma.documentRequest.update({
+      where: { id: request.id },
+      data: { draftDocPath },
+    });
+
+    revalidatePath("/admin/requests");
+    revalidatePath(`/admin/requests/${request.id}`);
+
+    return { success: "DOCX draft generated successfully." };
+  } catch (error) {
+    console.error(
+      `Failed to generate DOCX draft for request ${request.id}:`,
+      error,
+    );
+    return {
+      error:
+        "Unable to generate the DOCX draft. Check the private request-drafts bucket and SUPABASE_SERVICE_ROLE_KEY.",
+    };
+  }
 }

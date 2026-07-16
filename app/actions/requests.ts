@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { generateAndUploadDraft } from "@/lib/document-drafts";
 import { syncUserToDatabase } from "@/lib/sync-user";
 import { documentTypes } from "@/lib/request-constants";
 import { createClient } from "@/utils/supabase/server";
@@ -65,8 +66,10 @@ export async function createRequest(
     };
   }
 
+  let request;
+
   try {
-    await prisma.documentRequest.create({
+    request = await prisma.documentRequest.create({
       data: {
         type: parsed.data.type,
         fullName: parsed.data.fullName,
@@ -81,6 +84,13 @@ export async function createRequest(
           },
         },
       },
+      include: {
+        user: {
+          select: {
+            email: true,
+          },
+        },
+      },
     });
   } catch (error) {
     console.error("Failed to create document request:", error);
@@ -88,6 +98,17 @@ export async function createRequest(
       error:
         "Something went wrong while saving your request. Please try again in a moment.",
     };
+  }
+
+  try {
+    const draftDocPath = await generateAndUploadDraft(request);
+    await prisma.documentRequest.update({
+      where: { id: request.id },
+      data: { draftDocPath },
+    });
+  } catch (error) {
+    // The resident request must remain saved even if DOCX generation fails.
+    console.error(`Failed to generate DOCX draft for request ${request.id}:`, error);
   }
 
   revalidatePath("/dashboard");
