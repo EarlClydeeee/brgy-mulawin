@@ -1,9 +1,5 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import { Megaphone, CalendarDays, ArrowRight } from "lucide-react";
-import AnnouncementModal from "@/components/AnnouncementModal";
 import type { PostDisplayItem } from "@/lib/posts";
 
 function SectionLabel({
@@ -29,8 +25,6 @@ export default function AnnouncementsSectionClient({
 }: {
   posts: PostDisplayItem[];
 }) {
-  const [selected, setSelected] = useState<PostDisplayItem | null>(null);
-
   return (
     <>
       <section className="bg-white px-4 py-24">
@@ -91,9 +85,8 @@ export default function AnnouncementsSectionClient({
                     <p className="mb-8 flex-1 text-sm leading-relaxed text-gray-500">
                       {post.excerpt}
                     </p>
-                    <button
-                      type="button"
-                      onClick={() => setSelected(post)}
+                    <Link
+                      href={`/news/${post.slug}`}
                       className={`inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest transition-all hover:translate-x-1 ${
                         post.color === "pink"
                           ? "text-pink-600"
@@ -102,7 +95,7 @@ export default function AnnouncementsSectionClient({
                     >
                       <Megaphone className="h-4 w-4" />
                       Read full story
-                    </button>
+                    </Link>
                   </div>
                 </article>
               ))}
@@ -111,10 +104,6 @@ export default function AnnouncementsSectionClient({
         </div>
       </section>
 
-      <AnnouncementModal
-        announcement={selected}
-        onClose={() => setSelected(null)}
-      />
     </>
   );
 }

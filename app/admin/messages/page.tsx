@@ -1,5 +1,6 @@
 import { Inbox, Mail, Phone } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { MessageReadButton } from "./_components";
 
 export const metadata = {
   title: "Contact Messages — Barangay Mulawin",
@@ -94,12 +95,18 @@ export default async function AdminMessagesPage() {
                     </p>
                   </div>
 
-                  <div className="shrink-0 self-start rounded-2xl bg-gray-50 px-4 py-3 text-sm text-gray-500">
-                    {message.createdAt.toLocaleDateString("en-PH", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
+                  <div className="flex shrink-0 self-start flex-col gap-3">
+                    <div className="rounded-2xl bg-gray-50 px-4 py-3 text-sm text-gray-500">
+                      {message.createdAt.toLocaleDateString("en-PH", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </div>
+                    <MessageReadButton
+                      messageId={message.id}
+                      isRead={message.isRead}
+                    />
                   </div>
                 </div>
               </article>

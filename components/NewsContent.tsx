@@ -1,12 +1,8 @@
-import { prisma } from "@/lib/prisma";
+import type { Post } from "@prisma/client";
 import { toPostDisplayItem } from "@/lib/posts";
 import NewsContentClient from "@/components/NewsContentClient";
 
-export default async function NewsContent() {
-  const posts = await prisma.post.findMany({
-    orderBy: { createdAt: "desc" },
-  });
-
+export default function NewsContent({ posts }: { posts: Post[] }) {
   const featuredPost = posts.find((post) => post.isFeatured) ?? null;
   const restPosts = posts.filter((post) => post.id !== featuredPost?.id);
 

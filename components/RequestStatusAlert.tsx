@@ -6,7 +6,7 @@ type RequestStatusAlertProps = {
 };
 
 export function RequestStatusAlert({ status }: RequestStatusAlertProps) {
-  const isActionable = status !== "SUBMITTED";
+  const isActionable = status === "UNDER_REVIEW" || status === "FOR_PICKUP";
 
   return (
     <div

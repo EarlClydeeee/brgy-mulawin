@@ -1,9 +1,6 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { CalendarDays, ArrowRight } from "lucide-react";
-import AnnouncementModal from "@/components/AnnouncementModal";
 import type { PostDisplayItem } from "@/lib/posts";
 
 export default function NewsContentClient({
@@ -13,7 +10,6 @@ export default function NewsContentClient({
   featured: PostDisplayItem | null;
   posts: PostDisplayItem[];
 }) {
-  const [selected, setSelected] = useState<PostDisplayItem | null>(null);
   const totalCount = posts.length + (featured ? 1 : 0);
 
   return (
@@ -53,13 +49,12 @@ export default function NewsContentClient({
                   <p className="mb-10 max-w-3xl text-lg font-medium leading-relaxed text-gray-600">
                     {featured.excerpt}
                   </p>
-                  <button
-                    type="button"
-                    onClick={() => setSelected(featured)}
+                  <Link
+                    href={`/news/${featured.slug}`}
                     className="inline-flex items-center gap-3 rounded-full bg-gray-900 px-10 py-4 text-sm font-bold text-white shadow-xl transition-all hover:bg-pink-600 active:scale-95"
                   >
                     Read full update <ArrowRight className="h-4 w-4" />
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -123,9 +118,8 @@ export default function NewsContentClient({
                       <p className="mb-8 line-clamp-3 flex-1 text-sm font-medium leading-relaxed text-gray-500">
                         {post.excerpt}
                       </p>
-                      <button
-                        type="button"
-                        onClick={() => setSelected(post)}
+                      <Link
+                        href={`/news/${post.slug}`}
                         className={`inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest transition-all hover:translate-x-1 ${
                           post.color === "pink"
                             ? "text-pink-600"
@@ -133,7 +127,7 @@ export default function NewsContentClient({
                         }`}
                       >
                         Learn more <ArrowRight className="h-4 w-4" />
-                      </button>
+                      </Link>
                     </div>
                   </article>
                 ))}
@@ -143,10 +137,6 @@ export default function NewsContentClient({
         </div>
       </section>
 
-      <AnnouncementModal
-        announcement={selected}
-        onClose={() => setSelected(null)}
-      />
     </>
   );
 }

@@ -61,6 +61,7 @@ model User {
 
 model Post {
   id         String   @id @default(uuid())
+  slug       String   @unique
   headline   String   @db.VarChar(200)
   caption    String   @db.VarChar(500)
   imageUrls  String[]

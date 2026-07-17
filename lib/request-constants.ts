@@ -12,6 +12,18 @@ export const requestStatuses = [
   "RELEASED",
 ] as const;
 
-export const adminUpdateStatuses = ["UNDER_REVIEW", "FOR_PICKUP"] as const;
+export type RequestStatus = (typeof requestStatuses)[number];
 
-export type AdminUpdateStatus = (typeof adminUpdateStatuses)[number];
+export const allowedRequestStatusTransitions: Record<
+  RequestStatus,
+  RequestStatus[]
+> = {
+  SUBMITTED: ["UNDER_REVIEW"],
+  UNDER_REVIEW: ["FOR_PICKUP"],
+  FOR_PICKUP: ["RELEASED"],
+  RELEASED: [],
+};
+
+export function getAllowedNextStatuses(status: string): RequestStatus[] {
+  return allowedRequestStatusTransitions[status as RequestStatus] ?? [];
+}

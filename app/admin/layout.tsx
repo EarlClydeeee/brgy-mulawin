@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getAuthNavState } from "@/lib/auth-nav";
+import { requireAdmin } from "@/lib/require-admin";
 import { IconShieldCheck } from "@/components/icons";
 import { AdminNav } from "./AdminNav";
 
@@ -16,7 +16,7 @@ export default async function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const auth = await getAuthNavState();
+  await requireAdmin();
 
   return (
     <section className="min-h-screen bg-gray-50">
@@ -34,7 +34,7 @@ export default async function AdminLayout({
               Manage document requests and community announcements.
             </p>
           </div>
-          <AdminNav isAuthenticated={auth.isAuthenticated} />
+          <AdminNav isAuthenticated />
         </div>
       </header>
       {children}

@@ -1,20 +1,22 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { z } from "zod";
-import { isAdminUser } from "@/lib/admin";
+import { requireAdmin } from "@/lib/require-admin";
 import {
   createDraftDownloadUrl,
   generateAndUploadDraft,
 } from "@/lib/document-drafts";
 import { prisma } from "@/lib/prisma";
-import { adminUpdateStatuses } from "@/lib/request-constants";
-import { createClient } from "@/utils/supabase/server";
+import {
+  getAllowedNextStatuses,
+  requestStatuses,
+  type RequestStatus,
+} from "@/lib/request-constants";
 
 const updateStatusSchema = z.object({
   requestId: z.string().min(1, "Request ID is required."),
-  status: z.enum(adminUpdateStatuses),
+  status: z.enum(requestStatuses),
 });
 
 export type AdminRequestActionState = {
@@ -30,23 +32,6 @@ export type DraftDownloadActionState = {
 export type DraftGenerationActionState = {
   error?: string;
   success?: string;
-};
-
-const requireAdmin = async () => {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/login");
-  }
-
-  if (!isAdminUser(user)) {
-    redirect("/");
-  }
-
-  return user;
 };
 
 export async function updateRequestStatus(
@@ -75,8 +60,10 @@ export async function updateRequestStatus(
     return { error: "Request not found." };
   }
 
-  if (existing.status === parsed.data.status) {
-    return { error: "This request already has that status." };
+  if (!getAllowedNextStatuses(existing.status).includes(parsed.data.status)) {
+    return {
+      error: "That status change is not allowed for this request.",
+    };
   }
 
   await prisma.$transaction([
@@ -96,13 +83,14 @@ export async function updateRequestStatus(
   revalidatePath(`/admin/requests/${parsed.data.requestId}`);
   revalidatePath("/dashboard");
 
-  const successMessages = {
+  const successMessages: Partial<Record<RequestStatus, string>> = {
     UNDER_REVIEW: "Request marked as under review.",
     FOR_PICKUP: "Request marked as ready for pickup.",
-  } as const;
+    RELEASED: "Request marked as released.",
+  };
 
   return {
-    success: successMessages[parsed.data.status],
+    success: successMessages[parsed.data.status] ?? "Request status updated.",
   };
 }
 

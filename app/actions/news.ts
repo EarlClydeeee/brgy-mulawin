@@ -4,9 +4,9 @@ import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { isAdminUser } from "@/lib/admin";
+import { requireAdmin } from "@/lib/require-admin";
+import { createUniquePostSlug } from "@/lib/post-slugs";
 import { prisma } from "@/lib/prisma";
-import { createClient } from "@/utils/supabase/server";
 
 const BUCKET = "post-images";
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
@@ -27,23 +27,6 @@ const postSchema = z.object({
 
 export type PostActionState = {
   error?: string;
-};
-
-const requireAdmin = async () => {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/login");
-  }
-
-  if (!isAdminUser(user)) {
-    redirect("/");
-  }
-
-  return user;
 };
 
 const createServiceClient = () => {
@@ -104,10 +87,11 @@ const uploadImage = async (
   return { url: data.publicUrl };
 };
 
-const revalidateNewsPaths = () => {
+const revalidateNewsPaths = (...slugs: string[]) => {
   revalidatePath("/admin/news");
   revalidatePath("/");
   revalidatePath("/news");
+  slugs.forEach((slug) => revalidatePath(`/news/${slug}`));
 };
 
 export async function createPost(
@@ -138,15 +122,17 @@ export async function createPost(
     imageUrls.push(uploaded.url);
   }
 
+  const slug = await createUniquePostSlug(parsed.data.headline);
   await prisma.post.create({
     data: {
+      slug,
       headline: parsed.data.headline,
       caption: parsed.data.caption,
       imageUrls,
     },
   });
 
-  revalidateNewsPaths();
+  revalidateNewsPaths(slug);
   redirect("/admin/news");
 }
 
@@ -176,6 +162,10 @@ export async function updatePost(
   const removeImage = formData.get("removeImage") === "true";
   const image = formData.get("image");
   let imageUrls = [...existing.imageUrls];
+  const slug =
+    existing.headline === parsed.data.headline
+      ? existing.slug
+      : await createUniquePostSlug(parsed.data.headline, existing.id);
 
   if (removeImage) {
     if (imageUrls[0]) {
@@ -196,13 +186,14 @@ export async function updatePost(
   await prisma.post.update({
     where: { id },
     data: {
+      slug,
       headline: parsed.data.headline,
       caption: parsed.data.caption,
       imageUrls,
     },
   });
 
-  revalidateNewsPaths();
+  revalidateNewsPaths(existing.slug, slug);
   redirect("/admin/news");
 }
 
@@ -217,7 +208,7 @@ export async function deletePost(id: string): Promise<void> {
   }
 
   await prisma.post.delete({ where: { id } });
-  revalidateNewsPaths();
+  revalidateNewsPaths(existing.slug);
 }
 
 export async function toggleFeatured(
@@ -248,7 +239,7 @@ export async function toggleFeatured(
       ]);
     }
 
-    revalidateNewsPaths();
+    revalidateNewsPaths(existing.slug);
     return { success: true };
   } catch {
     return { success: false, error: "Failed to update featured status." };

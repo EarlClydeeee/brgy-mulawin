@@ -2,6 +2,7 @@ import type { Post } from "@prisma/client";
 
 export type PostDisplayItem = {
   id: string;
+  slug: string;
   title: string;
   excerpt: string;
   fullContent: string;
@@ -22,6 +23,7 @@ export const toPostDisplayItem = (
   index = 0,
 ): PostDisplayItem => ({
   id: post.id,
+  slug: post.slug,
   title: post.headline,
   excerpt: post.caption,
   fullContent: post.caption,

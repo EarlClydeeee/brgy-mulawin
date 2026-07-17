@@ -2,8 +2,8 @@ import { Megaphone } from "lucide-react";
 import NewsContent from "@/components/NewsContent";
 import { createPageMetadata, getBreadcrumbJsonLd, getItemListJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
-import { newsArticles } from "@/lib/announcements";
 import { siteConfig, siteUrl } from "@/lib/site";
+import { prisma } from "@/lib/prisma";
 
 export const metadata = createPageMetadata({
   title: "News & Announcements",
@@ -21,15 +21,24 @@ export const metadata = createPageMetadata({
 
 export const dynamic = "force-dynamic";
 
-export default function NewsPage() {
+export default async function NewsPage() {
+  let posts: Awaited<ReturnType<typeof prisma.post.findMany>> = [];
+  try {
+    posts = await prisma.post.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+  } catch (error) {
+    console.error("Failed to load news posts:", error);
+  }
+
   const breadcrumbData = getBreadcrumbJsonLd([
     { name: "News & Announcements", path: "/news" },
   ]);
 
   const newsListData = getItemListJsonLd(
-    newsArticles.slice(0, 10).map((article, index) => ({
-      name: article.title,
-      url: `${siteUrl}/news#${article.id}`,
+    posts.slice(0, 10).map((post, index) => ({
+      name: post.headline,
+      url: `${siteUrl}/news/${post.slug}`,
       position: index + 1,
     })),
   );
@@ -56,7 +65,7 @@ export default function NewsPage() {
         </div>
       </section>
 
-      <NewsContent />
+      <NewsContent posts={posts} />
 
       <section className="py-12 px-4 gradient-section">
         <div className="max-w-2xl mx-auto text-center">
