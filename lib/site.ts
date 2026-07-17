@@ -44,5 +44,8 @@ export const privateRoutePrefixes = [
   "/dashboard",
   "/login",
   "/register",
+  "/forgot-password",
+  "/reset-password",
+  "/auth/callback",
   "/services/request",
 ] as const;

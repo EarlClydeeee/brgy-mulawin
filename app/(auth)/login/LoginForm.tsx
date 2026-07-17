@@ -13,10 +13,14 @@ type LoginValues = {
 
 type LoginFormProps = {
   showCheckEmailNotice?: boolean;
+  showPasswordResetNotice?: boolean;
+  redirectedFrom?: string;
 };
 
 export default function LoginForm({
   showCheckEmailNotice = false,
+  showPasswordResetNotice = false,
+  redirectedFrom,
 }: LoginFormProps) {
   const [state, formAction] = useActionState<AuthActionState, FormData>(login, {});
   const [isPending, startTransition] = useTransition();
@@ -30,12 +34,23 @@ export default function LoginForm({
     const formData = new FormData();
     formData.set("email", values.email);
     formData.set("password", values.password);
+    if (redirectedFrom) {
+      formData.set("redirectedFrom", redirectedFrom);
+    }
     startTransition(() => formAction(formData));
   };
 
   return (
     <div className="rounded-3xl border border-pink-100 bg-white p-8 shadow-xl shadow-pink-100/60">
       {showCheckEmailNotice && <CheckEmailNotice />}
+      {showPasswordResetNotice && (
+        <p
+          role="status"
+          className="mb-5 rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800"
+        >
+          Your password was updated. Please sign in with your new password.
+        </p>
+      )}
       <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold text-gray-800">Welcome back</h1>
         <p className="mt-2 text-sm text-gray-500">
@@ -97,6 +112,11 @@ export default function LoginForm({
       </form>
 
       <p className="mt-6 text-center text-sm text-gray-500">
+        <Link href="/forgot-password" className="font-semibold text-pink-500">
+          Forgot password?
+        </Link>
+      </p>
+      <p className="mt-3 text-center text-sm text-gray-500">
         No account yet?{" "}
         <Link href="/register" className="font-semibold text-pink-500">
           Create one

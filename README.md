@@ -9,6 +9,17 @@ copy `CONTACT_RATE_LIMIT_SECRET` from `.env.example` and replace it with a
 long, random value. Configure the same secret in every Vercel environment.
 It must remain server-only; do not prefix it with `NEXT_PUBLIC_`.
 
+### Supabase Auth redirect URLs
+
+In Supabase Dashboard → Authentication → URL Configuration, add these redirect
+URLs for password recovery:
+
+- `https://brgy-mulawin.vercel.app/auth/callback`
+- `http://localhost:3000/auth/callback`
+
+If the production domain changes, add its `/auth/callback` URL before sending
+password reset emails.
+
 First, run the development server:
 
 ```bash

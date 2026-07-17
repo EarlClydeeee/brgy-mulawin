@@ -8,9 +8,19 @@ export const metadata = {
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ checkEmail?: string }>;
+  searchParams: Promise<{
+    checkEmail?: string;
+    passwordReset?: string;
+    redirectedFrom?: string;
+  }>;
 }) {
-  const { checkEmail } = await searchParams;
+  const { checkEmail, passwordReset, redirectedFrom } = await searchParams;
 
-  return <LoginForm showCheckEmailNotice={checkEmail === "1"} />;
+  return (
+    <LoginForm
+      showCheckEmailNotice={checkEmail === "1"}
+      showPasswordResetNotice={passwordReset === "1"}
+      redirectedFrom={redirectedFrom}
+    />
+  );
 }
