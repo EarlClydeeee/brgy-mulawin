@@ -127,6 +127,22 @@ html {
   animation: slide-down 180ms ease-out both;
 }
 
+.burger-dropdown {
+  opacity: 0;
+  transform: translateY(-0.75rem);
+  pointer-events: none;
+  transition:
+    opacity 200ms ease-out,
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.burger-dropdown.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
 /* Accessibility */
 :focus-visible {
   outline: 3px solid var(--pink-400);

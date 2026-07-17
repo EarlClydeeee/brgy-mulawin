@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { AuthNavState } from "@/lib/auth-nav";
@@ -22,34 +22,82 @@ const navLinks = [
 ];
 
 const loginButtonClass =
-  "inline-flex items-center gap-2 rounded-full border border-gray-200 px-5 py-2.5 text-sm font-bold text-gray-700 transition hover:border-pink-200 hover:text-pink-500";
+  "inline-flex cursor-pointer items-center gap-2 rounded-xl border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition-colors duration-200 hover:border-gray-900 hover:text-gray-900";
 
 const logoutButtonClass =
-  "inline-flex items-center gap-2 rounded-full border border-gray-200 px-5 py-2.5 text-sm font-bold text-gray-700 transition hover:border-pink-200 hover:text-pink-500";
+  "inline-flex cursor-pointer items-center gap-2 rounded-xl border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition-colors duration-200 hover:border-gray-900 hover:text-gray-900";
 
 const panelLinkClass =
-  "inline-flex items-center gap-2 rounded-full bg-gray-900 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-gray-700";
+  "inline-flex cursor-pointer items-center gap-2 rounded-xl bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-gray-800";
 
 export default function HeaderClient({ auth }: { auth: AuthNavState }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuRendered, setMenuRendered] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(false);
   const pathname = usePathname();
   const isAuthPage = pathname === "/login" || pathname === "/register";
+  const menuId = useId();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (!menuOpen) {
-      document.body.style.overflow = "";
-      return;
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (menuOpen) {
+      setMenuRendered(true);
+      const frame = window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => setMenuVisible(true));
+      });
+      return () => window.cancelAnimationFrame(frame);
     }
 
-    document.body.style.overflow = "hidden";
+    setMenuVisible(false);
+    if (!menuRendered) return;
+
+    const timeout = window.setTimeout(() => setMenuRendered(false), 220);
+    return () => window.clearTimeout(timeout);
+  }, [menuOpen, menuRendered]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const onPointerDown = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node;
+      if (menuRef.current?.contains(target)) return;
+      if (buttonRef.current?.contains(target)) return;
+      setMenuOpen(false);
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+
+    const onResize = () => {
+      if (window.matchMedia("(min-width: 1024px)").matches) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("touchstart", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    window.addEventListener("resize", onResize);
+
     return () => {
-      document.body.style.overflow = "";
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("touchstart", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("resize", onResize);
     };
   }, [menuOpen]);
 
   if (pathname.startsWith("/admin")) {
     return null;
   }
+
+  const closeMenu = () => setMenuOpen(false);
 
   const authActions = auth.isAuthenticated ? (
     <>
@@ -71,22 +119,20 @@ export default function HeaderClient({ auth }: { auth: AuthNavState }) {
   );
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-gray-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
+        <div className="relative flex h-20 items-center justify-between">
           <Link
             href="/"
             className="group flex items-center gap-3"
             aria-label="Barangay Mulawin Home"
           >
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-green-500 shadow-lg transition-transform duration-300 group-hover:rotate-12">
-              <IconLeaf className="h-6 w-6 text-white" />
+            <div className="flex h-10 w-10 items-center justify-center bg-green-700 text-white">
+              <IconLeaf className="h-5 w-5" />
             </div>
             <div className="leading-tight">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-pink-600">
-                Barangay
-              </p>
-              <p className="-mt-0.5 font-heading text-xl font-bold text-gray-900">
+              <p className="text-xs font-medium text-gray-500">Barangay</p>
+              <p className="-mt-0.5 font-heading text-lg font-semibold text-gray-900">
                 Mulawin
               </p>
             </div>
@@ -97,10 +143,10 @@ export default function HeaderClient({ auth }: { auth: AuthNavState }) {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`rounded-full px-3 py-2.5 text-sm font-bold tracking-tight transition-all duration-300 xl:px-5 ${
+                className={`cursor-pointer rounded-xl px-3 py-2 text-sm font-medium transition-colors duration-200 xl:px-4 ${
                   pathname === link.href
-                    ? "bg-gray-900 text-white shadow-md"
-                    : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                    ? "bg-gray-900 text-white"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                 }`}
               >
                 {link.label}
@@ -112,81 +158,103 @@ export default function HeaderClient({ auth }: { auth: AuthNavState }) {
             {authActions}
             <Link
               href="/services"
-              className="rounded-full bg-green-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-green-100 transition-colors hover:bg-green-700 active:scale-95 xl:px-6"
+              className="cursor-pointer rounded-xl bg-green-700 px-4 py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-green-600"
             >
               Request Document
             </Link>
           </div>
 
-          <button
-            className="rounded-xl p-2.5 text-gray-600 transition-colors hover:bg-gray-100 lg:hidden"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-expanded={menuOpen}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-          >
-            {menuOpen ? (
-              <IconClose className="h-6 w-6" />
-            ) : (
-              <IconMenu className="h-6 w-6" />
-            )}
-          </button>
-        </div>
-      </div>
+          <div className="lg:hidden">
+            <button
+              ref={buttonRef}
+              type="button"
+              className="cursor-pointer rounded-xl p-2.5 text-gray-700 transition-colors duration-200 hover:bg-gray-100"
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-expanded={menuOpen}
+              aria-controls={menuId}
+              aria-haspopup="menu"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+            >
+              {menuOpen ? (
+                <IconClose className="h-6 w-6" />
+              ) : (
+                <IconMenu className="h-6 w-6" />
+              )}
+            </button>
 
-      {menuOpen && (
-        <div className="animate-menu-in max-h-[calc(100svh-var(--header-height))] overflow-y-auto border-t border-gray-100 bg-white shadow-2xl lg:hidden">
-          <nav className="flex flex-col gap-2 px-4 pb-[calc(env(safe-area-inset-bottom)+2rem)] pt-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className={`rounded-2xl px-5 py-4 text-base font-bold transition-all ${
-                  pathname === link.href
-                    ? "bg-pink-50 text-pink-600"
-                    : "text-gray-700 hover:bg-gray-50"
+            {menuRendered && (
+              <div
+                ref={menuRef}
+                id={menuId}
+                role="menu"
+                aria-hidden={!menuVisible}
+                className={`burger-dropdown fixed top-[var(--header-height)] right-0 left-0 z-50 max-h-[min(75svh,32rem)] overflow-y-auto overscroll-contain border-b border-gray-200 bg-white shadow-lg ${
+                  menuVisible ? "is-open" : ""
                 }`}
               >
-                {link.label}
-              </Link>
-            ))}
-            <div className="mt-4 flex flex-col gap-3">
-              {auth.isAuthenticated ? (
-                <>
+                <nav className="mx-auto flex w-full max-w-7xl flex-col gap-1 px-4 py-3 sm:px-6">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      role="menuitem"
+                      onClick={closeMenu}
+                      tabIndex={menuVisible ? 0 : -1}
+                      className={`cursor-pointer rounded-xl px-4 py-3 text-base font-medium transition-colors duration-200 ${
+                        pathname === link.href
+                          ? "bg-gray-900 text-white"
+                          : "text-gray-700 hover:bg-gray-100"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+
+                  <div className="my-2 border-t border-gray-200" />
+
+                  {auth.isAuthenticated ? (
+                    <>
+                      <Link
+                        href={auth.isAdmin ? "/admin/requests" : "/dashboard"}
+                        role="menuitem"
+                        onClick={closeMenu}
+                        tabIndex={menuVisible ? 0 : -1}
+                        className="cursor-pointer rounded-xl bg-gray-900 px-4 py-3 text-center text-sm font-semibold text-white"
+                      >
+                        {auth.isAdmin ? "Admin Panel" : "My Dashboard"}
+                      </Link>
+                      <LogoutButton className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-700" />
+                    </>
+                  ) : (
+                    !isAuthPage && (
+                      <Link
+                        href="/login"
+                        role="menuitem"
+                        onClick={closeMenu}
+                        tabIndex={menuVisible ? 0 : -1}
+                        className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-700"
+                      >
+                        <IconLogin className="h-4 w-4" />
+                        Login
+                      </Link>
+                    )
+                  )}
+
                   <Link
-                    href={auth.isAdmin ? "/admin/requests" : "/dashboard"}
-                    onClick={() => setMenuOpen(false)}
-                    className="rounded-2xl bg-gray-900 px-6 py-4 text-center text-base font-bold text-white shadow-xl active:scale-95"
+                    href="/services"
+                    role="menuitem"
+                    onClick={closeMenu}
+                    tabIndex={menuVisible ? 0 : -1}
+                    className="cursor-pointer rounded-xl bg-green-700 px-4 py-3 text-center text-sm font-semibold text-white"
                   >
-                    {auth.isAdmin ? "Admin Panel" : "My Dashboard"}
+                    Request Document
                   </Link>
-                  <LogoutButton
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-gray-200 px-6 py-4 text-base font-bold text-gray-700"
-                  />
-                </>
-              ) : (
-                !isAuthPage && (
-                  <Link
-                    href="/login"
-                    onClick={() => setMenuOpen(false)}
-                    className="inline-flex items-center justify-center gap-2 rounded-2xl border border-gray-200 px-6 py-4 text-base font-bold text-gray-700"
-                  >
-                    <IconLogin className="h-4 w-4" />
-                    Login
-                  </Link>
-                )
-              )}
-              <Link
-                href="/services"
-                onClick={() => setMenuOpen(false)}
-                className="rounded-2xl bg-green-600 px-6 py-4 text-center text-base font-bold text-white shadow-xl active:scale-95"
-              >
-                Request Document
-              </Link>
-            </div>
-          </nav>
+                </nav>
+              </div>
+            )}
+          </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }
