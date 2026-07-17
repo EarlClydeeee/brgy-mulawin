@@ -338,11 +338,7 @@ export default function HomePage() {
             <p className="text-xl font-bold tracking-tight">Need immediate assistance?</p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-            {[
-              { label: "Barangay Hall", value: "(046) 234-5678" },
-              { label: "Emergency", value: "911 / 8-911" },
-              { label: "BHW Hotline", value: "0917-234-5678" },
-            ].map((c) => (
+            {[{ label: "Emergency", value: "911" }].map((c) => (
               <div key={c.label} className="flex flex-col items-center md:items-start gap-1">
                 <span className="text-gray-400 text-[10px] uppercase tracking-widest font-bold">{c.label}</span>
                 <span className="font-bold text-base tracking-tight">{c.value}</span>

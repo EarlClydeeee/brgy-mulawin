@@ -105,7 +105,6 @@ export function getOrganizationJsonLd() {
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: siteConfig.contact.phone,
         email: siteConfig.contact.email,
         contactType: "customer service",
         areaServed: "PH",
@@ -229,7 +228,7 @@ export function getContactPageJsonLd() {
     "@id": `${siteUrl}/contact`,
     name: "Contact Barangay Mulawin",
     description:
-      "Contact Barangay Mulawin in Tanza, Cavite. Find office hours, phone, email, and send a message.",
+      "Contact Barangay Mulawin in Tanza, Cavite. Find office hours, email, and send a message.",
     url: `${siteUrl}/contact`,
     mainEntity: {
       "@type": "GovernmentOffice",
@@ -242,7 +241,6 @@ export function getContactPageJsonLd() {
         postalCode: "4108",
         addressCountry: "PH",
       },
-      telephone: siteConfig.contact.phone,
       email: siteConfig.contact.email,
       openingHoursSpecification: [
         {

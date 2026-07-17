@@ -3,7 +3,7 @@ import NewsContent from "@/components/NewsContent";
 import { createPageMetadata, getBreadcrumbJsonLd, getItemListJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { newsArticles } from "@/lib/announcements";
-import { siteUrl } from "@/lib/site";
+import { siteConfig, siteUrl } from "@/lib/site";
 
 export const metadata = createPageMetadata({
   title: "News & Announcements",
@@ -67,7 +67,7 @@ export default function NewsPage() {
             Follow our official Facebook page for real-time barangay updates.
           </p>
           <a
-            href="https://www.facebook.com"
+            href={siteConfig.contact.facebook}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-400 to-green-400 text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition-opacity shadow-md"

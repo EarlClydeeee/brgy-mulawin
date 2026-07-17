@@ -1,7 +1,13 @@
 "use server";
 
 import { z } from "zod";
+import { headers } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import {
+  consumeContactRateLimit,
+  getClientIp,
+  hasInvalidBotFields,
+} from "@/lib/contact-rate-limit";
 
 const contactMessageSchema = z.object({
   name: z.string().trim().min(2, "Enter your full name.").max(100),
@@ -38,7 +44,30 @@ export async function submitContactMessage(
     };
   }
 
+  if (
+    hasInvalidBotFields(
+      formData.get("website"),
+      formData.get("formStartedAt"),
+    )
+  ) {
+    return {
+      error: "We could not send your message. Please try again shortly.",
+    };
+  }
+
   try {
+    const requestHeaders = await headers();
+    const isAllowed = await consumeContactRateLimit({
+      email: parsed.data.email,
+      clientIp: getClientIp(requestHeaders),
+    });
+
+    if (!isAllowed) {
+      return {
+        error: "We could not send your message. Please try again shortly.",
+      };
+    }
+
     await prisma.contactMessage.create({
       data: parsed.data,
     });

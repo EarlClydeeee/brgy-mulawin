@@ -11,9 +11,8 @@ export const siteConfig = {
     address: "Barangay Hall, Mulawin St., Tanza, Cavite, Philippines",
   },
   contact: {
-    phone: "(02) 8234-5678",
     email: "brgy.mulawin@rodriguez.gov.ph",
-    facebook: "https://www.facebook.com/brgymulawin",
+    facebook: "https://www.facebook.com/profile.php?id=100088351642520",
   },
   keywords: [
     "Barangay Mulawin",

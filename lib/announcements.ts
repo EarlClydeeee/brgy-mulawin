@@ -29,7 +29,7 @@ export const announcements: Announcement[] = [
       time: "8:00 AM – 12:00 NN",
       location: "Barangay Mulawin Hall, Tanza, Cavite",
       requirements: ["Valid ID for registration", "Face mask (optional)"],
-      contact: "Barangay Secretary — (046) 234-5678",
+      contact: "Barangay Secretary",
     },
   },
   {
@@ -50,7 +50,7 @@ export const announcements: Announcement[] = [
         "Barangay clearance (for dental services)",
         "Health card or previous medical records (if available)",
       ],
-      contact: "BHW Hotline — 0917-234-5678",
+      contact: "Barangay Health Worker",
     },
   },
   {
@@ -91,7 +91,7 @@ export const newsArticles: Announcement[] = [
     details: {
       time: "June 2026 – July 2026",
       location: "Mulawin Street, Barangay Mulawin, Tanza, Cavite",
-      contact: "Barangay Hall — (046) 234-5678",
+      contact: "Barangay Hall",
     },
   },
   {

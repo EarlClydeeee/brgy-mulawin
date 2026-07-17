@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import {
   Phone,
   Mail,
@@ -21,12 +21,6 @@ const contactInfo = [
     label: "Address",
     value: "Barangay Hall, Mulawin St., Tanza, Cavite",
     color: "pink",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "(02) 8234-5678 / 0917-234-5678",
-    color: "green",
   },
   {
     icon: Mail,
@@ -54,6 +48,13 @@ export default function ContactPage() {
     submitContactMessage,
     {},
   );
+  const formStartedAtRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (formStartedAtRef.current) {
+      formStartedAtRef.current.value = String(Date.now());
+    }
+  }, []);
 
   return (
     <>
@@ -107,6 +108,24 @@ export default function ContactPage() {
               </div>
             ) : (
               <form action={formAction} className="space-y-4">
+                <input
+                  type="hidden"
+                  name="formStartedAt"
+                  ref={formStartedAtRef}
+                />
+                <div
+                  className="absolute -left-[9999px] h-px w-px overflow-hidden"
+                  aria-hidden="true"
+                >
+                  <label htmlFor="website">Website</label>
+                  <input
+                    id="website"
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="min-w-0">
                     <label className="block text-sm font-medium text-gray-700 mb-1">

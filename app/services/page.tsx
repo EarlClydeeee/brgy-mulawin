@@ -413,13 +413,6 @@ export default function ServicesPage() {
               special requests, please coordinate with the Barangay Secretary
               directly. Fees are subject to change per barangay ordinance.
             </p>
-            <a
-              href="#"
-              className="inline-flex items-center gap-1.5 mt-3 text-sm font-medium text-green-600 hover:text-green-700"
-            >
-              Download Full Requirements Checklist
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
           </div>
         </div>
       </section>

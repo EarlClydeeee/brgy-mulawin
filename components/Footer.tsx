@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Phone, Mail, MapPin, Leaf, Share2, Clock } from "lucide-react";
+import { Mail, MapPin, Leaf, Share2, Clock } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { siteConfig } from "@/lib/site";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -33,7 +34,7 @@ export default function Footer() {
               for a better, more progressive Mulawin.
             </p>
             <a
-              href="https://www.facebook.com"
+              href={siteConfig.contact.facebook}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-all px-6 py-3 rounded-full text-sm font-bold active:scale-95"
@@ -107,10 +108,6 @@ export default function Footer() {
                 <span className="text-gray-400 text-sm leading-relaxed">
                   Barangay Mulawin, Tanza, Cavite, Philippines
                 </span>
-              </li>
-              <li className="flex items-center gap-4">
-                <Phone className="w-5 h-5 text-green-500 shrink-0" />
-                <span className="text-gray-400 text-sm font-medium">(02) 8234-5678</span>
               </li>
               <li className="flex items-center gap-4">
                 <Mail className="w-5 h-5 text-pink-500 shrink-0" />

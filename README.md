@@ -2,6 +2,13 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### Environment
+
+Add the existing Supabase and database settings to your local environment, then
+copy `CONTACT_RATE_LIMIT_SECRET` from `.env.example` and replace it with a
+long, random value. Configure the same secret in every Vercel environment.
+It must remain server-only; do not prefix it with `NEXT_PUBLIC_`.
+
 First, run the development server:
 
 ```bash
