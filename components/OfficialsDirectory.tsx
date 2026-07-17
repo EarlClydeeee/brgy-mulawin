@@ -22,13 +22,13 @@ function ContactRow({
   color: "pink" | "green";
 }) {
   return (
-    <div className="flex min-w-0 items-start gap-2 text-sm text-gray-600">
+    <div className="flex min-w-0 items-start gap-1.5 text-[11px] text-gray-600 sm:gap-2 sm:text-sm">
       <Icon
-        className={`w-4 h-4 shrink-0 ${
+        className={`mt-0.5 h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4 ${
           color === "pink" ? "text-pink-400" : "text-green-500"
         }`}
       />
-      <span className="break-all">{value}</span>
+      <span className="break-all leading-snug">{value}</span>
     </div>
   );
 }
@@ -108,58 +108,55 @@ export default function OfficialsDirectory() {
   return (
     <>
       {/* Punong Barangay */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.35em] text-pink-500 mb-2">
-              <Star className="w-3 h-3" /> Chief Executive
+      <section className="bg-white px-4 py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-8 text-center sm:mb-12">
+            <span className="mb-2 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.3em] text-pink-500">
+              <Star className="h-3 w-3" /> Chief Executive
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">
+            <h2 className="text-3xl font-bold text-gray-800 sm:text-4xl">
               Punong Barangay
             </h2>
           </div>
 
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto max-w-3xl">
             <button
               type="button"
               onClick={() => setSelected(punongBarangay)}
-              className="w-full text-left rounded-3xl overflow-hidden shadow-xl border border-gray-100 flex flex-col md:flex-row hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400 focus-visible:ring-offset-2 group"
+              className="group flex w-full cursor-pointer flex-row overflow-hidden rounded-2xl border border-gray-100 bg-white text-left shadow-lg transition-shadow duration-300 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400 focus-visible:ring-offset-2 sm:rounded-3xl"
             >
-              <div
-                className="relative min-h-72 shrink-0 bg-gradient-to-b from-pink-100 to-green-100 sm:min-h-[22.5rem] md:w-72"
-              >
-                <Image
-                  src={punongBarangay.photo!}
-                  alt={punongBarangay.name}
-                  fill
-                  className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  priority
-                  sizes="(max-width: 767px) 100vw, 18rem"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-0 right-0 text-center">
-                  <span className="inline-block bg-gradient-to-r from-pink-500 to-green-500 text-white text-xs font-bold px-5 py-1.5 rounded-full uppercase tracking-widest shadow">
-                    Punong Barangay
-                  </span>
+              {/* Photo — left column on all screen sizes */}
+              <div className="relative w-[42%] min-h-[12rem] min-w-[8.5rem] shrink-0 self-stretch bg-gradient-to-b from-pink-100 to-green-100 sm:min-h-[22.5rem] sm:w-64 md:w-72">
+                <div className="absolute inset-0">
+                  <Image
+                    src={punongBarangay.photo!}
+                    alt={punongBarangay.name}
+                    fill
+                    className="object-cover object-top"
+                    priority
+                    sizes="(max-width: 639px) 42vw, 18rem"
+                  />
                 </div>
-                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="text-[10px] font-semibold uppercase tracking-wider bg-white/90 text-gray-600 px-2.5 py-1 rounded-full shadow">
-                    View profile
+                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+                <div className="absolute bottom-3 left-0 right-0 flex justify-center px-2 sm:bottom-4 sm:px-4">
+                  <span className="inline-block rounded-full bg-gradient-to-r from-pink-500 to-green-500 px-2.5 py-1 text-[8px] font-bold uppercase tracking-wider text-white shadow sm:px-5 sm:py-1.5 sm:text-xs sm:tracking-widest">
+                    Punong Barangay
                   </span>
                 </div>
               </div>
 
-              <div className="flex-1 p-8 sm:p-10 bg-gradient-to-br from-white to-pink-50/40 flex flex-col justify-center">
-                <p className="text-xs font-bold uppercase tracking-[0.35em] text-pink-500 mb-1">
+              {/* Details — right column */}
+              <div className="flex min-w-0 flex-1 flex-col justify-center bg-gradient-to-br from-white to-pink-50/40 px-3 py-4 sm:px-8 sm:py-8 md:p-10">
+                <p className="mb-0.5 text-[8px] font-bold uppercase tracking-[0.2em] text-pink-500 sm:mb-1 sm:text-xs sm:tracking-[0.35em]">
                   Term {punongBarangay.term}
                 </p>
-                <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 leading-tight">
+                <h3 className="mb-2 text-sm font-bold leading-snug text-gray-800 sm:mb-4 sm:text-2xl md:text-3xl">
                   {punongBarangay.name}
                 </h3>
-                <blockquote className="border-l-4 border-pink-300 pl-4 text-gray-500 italic text-sm leading-relaxed mb-6">
+                <blockquote className="mb-3 border-l-[3px] border-pink-300 pl-2 text-[11px] leading-relaxed text-gray-500 italic sm:mb-6 sm:border-l-4 sm:pl-4 sm:text-sm">
                   &ldquo;{punongBarangay.message}&rdquo;
                 </blockquote>
-                <div className="space-y-2.5">
+                <div className="space-y-1.5 sm:space-y-2.5">
                   <ContactRow
                     icon={Phone}
                     value={punongBarangay.phone!}
