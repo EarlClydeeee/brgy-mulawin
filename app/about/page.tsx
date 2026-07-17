@@ -1,4 +1,14 @@
-import { Target, Eye, Leaf, MapPin, CalendarDays, Users } from "lucide-react";
+import {
+  Target,
+  Eye,
+  Leaf,
+  MapPin,
+  CalendarDays,
+  Users,
+  Handshake,
+  Search,
+  ClipboardList,
+} from "lucide-react";
 import { createPageMetadata, getBreadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 
@@ -123,7 +133,7 @@ export default function AboutPage() {
       </section>
 
       {/* History */}
-      <section className="py-14 px-4 gradient-section">
+      <section className="bg-gray-50 px-4 py-14">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>
@@ -241,35 +251,33 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Core Values */}
-      <section className="py-14 px-4 gradient-section">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10">
-            <span className="text-pink-500 font-semibold text-sm uppercase tracking-widest">
-              What We Stand For
+      <section className="bg-gray-50 px-4 py-14">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 text-center">
+            <span className="text-sm font-semibold text-green-700">
+              What we stand for
             </span>
-            <h2 className="text-3xl font-bold text-gray-800 mt-2">
-              Core Values
+            <h2 className="mt-2 text-3xl font-semibold text-gray-900">
+              Core values
             </h2>
           </div>
           <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
             {[
-              { value: "Integrity", emoji: "🤝" },
-              { value: "Transparency", emoji: "🔍" },
-              { value: "Service", emoji: "🌿" },
-              { value: "Unity", emoji: "🤲" },
-              { value: "Accountability", emoji: "📋" },
-            ].map((cv, i) => (
+              { value: "Integrity", Icon: Handshake },
+              { value: "Transparency", Icon: Search },
+              { value: "Service", Icon: Leaf },
+              { value: "Unity", Icon: Users },
+              { value: "Accountability", Icon: ClipboardList },
+            ].map((cv) => (
               <div
                 key={cv.value}
-                className={`rounded-2xl p-5 text-center border ${
-                  i % 2 === 0
-                    ? "bg-pink-50 border-pink-100"
-                    : "bg-green-50 border-green-100"
-                }`}
+                className="border border-gray-200 bg-white p-5 text-center"
               >
-                <div className="text-3xl mb-3">{cv.emoji}</div>
-                <p className="font-semibold text-gray-800">{cv.value}</p>
+                <cv.Icon
+                  className="mx-auto mb-3 h-7 w-7 text-green-700"
+                  aria-hidden
+                />
+                <p className="font-semibold text-gray-900">{cv.value}</p>
               </div>
             ))}
           </div>
