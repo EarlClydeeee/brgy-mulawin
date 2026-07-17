@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState } from "react";
 import {
   Phone,
   Mail,
@@ -10,6 +10,10 @@ import {
   CheckCircle,
   Share2,
 } from "lucide-react";
+import {
+  submitContactMessage,
+  type ContactActionState,
+} from "@/app/actions/contact";
 
 const contactInfo = [
   {
@@ -46,25 +50,10 @@ const officeHours = [
 ];
 
 export default function ContactPage() {
-  const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  });
-
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setSubmitted(true);
-  }
+  const [state, formAction] = useActionState<ContactActionState, FormData>(
+    submitContactMessage,
+    {},
+  );
 
   return (
     <>
@@ -99,7 +88,7 @@ export default function ContactPage() {
               We&apos;d Love to Hear From You
             </h2>
 
-            {submitted ? (
+            {state.success ? (
               <div className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center">
                 <CheckCircle className="w-14 h-14 text-green-500 mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-gray-800 mb-2">
@@ -109,24 +98,15 @@ export default function ContactPage() {
                   Thank you for reaching out. Our team will get back to you
                   within 1–2 business days.
                 </p>
-                <button
-                  onClick={() => {
-                    setSubmitted(false);
-                    setForm({
-                      name: "",
-                      email: "",
-                      phone: "",
-                      subject: "",
-                      message: "",
-                    });
-                  }}
-                  className="mt-5 text-sm text-green-600 font-medium hover:text-green-700"
+                <a
+                  href="/contact"
+                  className="mt-5 inline-block text-sm font-medium text-green-600 hover:text-green-700"
                 >
                   Send another message
-                </button>
+                </a>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form action={formAction} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -135,8 +115,6 @@ export default function ContactPage() {
                     <input
                       type="text"
                       name="name"
-                      value={form.name}
-                      onChange={handleChange}
                       required
                       placeholder="Juan dela Cruz"
                       className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition"
@@ -149,8 +127,6 @@ export default function ContactPage() {
                     <input
                       type="tel"
                       name="phone"
-                      value={form.phone}
-                      onChange={handleChange}
                       placeholder="09XX-XXX-XXXX"
                       className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition"
                     />
@@ -164,8 +140,6 @@ export default function ContactPage() {
                   <input
                     type="email"
                     name="email"
-                    value={form.email}
-                    onChange={handleChange}
                     required
                     placeholder="you@example.com"
                     className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition"
@@ -178,8 +152,6 @@ export default function ContactPage() {
                   </label>
                   <select
                     name="subject"
-                    value={form.subject}
-                    onChange={handleChange}
                     required
                     className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition bg-white"
                   >
@@ -199,14 +171,21 @@ export default function ContactPage() {
                   </label>
                   <textarea
                     name="message"
-                    value={form.message}
-                    onChange={handleChange}
                     required
                     rows={5}
                     placeholder="Type your message or concern here..."
                     className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition resize-none"
                   />
                 </div>
+
+                {state.error && (
+                  <p
+                    role="alert"
+                    className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700"
+                  >
+                    {state.error}
+                  </p>
+                )}
 
                 <button
                   type="submit"

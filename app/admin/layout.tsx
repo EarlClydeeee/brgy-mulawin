@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Mail } from "lucide-react";
 import { logout } from "@/app/actions/auth";
 import { getAuthNavState } from "@/lib/auth-nav";
 import { IconLogin, IconLogout, IconShieldCheck } from "@/components/icons";
@@ -43,6 +44,13 @@ export default async function AdminLayout({
             </Link>
             <Link href="/admin/news" className={navLinkClass}>
               News
+            </Link>
+            <Link
+              href="/admin/messages"
+              className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-600 transition hover:border-pink-200 hover:text-pink-500"
+            >
+              <Mail className="h-4 w-4" />
+              Messages
             </Link>
             <Link href="/" className={navLinkClass}>
               Public site
