@@ -4,6 +4,7 @@ import AnnouncementsSection from "@/components/AnnouncementsSection";
 import { JsonLd } from "@/components/JsonLd";
 import { createPageMetadata, getOrganizationJsonLd, getWebsiteJsonLd } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
+import { punongBarangay } from "@/lib/officials";
 import {
   FileText,
   Users,
@@ -17,6 +18,8 @@ import {
   Target,
   Eye,
   Star,
+  Phone,
+  Mail,
 } from "lucide-react";
 
 export const metadata = {
@@ -213,52 +216,64 @@ export default function HomePage() {
       </section>
 
       {/* 5. PUNONG BARANGAY SPOTLIGHT */}
-      <section className="py-24 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="rounded-[2.5rem] overflow-hidden shadow-2xl shadow-gray-200/50 border border-gray-100 flex flex-col md:flex-row bg-white">
-            {/* Photo side */}
-            <div className="relative min-h-72 shrink-0 bg-gray-50 sm:min-h-[24rem] md:w-96 md:min-h-[450px]">
-              <Image
-                src="/brgy_officers/brgycaptain/KapitanaTriciaLubigan.png"
-                alt="Hon. Tricia Lubigan — Punong Barangay"
-                fill
-                className="object-cover object-top"
-                sizes="(max-width: 767px) 100vw, 24rem"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent md:hidden" />
-              <div className="absolute bottom-6 left-0 right-0 text-center">
-                <span className="inline-block bg-white text-gray-900 text-xs font-bold px-5 py-2 rounded-full uppercase tracking-widest shadow-xl">
-                  Punong Barangay
-                </span>
-              </div>
-            </div>
+      <section className="bg-white px-4 py-16 sm:py-24">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-8 text-center sm:mb-12">
+            <span className="mb-2 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.3em] text-pink-500">
+              <Star className="h-3 w-3" /> Chief Executive
+            </span>
+            <h2 className="text-3xl font-bold text-gray-800 sm:text-4xl">
+              Punong Barangay
+            </h2>
+          </div>
 
-            {/* Text side */}
-            <div className="flex-1 p-10 sm:p-16 flex flex-col justify-center">
-              <SectionLabel text="The Leadership" color="pink" />
-              <h2 className="text-4xl font-bold text-gray-900 mt-2 mb-2">
-                Hon. Tricia Lubigan
-              </h2>
-              <p className="text-green-600 font-bold text-lg mb-8 tracking-tight">Punong Barangay, Barangay Mulawin</p>
-
-              <blockquote className="border-l-4 border-pink-500 pl-8 text-gray-700 italic text-lg leading-relaxed mb-10">
-                &ldquo;My commitment to Barangay Mulawin is unwavering — to serve every resident with transparency, compassion, and purpose. Together, we will build a community where every family thrives.&rdquo;
-              </blockquote>
-
-              <div className="flex flex-wrap gap-3 mb-10">
-                {["Community Development", "Health Advocacy", "Youth Programs", "Livelihood"].map((tag) => (
-                  <span key={tag} className="text-xs bg-gray-50 text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full font-semibold">
-                    {tag}
+          <div className="mx-auto max-w-3xl">
+            <div className="flex w-full flex-row overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg sm:rounded-3xl">
+              <div className="relative w-[42%] min-h-[12rem] min-w-[8.5rem] shrink-0 self-stretch bg-gradient-to-b from-pink-100 to-green-100 sm:min-h-[22.5rem] sm:w-64 md:w-72">
+                <div className="absolute inset-0">
+                  <Image
+                    src={punongBarangay.photo!}
+                    alt={`${punongBarangay.name} — Punong Barangay`}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 639px) 42vw, 18rem"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+                <div className="absolute bottom-3 left-0 right-0 flex justify-center px-2 sm:bottom-4 sm:px-4">
+                  <span className="inline-block rounded-full bg-gradient-to-r from-pink-500 to-green-500 px-2.5 py-1 text-[8px] font-bold uppercase tracking-wider text-white shadow sm:px-5 sm:py-1.5 sm:text-xs sm:tracking-widest">
+                    Punong Barangay
                   </span>
-                ))}
+                </div>
               </div>
 
-              <Link
-                href="/officials"
-                className="self-start inline-flex items-center gap-3 bg-gray-900 text-white font-bold text-sm px-8 py-4 rounded-full hover:bg-pink-600 transition-all shadow-xl active:scale-95"
-              >
-                Meet the Officials <ArrowRight className="w-4 h-4" />
-              </Link>
+              <div className="flex min-w-0 flex-1 flex-col justify-center bg-gradient-to-br from-white to-pink-50/40 px-3 py-4 sm:px-8 sm:py-8 md:p-10">
+                <p className="mb-0.5 text-[8px] font-bold uppercase tracking-[0.2em] text-pink-500 sm:mb-1 sm:text-xs sm:tracking-[0.35em]">
+                  Term {punongBarangay.term}
+                </p>
+                <h3 className="mb-2 text-sm font-bold leading-snug text-gray-800 sm:mb-4 sm:text-2xl md:text-3xl">
+                  {punongBarangay.name}
+                </h3>
+                <blockquote className="mb-3 border-l-[3px] border-pink-300 pl-2 text-[11px] leading-relaxed text-gray-500 italic sm:mb-6 sm:border-l-4 sm:pl-4 sm:text-sm">
+                  &ldquo;{punongBarangay.message}&rdquo;
+                </blockquote>
+                <div className="mb-4 space-y-1.5 sm:mb-6 sm:space-y-2.5">
+                  <div className="flex min-w-0 items-start gap-1.5 text-[11px] text-gray-600 sm:gap-2 sm:text-sm">
+                    <Phone className="mt-0.5 h-3.5 w-3.5 shrink-0 text-green-500 sm:h-4 sm:w-4" />
+                    <span className="break-all leading-snug">{punongBarangay.phone}</span>
+                  </div>
+                  <div className="flex min-w-0 items-start gap-1.5 text-[11px] text-gray-600 sm:gap-2 sm:text-sm">
+                    <Mail className="mt-0.5 h-3.5 w-3.5 shrink-0 text-pink-400 sm:h-4 sm:w-4" />
+                    <span className="break-all leading-snug">{punongBarangay.email}</span>
+                  </div>
+                </div>
+                <Link
+                  href="/officials"
+                  className="inline-flex cursor-pointer items-center gap-2 self-start rounded-xl bg-gray-900 px-4 py-2.5 text-xs font-semibold text-white transition-colors duration-200 hover:bg-pink-600 sm:px-6 sm:py-3 sm:text-sm"
+                >
+                  Meet the Officials <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -86,7 +86,7 @@ export const skOfficials: Official[] = [
   {
     name: "Camila Marie B. Perez",
     title: "SK Chairperson",
-    photo: null,
+    photo: "/sk_officers/CamilaPerez.jpg",
     initials: "CP",
     email: "camilamarie.perez.26@gmail.com",
     phone: "(046) 418-2082",
