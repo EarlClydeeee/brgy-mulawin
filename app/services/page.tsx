@@ -12,7 +12,7 @@ import { JsonLd } from "@/components/JsonLd";
 export const metadata = createPageMetadata({
   title: "Barangay Services",
   description:
-    "Barangay clearance, certificate of residency, certificate of indigency, and business permit services at Barangay Mulawin, Tanza, Cavite. View requirements, fees, and processing times.",
+    "Barangay clearance, certificate of residency, certificate of indigency, and business permit services at Barangay Mulawin, Tanza, Cavite. All listed services are free. View requirements and processing times.",
   path: "/services",
   keywords: [
     "barangay clearance Tanza",
@@ -35,7 +35,7 @@ const services = [
       "Accomplished application form",
       "1 piece 1×1 ID photo",
     ],
-    fee: "₱50.00",
+    fee: "Free",
     processingTime: "Same day (30–60 mins)",
     color: "pink",
     requestType: "BARANGAY_CLEARANCE",
@@ -49,7 +49,7 @@ const services = [
       "Utility bill or rental contract",
       "Accomplished application form",
     ],
-    fee: "₱30.00",
+    fee: "Free",
     processingTime: "Same day",
     color: "green",
     requestType: "CERTIFICATE_OF_RESIDENCY",
@@ -79,7 +79,7 @@ const services = [
       "Accomplished application form",
       "Previous year's permit (for renewals)",
     ],
-    fee: "₱200.00 – ₱500.00 (based on capitalization)",
+    fee: "Free",
     processingTime: "1–2 business days",
     color: "green",
     requestType: "BUSINESS_PERMIT",
@@ -105,7 +105,7 @@ const services = [
       "Valid government-issued ID",
       "Previous year's Cedula (for renewals)",
     ],
-    fee: "₱5.00 + additional tax (based on income)",
+    fee: "Free",
     processingTime: "Same day",
     color: "green",
   },
@@ -132,8 +132,8 @@ const steps = [
   },
   {
     step: "04",
-    title: "Pay the Fee",
-    desc: "Pay the applicable fee at the barangay treasurer's office.",
+    title: "No Fee Required",
+    desc: "All listed barangay services are free of charge for residents.",
     color: "green",
   },
   {
@@ -153,17 +153,17 @@ export default function ServicesPage() {
     {
       question: "How do I get a Barangay Clearance in Mulawin, Tanza?",
       answer:
-        "Visit the Barangay Mulawin Hall with a valid government-issued ID, proof of residency (utility bill or rental contract), accomplished application form, and 1 piece 1x1 ID photo. The fee is ₱50.00 and processing takes 30-60 minutes.",
+        "Visit the Barangay Mulawin Hall with a valid government-issued ID, proof of residency (utility bill or rental contract), accomplished application form, and 1 piece 1x1 ID photo. The service is free and processing takes 30-60 minutes. You may also request online.",
     },
     {
       question: "What are the requirements for a Certificate of Residency?",
       answer:
-        "You need a valid government-issued ID (photocopy and original), utility bill or rental contract, and an accomplished application form. The fee is ₱30.00 and is processed the same day.",
+        "You need a valid government-issued ID (photocopy and original), utility bill or rental contract, and an accomplished application form. The service is free and is processed the same day.",
     },
     {
-      question: "How much does a Certificate of Indigency cost?",
+      question: "Are barangay services free?",
       answer:
-        "The Certificate of Indigency is free of charge for qualified low-income residents. You need a valid ID and proof of low-income status (if available).",
+        "Yes. All listed Barangay Mulawin services — including clearance, residency, indigency, business permit, blotter, and Cedula — are free of charge for residents.",
     },
     {
       question: "What are the office hours of Barangay Mulawin Hall?",
@@ -173,7 +173,7 @@ export default function ServicesPage() {
     {
       question: "How do I apply for a Barangay Business Permit?",
       answer:
-        "Bring your DTI or SEC registration, lease contract or proof of business address, valid ID, accomplished application form, and previous year's permit (for renewals). The fee ranges from ₱200.00 to ₱500.00 based on capitalization. Processing takes 1-2 business days.",
+        "Bring your DTI or SEC registration, lease contract or proof of business address, valid ID, accomplished application form, and previous year's permit (for renewals). The service is free. Processing takes 1-2 business days.",
     },
   ]);
 
@@ -182,14 +182,14 @@ export default function ServicesPage() {
       name: "Barangay Clearance",
       description:
         "Official certificate attesting no pending criminal or civil complaints. Required for employment, business applications, and legal transactions.",
-      fee: "₱50.00",
+      fee: "Free",
       processingTime: "Same day (30-60 mins)",
     },
     {
       name: "Certificate of Residency",
       description:
         "Official proof that the applicant is a bonafide resident of Barangay Mulawin. Required for scholarship applications, school enrollment, and government assistance.",
-      fee: "₱30.00",
+      fee: "Free",
       processingTime: "Same day",
     },
     {
@@ -203,7 +203,7 @@ export default function ServicesPage() {
       name: "Barangay Business Permit",
       description:
         "Required for micro and small enterprises operating within Barangay Mulawin. Must be renewed annually.",
-      fee: "₱200.00 – ₱500.00",
+      fee: "Free",
       processingTime: "1-2 business days",
     },
   ]);
@@ -409,9 +409,9 @@ export default function ServicesPage() {
             </p>
             <p className="text-sm text-gray-600 leading-relaxed">
               All requirements must be original or certified true copies.
-              Processing times may vary depending on volume. For emergencies or
-              special requests, please coordinate with the Barangay Secretary
-              directly. Fees are subject to change per barangay ordinance.
+              Processing times may vary depending on volume. All listed
+              services are free of charge. For emergencies or special requests,
+              please coordinate with the Barangay Secretary directly.
             </p>
           </div>
         </div>

@@ -363,7 +363,7 @@ export default function HomePage() {
             Seamless Barangay Services
           </h2>
           <p className="text-gray-300 mb-12 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed font-medium">
-            Access requirements, fees, and processing times online before visiting the Barangay Hall.
+            Access requirements and processing times online. All listed barangay services are free.
           </p>
           <div className="flex flex-wrap justify-center gap-6">
             <Link 
