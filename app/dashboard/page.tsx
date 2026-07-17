@@ -77,22 +77,22 @@ export default async function DashboardPage({
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-pink-500">
               Resident Dashboard
             </p>
-            <h1 className="mt-2 text-4xl font-bold text-gray-800">
+            <h1 className="mt-2 text-3xl font-bold text-gray-800 sm:text-4xl">
               My Document Requests
             </h1>
             <p className="mt-2 text-gray-500">
               Track the status of documents you submitted online.
             </p>
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
               href="/services/request"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-green-500 px-5 py-3 text-sm font-bold text-white shadow-md transition hover:opacity-95"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-green-500 px-5 py-3 text-sm font-bold text-white shadow-md transition hover:opacity-95 sm:w-auto"
             >
               <Plus className="h-4 w-4" />
               New request
             </Link>
-            <LogoutButton className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-bold text-gray-600 shadow-sm transition hover:border-pink-200 hover:text-pink-500" />
+            <LogoutButton className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-bold text-gray-600 shadow-sm transition hover:border-pink-200 hover:text-pink-500 sm:w-auto" />
           </div>
         </div>
 
@@ -130,16 +130,16 @@ export default async function DashboardPage({
                     <h2 className="mt-3 text-2xl font-bold text-gray-800">
                       {getDocumentLabel(request.type)}
                     </h2>
-                    <p className="mt-2 text-sm text-gray-500">
+                    <p className="mt-2 break-words text-sm text-gray-500">
                       Purpose: {request.purpose}
                     </p>
                     {request.details && (
-                      <p className="mt-1 text-sm text-gray-500">
+                      <p className="mt-1 break-words text-sm text-gray-500">
                         Details: {request.details}
                       </p>
                     )}
                   </div>
-                  <div className="flex items-center gap-2 rounded-2xl bg-gray-50 px-4 py-3 text-sm text-gray-500">
+                  <div className="flex w-full items-center gap-2 rounded-2xl bg-gray-50 px-4 py-3 text-sm text-gray-500 lg:w-auto">
                     <Calendar className="h-4 w-4 text-green-500" />
                     {request.createdAt.toLocaleDateString("en-PH", {
                       month: "long",
@@ -161,7 +161,7 @@ export default async function DashboardPage({
                     {request.statusLogs.map((log: StatusLogEntry) => (
                       <div key={log.id} className="flex items-start gap-3">
                         <span className="mt-1.5 h-2.5 w-2.5 rounded-full bg-gradient-to-r from-pink-500 to-green-500" />
-                        <div>
+                        <div className="min-w-0">
                           <p className="text-sm text-gray-600">
                             <span className="font-semibold">
                               {getStatusLabel(log.status)}
@@ -174,7 +174,7 @@ export default async function DashboardPage({
                             })}
                           </p>
                           {log.note && (
-                            <p className="mt-1 text-sm text-gray-500">
+                            <p className="mt-1 whitespace-pre-wrap break-words text-sm text-gray-500">
                               {log.note}
                             </p>
                           )}

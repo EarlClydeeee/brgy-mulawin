@@ -63,18 +63,18 @@ export default async function AdminMessagesPage() {
                           New
                         </span>
                       )}
-                      <span className="rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
+                      <span className="max-w-full break-words rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
                         {message.subject}
                       </span>
                     </div>
 
-                    <h2 className="mt-4 text-xl font-bold text-gray-800">
+                    <h2 className="mt-4 break-words text-xl font-bold text-gray-800">
                       {message.name}
                     </h2>
                     <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-sm text-gray-500">
                       <a
                         href={`mailto:${message.email}`}
-                        className="inline-flex items-center gap-2 hover:text-pink-600"
+                        className="inline-flex min-w-0 items-center gap-2 break-all hover:text-pink-600"
                       >
                         <Mail className="h-4 w-4" />
                         {message.email}
@@ -89,12 +89,12 @@ export default async function AdminMessagesPage() {
                         </a>
                       )}
                     </div>
-                    <p className="mt-5 whitespace-pre-wrap text-gray-700">
+                    <p className="mt-5 whitespace-pre-wrap break-words text-gray-700">
                       {message.message}
                     </p>
                   </div>
 
-                  <div className="shrink-0 rounded-2xl bg-gray-50 px-4 py-3 text-sm text-gray-500">
+                  <div className="shrink-0 self-start rounded-2xl bg-gray-50 px-4 py-3 text-sm text-gray-500">
                     {message.createdAt.toLocaleDateString("en-PH", {
                       month: "long",
                       day: "numeric",

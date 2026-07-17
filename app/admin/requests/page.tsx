@@ -33,7 +33,7 @@ export default async function AdminRequestsPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-pink-500">
             Request Queue
           </p>
-          <h1 className="mt-2 text-4xl font-bold text-gray-800">
+          <h1 className="mt-2 text-3xl font-bold text-gray-800 sm:text-4xl">
             Document Requests
           </h1>
           <p className="mt-2 text-gray-500">
@@ -68,14 +68,14 @@ export default async function AdminRequestsPage() {
                         {getDocumentLabel(request.type)}
                       </span>
                     </div>
-                    <h2 className="text-xl font-bold text-gray-800">
+                    <h2 className="break-words text-xl font-bold text-gray-800">
                       {request.fullName}
                     </h2>
-                    <p className="mt-1 text-sm text-gray-500">
+                    <p className="mt-1 break-words text-sm text-gray-500">
                       Account: {request.user.name} — {request.user.email}
                     </p>
-                    <div className="mt-4 grid gap-3 text-sm text-gray-600 sm:grid-cols-2">
-                      <p>
+                    <div className="mt-4 grid gap-3 text-sm text-gray-600 md:grid-cols-2">
+                      <p className="break-words">
                         <span className="font-semibold text-gray-700">
                           Birthday:
                         </span>{" "}
@@ -86,21 +86,21 @@ export default async function AdminRequestsPage() {
                         })}{" "}
                         ({getAge(request.birthday)} years old)
                       </p>
-                      <p>
+                      <p className="break-words">
                         <span className="font-semibold text-gray-700">
                           Address:
                         </span>{" "}
                         {request.address}
                       </p>
                     </div>
-                    <p className="mt-4 text-sm text-gray-600">
+                    <p className="mt-4 whitespace-pre-wrap break-words text-sm text-gray-600">
                       <span className="font-semibold text-gray-700">
                         Purpose:
                       </span>{" "}
                       {request.purpose}
                     </p>
                     {request.details && (
-                      <p className="mt-1 text-sm text-gray-600">
+                      <p className="mt-1 whitespace-pre-wrap break-words text-sm text-gray-600">
                         <span className="font-semibold text-gray-700">
                           Details:
                         </span>{" "}
@@ -119,7 +119,7 @@ export default async function AdminRequestsPage() {
                       <RequestDetailLink requestId={request.id} />
                     </div>
                   </div>
-                  <div className="rounded-2xl bg-gray-50 p-4">
+                  <div className="w-full rounded-2xl bg-gray-50 p-4 lg:w-auto">
                     <p className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-400">
                       Update status
                     </p>

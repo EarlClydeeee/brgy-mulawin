@@ -58,7 +58,7 @@ export function StatusUpdateForm({
               name="status"
               value={status}
               disabled={isPending || currentStatus === status}
-              className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${buttonStyles[status]}`}
+              className={`w-full rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${buttonStyles[status]}`}
             >
               {getStatusLabel(status)}
             </button>

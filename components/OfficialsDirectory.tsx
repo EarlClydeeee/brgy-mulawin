@@ -22,13 +22,13 @@ function ContactRow({
   color: "pink" | "green";
 }) {
   return (
-    <div className="flex items-center gap-2 text-sm text-gray-600">
+    <div className="flex min-w-0 items-start gap-2 text-sm text-gray-600">
       <Icon
         className={`w-4 h-4 shrink-0 ${
           color === "pink" ? "text-pink-400" : "text-green-500"
         }`}
       />
-      <span className="truncate">{value}</span>
+      <span className="break-all">{value}</span>
     </div>
   );
 }
@@ -55,6 +55,7 @@ function MemberCard({
             alt={official.name}
             fill
             className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 25vw"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
@@ -125,8 +126,7 @@ export default function OfficialsDirectory() {
               className="w-full text-left rounded-3xl overflow-hidden shadow-xl border border-gray-100 flex flex-col md:flex-row hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400 focus-visible:ring-offset-2 group"
             >
               <div
-                className="relative md:w-72 shrink-0 bg-gradient-to-b from-pink-100 to-green-100"
-                style={{ minHeight: "360px" }}
+                className="relative min-h-72 shrink-0 bg-gradient-to-b from-pink-100 to-green-100 sm:min-h-[22.5rem] md:w-72"
               >
                 <Image
                   src={punongBarangay.photo!}
@@ -134,6 +134,7 @@ export default function OfficialsDirectory() {
                   fill
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   priority
+                  sizes="(max-width: 767px) 100vw, 18rem"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-0 right-0 text-center">

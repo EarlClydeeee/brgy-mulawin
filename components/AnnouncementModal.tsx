@@ -47,7 +47,7 @@ export default function AnnouncementModal({
         aria-hidden
       />
 
-      <div className="animate-in fade-in zoom-in relative max-h-[90vh] w-full overflow-y-auto rounded-t-[2rem] bg-white shadow-2xl duration-300 sm:max-w-xl sm:rounded-[2rem]">
+      <div className="animate-slide-up relative max-h-[90vh] w-full overflow-y-auto rounded-t-[2rem] bg-white shadow-2xl sm:max-w-xl sm:rounded-[2rem]">
         <div className="p-8 sm:p-12">
           <div className="mb-8 flex items-start justify-between gap-6">
             <div className="flex flex-wrap items-center gap-3">
@@ -81,6 +81,7 @@ export default function AnnouncementModal({
                 alt={announcement.title}
                 fill
                 className="object-cover"
+                sizes="(max-width: 639px) 100vw, 36rem"
               />
             </div>
           )}

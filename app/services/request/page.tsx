@@ -18,14 +18,14 @@ export default async function RequestDocumentPage({
   const params = await searchParams;
 
   return (
-    <section className="bg-gradient-to-b from-pink-50/70 to-white px-4 py-16">
+    <section className="bg-gradient-to-b from-pink-50/70 to-white px-4 py-10 sm:py-16">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 text-center">
           <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-pink-500 shadow-sm">
             <FileText className="h-4 w-4" />
             Online Request
           </span>
-          <h1 className="text-4xl font-bold text-gray-800">
+          <h1 className="text-3xl font-bold text-gray-800 sm:text-4xl">
             Request a Barangay Document
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-gray-500">

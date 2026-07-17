@@ -122,11 +122,11 @@ export function PostForm({
 
         {state.error && <p className="text-sm text-red-600">{state.error}</p>}
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
           <button
             type="submit"
             disabled={isPending}
-            className="rounded-full bg-gradient-to-r from-pink-500 to-green-500 px-6 py-3 text-sm font-bold text-white transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full rounded-full bg-gradient-to-r from-pink-500 to-green-500 px-6 py-3 text-sm font-bold text-white transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
           >
             {isPending
               ? "Saving..."
@@ -136,7 +136,7 @@ export function PostForm({
           </button>
           <Link
             href="/admin/news"
-            className="rounded-full border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-600 transition hover:border-pink-200 hover:text-pink-500"
+            className="w-full rounded-full border border-gray-200 px-6 py-3 text-center text-sm font-semibold text-gray-600 transition hover:border-pink-200 hover:text-pink-500 sm:w-auto"
           >
             Cancel
           </Link>

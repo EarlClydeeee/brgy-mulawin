@@ -35,7 +35,7 @@ export function CheckEmailNotice({ variant = "inline" }: CheckEmailNoticeProps) 
     return (
       <div
         role="status"
-        className="fixed right-4 top-24 z-50 flex max-w-sm items-start gap-3 rounded-2xl border border-green-200 bg-green-50 px-4 py-3 shadow-lg shadow-green-100/80"
+        className="fixed left-4 right-4 top-24 z-50 flex items-start gap-3 rounded-2xl border border-green-200 bg-green-50 px-4 py-3 shadow-lg shadow-green-100/80 sm:left-auto sm:right-4 sm:max-w-sm"
       >
         {content}
       </div>

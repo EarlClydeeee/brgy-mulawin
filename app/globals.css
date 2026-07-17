@@ -3,6 +3,7 @@
 :root {
   --background: #fdfcff;
   --foreground: #1c1917;
+  --header-height: 5rem;
 
   /* Brand colors - Optimized for accessibility (4.5:1 contrast) */
   --pink-50: #fff1f2;
@@ -46,6 +47,12 @@
   --font-heading: var(--font-lexend), ui-sans-serif, system-ui;
 }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -69,8 +76,74 @@ html {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
 }
 
+.gradient-hero {
+  background: linear-gradient(135deg, #fff1f2 0%, #ffffff 48%, #f0fdf4 100%);
+}
+
+.gradient-section {
+  background: linear-gradient(180deg, rgb(249 250 251 / 0.8) 0%, #ffffff 100%);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 180ms ease-out both;
+}
+
+.animate-slide-up {
+  animation: slide-up 220ms ease-out both;
+}
+
+.animate-menu-in {
+  animation: slide-down 180ms ease-out both;
+}
+
 /* Accessibility */
 :focus-visible {
   outline: 3px solid var(--pink-400);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

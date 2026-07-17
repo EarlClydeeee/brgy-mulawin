@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { AuthNavState } from "@/lib/auth-nav";
@@ -34,6 +34,22 @@ export default function HeaderClient({ auth }: { auth: AuthNavState }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const isAuthPage = pathname === "/login" || pathname === "/register";
+
+  useEffect(() => {
+    if (!menuOpen) {
+      document.body.style.overflow = "";
+      return;
+    }
+
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
 
   const authActions = auth.isAuthenticated ? (
     <>
@@ -76,12 +92,12 @@ export default function HeaderClient({ auth }: { auth: AuthNavState }) {
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-2 md:flex">
+          <nav className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`rounded-full px-5 py-2.5 text-sm font-bold tracking-tight transition-all duration-300 ${
+                className={`rounded-full px-3 py-2.5 text-sm font-bold tracking-tight transition-all duration-300 xl:px-5 ${
                   pathname === link.href
                     ? "bg-gray-900 text-white shadow-md"
                     : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
@@ -92,18 +108,18 @@ export default function HeaderClient({ auth }: { auth: AuthNavState }) {
             ))}
           </nav>
 
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-2 lg:flex">
             {authActions}
             <Link
               href="/services"
-              className="rounded-full bg-green-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-green-100 transition-colors hover:bg-green-700 active:scale-95"
+              className="rounded-full bg-green-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-green-100 transition-colors hover:bg-green-700 active:scale-95 xl:px-6"
             >
               Request Document
             </Link>
           </div>
 
           <button
-            className="rounded-xl p-2.5 text-gray-600 transition-colors hover:bg-gray-100 md:hidden"
+            className="rounded-xl p-2.5 text-gray-600 transition-colors hover:bg-gray-100 lg:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-expanded={menuOpen}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -118,8 +134,8 @@ export default function HeaderClient({ auth }: { auth: AuthNavState }) {
       </div>
 
       {menuOpen && (
-        <div className="animate-in slide-in-from-top border-t border-gray-100 bg-white shadow-2xl duration-300 md:hidden">
-          <nav className="flex flex-col gap-2 px-4 pt-4 pb-8">
+        <div className="animate-menu-in max-h-[calc(100svh-var(--header-height))] overflow-y-auto border-t border-gray-100 bg-white shadow-2xl lg:hidden">
+          <nav className="flex flex-col gap-2 px-4 pb-[calc(env(safe-area-inset-bottom)+2rem)] pt-4">
             {navLinks.map((link) => (
               <Link
                 key={link.href}

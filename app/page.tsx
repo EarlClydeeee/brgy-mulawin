@@ -57,8 +57,8 @@ export default function HomePage() {
       <JsonLd data={[getOrganizationJsonLd(), getWebsiteJsonLd()]} />
       {/* 1. HERO */}
       <section
-        className="relative overflow-hidden flex items-center justify-center"
-        style={{ height: "calc(100svh - 64px)", minHeight: "600px" }}
+        className="relative flex min-h-[34rem] items-center justify-center overflow-hidden sm:min-h-[38rem]"
+        style={{ height: "calc(100svh - var(--header-height))" }}
       >
         <Image 
           src="/bg.jpg" 
@@ -67,6 +67,7 @@ export default function HomePage() {
           className="object-cover object-center" 
           priority 
           quality={90} 
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-black/40 backdrop-brightness-75" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -78,7 +79,7 @@ export default function HomePage() {
             Tanza, Cavite
           </div>
 
-          <p className="text-white/90 uppercase tracking-[0.5em] text-sm font-medium mb-4">Official Portal of Barangay</p>
+          <p className="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-white/90 sm:text-sm sm:tracking-[0.5em]">Official Portal of Barangay</p>
 
           <h1
             className="font-heading leading-tight text-white mb-6 select-none"
@@ -102,17 +103,17 @@ export default function HomePage() {
             Rooted in strength. Growing together for a progressive community.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <Link 
               href="/about" 
-              className="bg-white text-green-700 font-bold uppercase tracking-wider text-sm px-10 py-4 rounded-full shadow-xl hover:bg-green-50 hover:scale-105 transition-all duration-300 active:scale-95"
+              className="rounded-full bg-white px-6 py-4 text-center text-sm font-bold uppercase tracking-wider text-green-700 shadow-xl transition-all duration-300 hover:scale-105 hover:bg-green-50 active:scale-95 sm:px-10"
               aria-label="Discover more about Barangay Mulawin"
             >
               Discover Our Story
             </Link>
             <Link 
               href="/services" 
-              className="flex items-center gap-2 border-2 border-white text-white font-bold uppercase tracking-wider text-sm px-10 py-4 rounded-full hover:bg-white/10 backdrop-blur-sm transition-all duration-300 active:scale-95"
+              className="flex items-center justify-center gap-2 rounded-full border-2 border-white px-6 py-4 text-sm font-bold uppercase tracking-wider text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10 active:scale-95 sm:px-10"
               aria-label="View our barangay services"
             >
               Our Services <ArrowRight className="w-4 h-4" />
@@ -174,7 +175,7 @@ export default function HomePage() {
                 <p className="text-gray-600 text-base leading-relaxed mb-10">
                   To deliver efficient, transparent, and responsive local governance services that uplift the living conditions of every resident in Barangay Mulawin — ensuring that no household is left behind in accessing basic needs, social services, and community programs.
                 </p>
-                <div className="flex gap-8">
+                <div className="flex flex-wrap gap-x-6 gap-y-2 sm:gap-x-8">
                   {["Transparency", "Integrity", "Service"].map((v) => (
                     <div key={v}>
                       <p className="text-sm font-bold text-pink-600">{v}</p>
@@ -198,7 +199,7 @@ export default function HomePage() {
                 <p className="text-gray-600 text-base leading-relaxed mb-10">
                   A peaceful, progressive, and self-sustaining Barangay Mulawin where every resident enjoys a safe environment, quality education, accessible health care, livelihood opportunities, and a community rooted in unity, integrity, and respect.
                 </p>
-                <div className="flex gap-8">
+                <div className="flex flex-wrap gap-x-6 gap-y-2 sm:gap-x-8">
                   {["Progress", "Unity", "Growth"].map((v) => (
                     <div key={v}>
                       <p className="text-sm font-bold text-green-600">{v}</p>
@@ -216,12 +217,13 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="rounded-[2.5rem] overflow-hidden shadow-2xl shadow-gray-200/50 border border-gray-100 flex flex-col md:flex-row bg-white">
             {/* Photo side */}
-            <div className="relative md:w-96 shrink-0 bg-gray-50" style={{ minHeight: "450px" }}>
+            <div className="relative min-h-72 shrink-0 bg-gray-50 sm:min-h-[24rem] md:w-96 md:min-h-[450px]">
               <Image
                 src="/brgy_officers/brgycaptain/KapitanaTriciaLubigan.png"
                 alt="Hon. Tricia Lubigan — Punong Barangay"
                 fill
                 className="object-cover object-top"
+                sizes="(max-width: 767px) 100vw, 24rem"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent md:hidden" />
               <div className="absolute bottom-6 left-0 right-0 text-center">

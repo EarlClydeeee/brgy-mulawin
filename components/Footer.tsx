@@ -1,7 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { Phone, Mail, MapPin, Leaf, Share2, Clock } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -105,7 +114,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-4">
                 <Mail className="w-5 h-5 text-pink-500 shrink-0" />
-                <span className="text-gray-400 text-sm font-medium">
+                <span className="break-all text-gray-400 text-sm font-medium">
                   brgy.mulawin@rodriguez.gov.ph
                 </span>
               </li>

@@ -108,7 +108,7 @@ export default function ContactPage() {
             ) : (
               <form action={formAction} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
+                  <div className="min-w-0">
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Full Name <span className="text-pink-400">*</span>
                     </label>
@@ -230,7 +230,7 @@ export default function ContactPage() {
                     <p className="text-xs text-gray-400 font-medium uppercase tracking-widest">
                       {info.label}
                     </p>
-                    <p className="text-sm font-medium text-gray-800 mt-0.5">
+                    <p className="mt-0.5 break-words text-sm font-medium text-gray-800">
                       {info.value}
                     </p>
                   </div>
@@ -250,7 +250,7 @@ export default function ContactPage() {
                 {officeHours.map((h) => (
                   <div
                     key={h.day}
-                    className="flex items-center justify-between px-5 py-3"
+                    className="flex flex-col gap-1 px-5 py-3 sm:flex-row sm:items-center sm:justify-between"
                   >
                     <span className="text-sm text-gray-600">{h.day}</span>
                     <span
@@ -268,12 +268,13 @@ export default function ContactPage() {
             </div>
 
             {/* Map Embed Placeholder */}
-            <div className="mt-6 rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+            <div className="mt-6 aspect-video min-h-[220px] overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
               <iframe
                 title="Barangay Mulawin Location"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.8225!2d121.13!3d14.75!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTTCsDQ1JzAwLjAiTiAxMjHCsDA3JzQ4LjAiRQ!5e0!3m2!1sen!2sph!4v1620000000000!5m2!1sen!2sph"
                 width="100%"
-                height="220"
+                height="100%"
+                className="h-full w-full"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"

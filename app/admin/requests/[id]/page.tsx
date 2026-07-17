@@ -59,7 +59,7 @@ export default async function AdminRequestDetailPage({
               </span>
             </div>
 
-            <h1 className="text-3xl font-bold text-gray-800">
+            <h1 className="text-2xl font-bold text-gray-800 sm:text-3xl">
               {getDocumentLabel(request.type)}
             </h1>
             <p className="mt-2 text-gray-500">
@@ -77,7 +77,7 @@ export default async function AdminRequestDetailPage({
                   <User className="h-4 w-4 text-pink-500" />
                   Full Name
                 </div>
-                <p className="font-bold text-gray-800">{request.fullName}</p>
+                <p className="break-words font-bold text-gray-800">{request.fullName}</p>
               </div>
               <div className="rounded-2xl bg-gray-50 p-4">
                 <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-500">
@@ -98,7 +98,7 @@ export default async function AdminRequestDetailPage({
                   <Home className="h-4 w-4 text-pink-500" />
                   Address
                 </div>
-                <p className="font-bold text-gray-800">{request.address}</p>
+                <p className="break-words font-bold text-gray-800">{request.address}</p>
               </div>
               <div className="rounded-2xl bg-gray-50 p-4">
                 <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-500">
@@ -116,14 +116,14 @@ export default async function AdminRequestDetailPage({
                 <p className="text-xs font-bold uppercase tracking-[0.3em] text-gray-400">
                   Purpose
                 </p>
-                <p className="mt-2 text-gray-700">{request.purpose}</p>
+                <p className="mt-2 whitespace-pre-wrap break-words text-gray-700">{request.purpose}</p>
               </div>
               {request.details && (
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.3em] text-gray-400">
                     Additional details
                   </p>
-                  <p className="mt-2 whitespace-pre-wrap text-gray-700">
+                  <p className="mt-2 whitespace-pre-wrap break-words text-gray-700">
                     {request.details}
                   </p>
                 </div>
@@ -155,7 +155,7 @@ export default async function AdminRequestDetailPage({
                 {request.statusLogs.map((log: StatusLogEntry) => (
                   <div key={log.id} className="flex gap-3">
                     <span className="mt-1.5 h-2.5 w-2.5 rounded-full bg-gradient-to-r from-pink-500 to-green-500" />
-                    <div>
+                    <div className="min-w-0">
                       <p className="font-semibold text-gray-800">
                         {getStatusLabel(log.status)}
                       </p>
@@ -168,7 +168,7 @@ export default async function AdminRequestDetailPage({
                         })}
                       </p>
                       {log.note && (
-                        <p className="mt-1 text-sm text-gray-600">{log.note}</p>
+                        <p className="mt-1 whitespace-pre-wrap break-words text-sm text-gray-600">{log.note}</p>
                       )}
                     </div>
                   </div>
