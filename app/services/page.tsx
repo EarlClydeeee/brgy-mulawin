@@ -109,6 +109,22 @@ const services = [
     processingTime: "Same day",
     color: "green",
   },
+  {
+    id: 7,
+    title: "Chair Reservation / Borrow",
+    desc: "Borrow barangay chairs for community events, gatherings, and functions. Submit your request online for staff review and delivery arrangement.",
+    requirements: [
+      "Logged-in resident account",
+      "Event name and venue / delivery address",
+      "Borrow and return dates",
+      "Contact person and phone number",
+    ],
+    fee: "Free",
+    processingTime: "Subject to staff approval",
+    color: "pink",
+    requestHref: "/services/chairs",
+    ctaLabel: "Reserve Chairs",
+  },
 ];
 
 const steps = [
@@ -343,12 +359,15 @@ export default function ServicesPage() {
                       ))}
                     </ul>
                   </div>
-                  {s.requestType ? (
+                  {s.requestHref || s.requestType ? (
                     <Link
-                      href={`/services/request?type=${s.requestType}`}
+                      href={
+                        s.requestHref ??
+                        `/services/request?type=${s.requestType}`
+                      }
                       className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-green-500 px-5 py-2.5 text-sm font-bold text-white shadow-md transition hover:opacity-95"
                     >
-                      Request Online
+                      {s.ctaLabel ?? "Request Online"}
                       <ExternalLink className="h-4 w-4" />
                     </Link>
                   ) : (

@@ -57,6 +57,70 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   documents DocumentRequest[]
+  chairReservations ChairReservation[]
+}
+
+enum ChairReservationStatus {
+  PENDING
+  APPROVED
+  DELIVERED
+  RETURNED
+  CANCELLED
+}
+
+model ChairInventory {
+  id        String   @id @default(uuid())
+  totalQty  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DeliveryFacilitator {
+  id           String             @id @default(uuid())
+  name         String
+  phone        String
+  notes        String?
+  isActive     Boolean            @default(true)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  reservations ChairReservation[]
+}
+
+model ChairReservation {
+  id              String                 @id @default(uuid())
+  status          ChairReservationStatus @default(PENDING)
+  quantity        Int
+  eventName       String
+  venue           String
+  borrowFrom      DateTime
+  borrowUntil     DateTime
+  contactName     String
+  contactPhone    String
+  notes           String?
+  deliveredByNote String?
+  createdAt       DateTime               @default(now())
+  updatedAt       DateTime               @updatedAt
+  userId          String
+  user            User                   @relation(fields: [userId], references: [id])
+  facilitatorId   String?
+  facilitator     DeliveryFacilitator?   @relation(fields: [facilitatorId], references: [id])
+  statusLogs      ChairReservationStatusLog[]
+
+  @@index([status])
+  @@index([borrowFrom, borrowUntil])
+  @@index([userId])
+}
+
+model ChairReservationStatusLog {
+  id                  String                 @id @default(uuid())
+  status              ChairReservationStatus
+  note                String?
+  createdAt           DateTime               @default(now())
+  updatedAt           DateTime               @updatedAt
+  chairReservationId  String
+  chairReservation    ChairReservation       @relation(fields: [chairReservationId], references: [id])
+
+  @@index([chairReservationId])
 }
 
 model Post {

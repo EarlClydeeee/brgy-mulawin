@@ -8,6 +8,7 @@ import { IconLogin, IconLogout } from "@/components/icons";
 
 const links = [
   { href: "/admin/requests", label: "Requests" },
+  { href: "/admin/chairs", label: "Chairs" },
   { href: "/admin/news", label: "News" },
   { href: "/admin/messages", label: "Messages", icon: Mail },
 ];

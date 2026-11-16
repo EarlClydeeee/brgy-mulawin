@@ -31,7 +31,8 @@ export default async function AdminLayout({
               Admin — Barangay Mulawin
             </Link>
             <p className="mt-1 text-sm text-gray-500">
-              Manage document requests and community announcements.
+              Manage document requests, chair reservations, and community
+              announcements.
             </p>
           </div>
           <AdminNav isAuthenticated />
